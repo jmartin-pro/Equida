@@ -14,26 +14,40 @@ import javax.persistence.Table;
 @Table(name = Cheval.TABLE)
 public class Cheval {
 
-    public final static String TABLE = "CHEVAL";
+	public final static String TABLE = "CHEVAL";
 
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private Long id;
+	@Column(name = "ID")
+	private Long id;
 
-    @Column(name = "NOM")
-    private String nom;
+	@Column(name = "NOM")
+	private String nom;
 
-    @Column(name = "SEXE")
-    private Character sexe;
-	
+	@Column(name = "SEXE")
+	private Character sexe;
+
 	@Column(name = "SIRE")
-    private String sire;
-	
+	private String sire;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_RACE_CHEVAL")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private RaceCheval raceCheval;
-	
+	private RaceCheval raceCheval;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_MERE")
+	private Cheval mere;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PERE")
+	private Cheval pere;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_CLIENT")
+	private Client client;
+
+	@Column(name = "DELETED")
+	private Boolean deleted;
 
 	public Long getId() {
 		return id;
@@ -74,7 +88,37 @@ public class Cheval {
 	public void setRaceCheval(RaceCheval raceCheval) {
 		this.raceCheval = raceCheval;
 	}
-	
-	
+
+	public Cheval getMere() {
+		return mere;
+	}
+
+	public void setMere(Cheval mere) {
+		this.mere = mere;
+	}
+
+	public Cheval getPere() {
+		return pere;
+	}
+
+	public void setPere(Cheval pere) {
+		this.pere = pere;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 }
