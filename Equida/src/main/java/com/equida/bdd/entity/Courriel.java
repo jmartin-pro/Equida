@@ -1,5 +1,6 @@
 package com.equida.bdd.entity;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,26 +9,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = ClientCategVente.TABLE)
-class ClientCategVente {
-	public static final String TABLE = "CLIENT_CATEG_VENTE";
-	
+@Table(name = Courriel.TABLE)
+class Courriel {
+
+	public static final String TABLE = "COMPTE";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Long id;
+
+	@Column(name = "DATE_ENVOI")
+	private Date dateEnvoi;
+
+	@Column(name = "OBJET")
+	private String objet;
+	
+	@Column(name = "CORPS")
+	private String corps;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_CLIENT")
-	private Client client;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_CATEG_VENTE")
-	private CategVente categVente;
+	@JoinColumn(name = "ID_VENTE")
+	private Vente vente;
 	
 	@Column(name = "DELETED")
 	private Boolean deleted;
@@ -40,20 +46,36 @@ class ClientCategVente {
 		this.id = id;
 	}
 
-	public Client getClient() {
-		return client;
+	public Date getDateEnvoi() {
+		return dateEnvoi;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setDateEnvoi(Date dateEnvoi) {
+		this.dateEnvoi = dateEnvoi;
 	}
 
-	public CategVente getCategVente() {
-		return categVente;
+	public String getObjet() {
+		return objet;
 	}
 
-	public void setCategVente(CategVente categVente) {
-		this.categVente = categVente;
+	public void setObjet(String objet) {
+		this.objet = objet;
+	}
+
+	public String getCorps() {
+		return corps;
+	}
+
+	public void setCorps(String corps) {
+		this.corps = corps;
+	}
+
+	public Vente getVente() {
+		return vente;
+	}
+
+	public void setVente(Vente vente) {
+		this.vente = vente;
 	}
 
 	public Boolean getDeleted() {
