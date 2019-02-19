@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Lieu.TABLE)
-class Lieu {
+public class Lieu {
 
 	public static final String TABLE = "LIEU";
 

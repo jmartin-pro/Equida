@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Avoir.TABLE)
-class Avoir {
+public class Avoir {
 	public static final String TABLE = "AVOIR";
 	
 	@Id

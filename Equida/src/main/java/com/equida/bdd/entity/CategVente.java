@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = CategVente.TABLE)
-class CategVente {
+public class CategVente {
 	public static final String TABLE = "CATEG_VENTE";
 
 	@Id

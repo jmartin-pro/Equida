@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Joint.TABLE)
-class Joint {
+public class Joint {
 	public static final String TABLE = "JOINT";
 	
 	@Id

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Compte.TABLE)
-class Compte {
+public class Compte {
 	public static final String TABLE = "COMPTE";
 	
 	@Id

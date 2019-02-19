@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = DirecteurGeneral.TABLE)
-class DirecteurGeneral {
+public class DirecteurGeneral {
 	public static final String TABLE = "DIRECTEUR_GENERAL";
 	
 	@Id

@@ -1,6 +1,6 @@
 package com.equida.bdd.entity;
 
 
-class Role {
+public class Role {
 
 }

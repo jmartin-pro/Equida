@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Enchere.TABLE)
-class Enchere {
+public class Enchere {
 
 	public static final String TABLE = "ENCHERE";
 
