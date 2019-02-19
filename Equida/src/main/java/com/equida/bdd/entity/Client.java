@@ -2,51 +2,20 @@ package com.equida.bdd.entity;
 
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = Client.TABLE)
-public class Client {
+public class Client extends Utilisateur {
 	public static final String TABLE = "CLIENT";
-	
-	@Id
-	@Column(name = "ID_UTILISATEUR")
-	private Long id;
-	
-	@MapsId
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_UTILISATEUR")
-	private Utilisateur utilisateur;
 	
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<ClientCategVente> categVentes;
 	
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Cheval> chevaux;
-	
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public List<ClientCategVente> getCategVentes() {
 		return categVentes;
