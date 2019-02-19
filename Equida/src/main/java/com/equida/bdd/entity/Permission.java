@@ -22,7 +22,7 @@ public class Permission {
 	private Long id;
 
 	@Column(name = "LIBELLE")
-	private String ville;
+	private String libelle;
 	
 	@Column(name = "DELETED")
 	private Boolean deleted;
@@ -38,12 +38,12 @@ public class Permission {
 		this.id = id;
 	}
 
-	public String getVille() {
-		return ville;
+	public String getLibelle() {
+		return libelle;
 	}
 
-	public void setVille(String ville) {
-		this.ville = ville;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 	public Boolean getDeleted() {
@@ -52,6 +52,14 @@ public class Permission {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public List<Avoir> getAvoirs() {
+		return avoirs;
+	}
+
+	public void setAvoirs(List<Avoir> avoirs) {
+		this.avoirs = avoirs;
 	}
 
 }

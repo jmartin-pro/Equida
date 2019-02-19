@@ -15,7 +15,10 @@ public class Client extends Utilisateur {
 	private List<ClientCategVente> categVentes;
 	
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-	private List<Cheval> chevaux;
+	private List<Cheval> chevaux;	
+	
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	private List<Enchere> encheres;
 
 	public List<ClientCategVente> getCategVentes() {
 		return categVentes;
@@ -31,6 +34,14 @@ public class Client extends Utilisateur {
 
 	public void setChevaux(List<Cheval> chevaux) {
 		this.chevaux = chevaux;
+	}
+
+	public List<Enchere> getEncheres() {
+		return encheres;
+	}
+
+	public void setEncheres(List<Enchere> encheres) {
+		this.encheres = encheres;
 	}
 		
 }

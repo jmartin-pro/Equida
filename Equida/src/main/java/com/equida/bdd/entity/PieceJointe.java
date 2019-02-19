@@ -54,4 +54,12 @@ public class PieceJointe {
 		this.description = description;
 	}
 
+	public List<Joint> getJoints() {
+		return joints;
+	}
+
+	public void setJoints(List<Joint> joints) {
+		this.joints = joints;
+	}
+
 }

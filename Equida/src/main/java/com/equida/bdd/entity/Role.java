@@ -57,4 +57,20 @@ public class Role {
 		this.deleted = deleted;
 	}
 
+	public List<Avoir> getAvoirs() {
+		return avoirs;
+	}
+
+	public void setAvoirs(List<Avoir> avoirs) {
+		this.avoirs = avoirs;
+	}
+
+	public List<Compte> getCompte() {
+		return compte;
+	}
+
+	public void setCompte(List<Compte> compte) {
+		this.compte = compte;
+	}
+
 }

@@ -160,4 +160,12 @@ public class Cheval {
 		this.mereDe = mereDe;
 	}
 
+	public List<Lot> getLots() {
+		return lots;
+	}
+
+	public void setLots(List<Lot> lots) {
+		this.lots = lots;
+	}
+
 }
