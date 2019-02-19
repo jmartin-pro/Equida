@@ -1,11 +1,14 @@
 package com.equida.bdd.entity;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +33,9 @@ public class Course {
 	
 	@Column(name = "DELETED")
 	private Boolean deleted;
+	
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	private List<Participer> participer;
 
 	public Long getId() {
 		return id;
@@ -71,6 +77,12 @@ public class Course {
 		this.deleted = deleted;
 	}
 
+	public List<Participer> getParticiper() {
+		return participer;
+	}
 
+	public void setParticiper(List<Participer> participer) {
+		this.participer = participer;
+	}
 	
 }

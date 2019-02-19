@@ -205,16 +205,16 @@ INSERT INTO DIRECTEUR_GENERAL (ID_UTILISATEUR) VALUES
 --
 
 INSERT INTO LOT (ID, ID_CHEVAL, ID_VENTE, PRIX_DEPART, VALIDATION, DELETED) VALUES
-(1, 1, 3, '10.00', NULL, 0),
-(2, 2, 1, '20.00', NULL, 0),
-(3, 2, 5, '30.00', NULL, 0),
-(4, 3, 2, '40.00', NULL, 0),
-(5, 3, 3, '50.00', NULL, 0),
-(6, 3, 4, '60.00', NULL, 0),
-(7, 4, 2, '70.00', NULL, 0),
-(8, 4, 5, '80.00', NULL, 0),
-(9, 5, 2, '90.00', NULL, 0),
-(10, 5, 3, '100.00', NULL, 0);
+(1, 6, 3, '10.00', NULL, 0),
+(2, 7, 1, '20.00', NULL, 0),
+(3, 8, 5, '30.00', NULL, 0),
+(4, 9, 2, '40.00', NULL, 0),
+(5, 10, 3, '50.00', NULL, 0),
+(6, 6, 4, '60.00', NULL, 0),
+(7, 7, 2, '70.00', NULL, 0),
+(8, 8, 5, '80.00', NULL, 0),
+(9, 9, 2, '90.00', NULL, 0),
+(10, 10, 3, '100.00', NULL, 0);
 
 --
 -- Déchargement des données de la table piece_jointe

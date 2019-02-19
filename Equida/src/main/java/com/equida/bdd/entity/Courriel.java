@@ -1,6 +1,8 @@
 package com.equida.bdd.entity;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +40,9 @@ public class Courriel {
 	
 	@Column(name = "DELETED")
 	private Boolean deleted;
+	
+	@OneToMany(mappedBy = "courriel", cascade = CascadeType.ALL)
+	private List<Joint> joints;
 
 	public Long getId() {
 		return id;
@@ -84,6 +90,14 @@ public class Courriel {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public List<Joint> getJoints() {
+		return joints;
+	}
+
+	public void setJoints(List<Joint> joints) {
+		this.joints = joints;
 	}
 	
 }

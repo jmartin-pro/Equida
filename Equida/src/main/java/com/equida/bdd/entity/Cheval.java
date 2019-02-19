@@ -1,5 +1,7 @@
 package com.equida.bdd.entity;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -48,7 +51,19 @@ public class Cheval {
 
 	@Column(name = "DELETED")
 	private Boolean deleted;
-
+	
+	@OneToMany(mappedBy = "cheval", cascade = CascadeType.ALL)
+	private List<Participer> participer;
+	
+	@OneToMany(mappedBy = "pere", cascade = CascadeType.ALL)
+	private List<Cheval> pereDe;
+	
+	@OneToMany(mappedBy = "mere", cascade = CascadeType.ALL)
+	private List<Cheval> mereDe;
+	
+	@OneToMany(mappedBy = "cheval", cascade = CascadeType.ALL)
+	private List<Lot> lots;
+	
 	public Long getId() {
 		return id;
 	}
@@ -119,6 +134,30 @@ public class Cheval {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public List<Participer> getParticiper() {
+		return participer;
+	}
+
+	public void setParticiper(List<Participer> participer) {
+		this.participer = participer;
+	}
+
+	public List<Cheval> getPereDe() {
+		return pereDe;
+	}
+
+	public void setPereDe(List<Cheval> pereDe) {
+		this.pereDe = pereDe;
+	}
+
+	public List<Cheval> getMereDe() {
+		return mereDe;
+	}
+
+	public void setMereDe(List<Cheval> mereDe) {
+		this.mereDe = mereDe;
 	}
 
 }

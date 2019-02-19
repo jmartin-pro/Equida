@@ -1,10 +1,16 @@
 package com.equida.bdd.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +28,14 @@ public class Compte {
 	
 	@Column(name = "MDP")
 	private String mdp;
-
+	
+	@OneToOne(mappedBy = "compte", cascade = CascadeType.ALL)
+	private Utilisateur utilisateur;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_ROLE")
+	private Role role;
+	
 	public Long getId() {
 		return id;
 	}
@@ -46,4 +59,21 @@ public class Compte {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 }

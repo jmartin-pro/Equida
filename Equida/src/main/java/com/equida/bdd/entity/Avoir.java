@@ -21,7 +21,7 @@ public class Avoir {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_RACE_CHEVAL")
+	@JoinColumn(name = "ID_ROLE")
 	private Role role;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
