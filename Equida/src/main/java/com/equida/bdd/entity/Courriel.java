@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = Courriel.TABLE)
 class Courriel {
 
-	public static final String TABLE = "COMPTE";
+	public static final String TABLE = "COURRIEL";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

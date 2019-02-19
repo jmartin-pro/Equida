@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = Avoir.TABLE)
 class Avoir {
-	public static final String TABLE = "CLIENT";
+	public static final String TABLE = "AVOIR";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
