@@ -1,15 +1,33 @@
 package com.equida.api.dto;
 
-import com.equida.bdd.entity.RaceCheval;
+import com.equida.bdd.entity.Cheval;
 
-public class ChevalDto {
+public class ChevalDto implements IDto<Cheval, ChevalDto>{
 	
 	private Long id;
     private String nom;
     private Character sexe;
     private String sire;
-    private RaceCheval raceCheval;
+    private RaceChevalDto raceCheval;
 
+	public static ChevalDto convertToDto(Cheval entity) {
+		ChevalDto chevalDto = new ChevalDto();
+		
+		chevalDto.setId(entity.getId());
+		chevalDto.setNom(entity.getNom());
+		chevalDto.setSexe(entity.getSexe());
+		chevalDto.setSire(entity.getSire());
+			
+		chevalDto.setRaceCheval(RaceChevalDto.convertToDto(entity.getRaceCheval()));
+		
+		return chevalDto;
+	}
+
+	@Override
+	public Cheval convertToEntity() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,13 +60,12 @@ public class ChevalDto {
 		this.sire = sire;
 	}
 
-	public RaceCheval getRaceCheval() {
+	public RaceChevalDto getRaceCheval() {
 		return raceCheval;
 	}
 
-	public void setRaceCheval(RaceCheval raceCheval) {
+	public void setRaceCheval(RaceChevalDto raceCheval) {
 		this.raceCheval = raceCheval;
 	}
-	
 	
 }
