@@ -1,4 +1,4 @@
-package com.equida.api.controller;
+package com.equida.api.controller.chevaux;
 
 import com.equida.api.dto.ChevalDto;
 import com.equida.api.dto.FilterDto;
@@ -20,7 +20,7 @@ public class ChevauxRestController {
 	private ChevalService chevalService;
 	
 	@GetMapping(ChevauxApiRoute.RAW_URI)
-	public List<ChevalDto> chevaux(@Valid FilterDto filterDto) {
+	public List<ChevalDto> getChevaux(@Valid FilterDto filterDto) {
 		List<Cheval> chevaux = chevalService.getAll(PageRequest.of(filterDto.getOffset(), filterDto.getLimit()));
 		
 		List<ChevalDto> chevauxDto = new ArrayList<>();
