@@ -1,7 +1,7 @@
-package com.equida.api.params;
+package com.equida.api.dto;
 
 
-public class ChevalApiParams {
+public class FilterDto {
 
 	private Integer limit = 20;
 	private Integer offset = 0;
