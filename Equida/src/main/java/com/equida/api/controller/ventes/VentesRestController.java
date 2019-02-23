@@ -18,7 +18,7 @@ public class VentesRestController {
 	@Autowired
 	private VenteService venteService;
 	
-	@GetMapping(VentesApiRoute.RAW_URI)
+	@GetMapping(Ventes.RAW_URI)
 	public List<VenteDto> getVentes(@Valid VentesFilterDto filterDto) {
 		List<Vente> ventes = venteService.getAll(filterDto.getIdCategVente(), filterDto.getPageRequest());
 		

@@ -1,4 +1,6 @@
-package com.equida.api.route;
+package com.equida.api.route.chevaux;
+
+import com.equida.api.route.IRoute;
 
 
 public class ChevauxApiRoute implements IRoute {
