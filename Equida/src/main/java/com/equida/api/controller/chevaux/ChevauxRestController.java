@@ -2,7 +2,7 @@ package com.equida.api.controller.chevaux;
 
 import com.equida.api.dto.ChevalDto;
 import com.equida.api.dto.filter.BasicFilterDto;
-import com.equida.api.route.ChevauxApiRoute;
+import com.equida.api.route.chevaux.ChevauxApiRoute;
 import com.equida.bdd.entity.Cheval;
 import com.equida.service.ChevalService;
 import java.util.ArrayList;
