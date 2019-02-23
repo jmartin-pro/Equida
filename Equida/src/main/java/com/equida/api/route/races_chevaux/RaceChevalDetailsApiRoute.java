@@ -6,7 +6,7 @@ import com.equida.api.route.IRoute;
 public class RaceChevalDetailsApiRoute implements IRoute {
 
 	public static final String PARAM_ID_RACE_CHEVAL = "idPays";
-	public static final String RAW_URI = "/api/racesChevaux/{"+PARAM_ID_RACE_CHEVAL+"}";
+	public static final String RAW_URI = RacesChevauxApiRoute.RAW_URI+"/{"+PARAM_ID_RACE_CHEVAL+"}";
 	
 	private Long id = 0L;
 	

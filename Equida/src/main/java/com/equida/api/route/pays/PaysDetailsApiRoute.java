@@ -6,7 +6,7 @@ import com.equida.api.route.IRoute;
 public class PaysDetailsApiRoute implements IRoute {
 
 	public static final String PARAM_ID_PAYS = "idPays";
-	public static final String RAW_URI = "/api/pays/{"+PARAM_ID_PAYS+"}";
+	public static final String RAW_URI = PaysApiRoute.RAW_URI+"/{"+PARAM_ID_PAYS+"}";
 	
 	private Long id = 0L;
 	

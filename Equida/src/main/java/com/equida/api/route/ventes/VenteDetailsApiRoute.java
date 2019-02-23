@@ -6,7 +6,7 @@ import com.equida.api.route.IRoute;
 public class VenteDetailsApiRoute implements IRoute {
 
 	public static final String PARAM_ID_VENTE = "idVente";
-	public static final String RAW_URI = "/api/ventes/{"+PARAM_ID_VENTE+"}";
+	public static final String RAW_URI = VentesApiRoute.RAW_URI+"/{"+PARAM_ID_VENTE+"}";
 	
 	private Long id = 0L;
 	
