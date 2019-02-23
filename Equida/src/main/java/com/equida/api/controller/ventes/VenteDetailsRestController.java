@@ -16,7 +16,7 @@ public class VenteDetailsRestController {
 	private VenteService venteService;
 	
 	@GetMapping(VenteDetailsApiRoute.RAW_URI)
-	public VenteDto getVentes(@PathVariable(value = VenteDetailsApiRoute.PARAM_ID_VENTE) Long idVente) {
+	public VenteDto getVente(@PathVariable(value = VenteDetailsApiRoute.PARAM_ID_VENTE) Long idVente) {
 		Vente vente = venteService.getById(idVente);
 		
 		return VenteDto.convertToDto(vente);
