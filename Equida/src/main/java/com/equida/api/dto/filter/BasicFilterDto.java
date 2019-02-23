@@ -1,10 +1,11 @@
-package com.equida.api.dto;
+package com.equida.api.dto.filter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import org.springframework.data.domain.PageRequest;
 
 
-public class FilterDto {
+public class BasicFilterDto {
 	
 	@Min(1)
 	@Max(100)
@@ -29,4 +30,7 @@ public class FilterDto {
 		this.offset = offset;
 	}
 
+	public PageRequest getPageRequest() {
+		return PageRequest.of(offset, limit);
+	}
 }

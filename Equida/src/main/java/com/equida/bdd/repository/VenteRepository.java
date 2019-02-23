@@ -15,5 +15,8 @@ public interface VenteRepository extends CrudRepository<Vente, Long> {
 	
 	@Query(value = "SELECT v FROM Vente v WHERE v.deleted=0")
 	public List<Vente> findAll(PageRequest pageRequest);
+
+	@Query(value = "SELECT v FROM Vente v WHERE v.categVente.id = ?1 AND v.deleted=0")
+	public List<Vente> findAllByIdCategVente(Long idCategVente, PageRequest pageRequest);
 	
 }

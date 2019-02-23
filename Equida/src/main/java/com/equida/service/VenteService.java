@@ -13,7 +13,11 @@ public class VenteService {
 	@Autowired
 	private VenteRepository venteRepository;
 	
-	public List<Vente> getAll(PageRequest pageRequest) {
+	public List<Vente> getAll(Long idCategVente, PageRequest pageRequest) {
+		if(idCategVente != null) {
+			return venteRepository.findAllByIdCategVente(idCategVente, pageRequest);
+		}
+		
 		return venteRepository.findAll(pageRequest);
 	}
 	
