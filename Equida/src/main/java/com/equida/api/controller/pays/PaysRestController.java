@@ -10,6 +10,8 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,5 +32,12 @@ public class PaysRestController {
 		
 		return paysDto;
 	}
-
+	
+	@PostMapping(PaysApiRoute.RAW_URI)
+	public PaysDto addPays(@RequestBody PaysDto paysDto) {
+		Pays pays = paysService.create(paysDto.getLibelle());
+		
+		return PaysDto.convertToDto(pays);
+	}
+	
 }

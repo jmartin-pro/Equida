@@ -20,7 +20,13 @@ public class PaysDto implements IDto<Pays, PaysDto>{
 	
 	@Override
 	public Pays convertToEntity() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		Pays pays = new Pays();
+		
+		pays.setId(this.id);
+		pays.setLibelle(this.libelle);
+		pays.setDeleted(this.deleted);
+		
+		return pays;
 	}
 
 	public Long getId() {
