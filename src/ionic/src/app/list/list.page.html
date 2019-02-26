@@ -4,24 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Liste des pays
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+	<ion-list>
+		<ion-item *ngFor="let p of pays" >
+			<p>{{p.id}}</p>
+			<p>{{p.libelle}}</p>
+			<p>{{p.deleted}}</p>
+		</ion-item>
+	</ion-list>
 </ion-content>
