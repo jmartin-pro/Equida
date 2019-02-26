@@ -4,10 +4,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = Client.TABLE)
+@PrimaryKeyJoinColumn(name = "ID_UTILISATEUR")
 public class Client extends Utilisateur {
 	public static final String TABLE = "CLIENT";
 	

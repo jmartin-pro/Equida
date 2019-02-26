@@ -28,6 +28,9 @@ public class Compte {
 	@Column(name = "MDP")
 	private String mdp;
 	
+	@Column(name = "DELETED")
+	private Boolean deleted;
+	
 	@OneToOne(mappedBy = "compte", cascade = CascadeType.ALL)
 	private Utilisateur utilisateur;
 	
@@ -57,6 +60,14 @@ public class Compte {
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Utilisateur getUtilisateur() {
