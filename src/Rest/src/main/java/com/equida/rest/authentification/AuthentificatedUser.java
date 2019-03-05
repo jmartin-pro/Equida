@@ -4,6 +4,7 @@ import com.equida.rest.bdd.entity.Compte;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthentificatedUser implements UserDetails {
@@ -15,10 +16,10 @@ public class AuthentificatedUser implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> grantedAuthoritys = new ArrayList<>(); 
-		grantedAuthoritys.add((GrantedAuthority) () -> compte.getRole().getLibelle());
-		
+		grantedAuthoritys.add(new SimpleGrantedAuthority("ROLE_"+compte.getRole().getLibelle()));
+
 		return grantedAuthoritys;
 	}
 

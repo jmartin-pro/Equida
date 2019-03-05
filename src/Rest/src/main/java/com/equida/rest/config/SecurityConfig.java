@@ -32,13 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/**").hasRole("USER")
-			.and().authorizeRequests().anyRequest().denyAll()
+		http.authorizeRequests().anyRequest().permitAll()
 			.and().httpBasic().authenticationEntryPoint(authEntryPoint)
 			.and().cors()
 			.and().csrf().disable();
     }
-	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
