@@ -26,9 +26,6 @@ public class Role {
 	
 	@Column(name = "DELETED")
 	private Boolean deleted;
-	
-	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-	private List<Avoir> avoirs;	
 		
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
 	private List<Compte> compte;
@@ -55,14 +52,6 @@ public class Role {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
-	}
-
-	public List<Avoir> getAvoirs() {
-		return avoirs;
-	}
-
-	public void setAvoirs(List<Avoir> avoirs) {
-		this.avoirs = avoirs;
 	}
 
 	public List<Compte> getCompte() {
