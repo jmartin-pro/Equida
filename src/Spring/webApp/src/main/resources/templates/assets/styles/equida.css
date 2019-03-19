@@ -11,3 +11,7 @@ main {
 a {
 	color: green;
 }
+
+ul.default{
+	list-style-type: initial;
+}
