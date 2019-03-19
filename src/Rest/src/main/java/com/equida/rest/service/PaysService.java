@@ -20,8 +20,8 @@ public class PaysService {
 		return paysRepository.findAll(pageRequest);
 	}
 
-	public Pays getById(Long idVente) {
-		Optional<Pays> pays = paysRepository.findById(idVente);
+	public Pays getById(Long idPays) {
+		Optional<Pays> pays = paysRepository.findById(idPays);
 	
 		if(!pays.isPresent()) {
 			throw new NotFoudException("L'id du pays spécifié n'existe pas.");

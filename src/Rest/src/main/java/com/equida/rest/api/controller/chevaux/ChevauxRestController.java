@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,6 +32,13 @@ public class ChevauxRestController {
 		}
 		
 		return chevauxDto;
+	}
+	
+	@PostMapping(ChevauxApiRoute.RAW_URI)
+	public ChevalDto addPays(@RequestBody ChevalDto chevalDto) {
+		Cheval cheval = chevalService.create(chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire()/*, chevalDto.getRaceCheval().getId()*/);
+		
+		return chevalDto.convertToDto(cheval);
 	}
 
 }

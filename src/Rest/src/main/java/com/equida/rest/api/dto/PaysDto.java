@@ -9,13 +9,13 @@ public class PaysDto implements IDto<Pays, PaysDto>{
 	private Boolean deleted;
 	
 	public static PaysDto convertToDto(Pays entity) {
-		PaysDto categVenteDto = new PaysDto();
+		PaysDto paysDto = new PaysDto();
 		
-		categVenteDto.setId(entity.getId());
-		categVenteDto.setLibelle(entity.getLibelle());
-		categVenteDto.setDeleted(entity.getDeleted());
+		paysDto.setId(entity.getId());
+		paysDto.setLibelle(entity.getLibelle());
+		paysDto.setDeleted(entity.getDeleted());
 		
-		return categVenteDto;
+		return paysDto;
 	}
 	
 	@Override
