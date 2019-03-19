@@ -1,0 +1,7 @@
+server.port = 8090
+
+server.servlet.session.cookie.secure=false
+
+# Freemarker specific configs
+spring.freemarker.suffix: .ftlh
+spring.freemarker.settings.recognize_standard_file_extensions=true
