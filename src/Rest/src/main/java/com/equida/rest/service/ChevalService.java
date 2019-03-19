@@ -1,8 +1,12 @@
 package com.equida.rest.service;
 
 import com.equida.rest.bdd.entity.Cheval;
+import com.equida.rest.bdd.entity.RaceCheval;
 import com.equida.rest.bdd.repository.ChevalRepository;
+import com.equida.rest.exception.NotFoudException;
+import com.equida.rest.exception.ServiceException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,70 @@ public class ChevalService {
 	
 	public List<Cheval> getAll(PageRequest pageRequest) {
 		return chevalRepository.findAll(pageRequest);
+	}
+	
+	public Cheval getById(Long idCheval) {
+		Optional<Cheval> cheval = chevalRepository.findById(idCheval);
+	
+		if(!cheval.isPresent()) {
+			throw new NotFoudException("L'id du cheval spécifié n'existe pas.");
+		}
+		
+		return cheval.get();
+	}
+
+	public Cheval create(String nom, Character sexe, String sire/*, Long idRace*/) {
+		if(nom == null) {
+			throw new ServiceException("Nom ne doit pas être null.");
+		}
+		
+		Cheval cheval = new Cheval();
+		
+		cheval.setId(null);
+		cheval.setNom(nom);
+		cheval.setSexe(sexe);
+		cheval.setSire(sire);
+		/*RaceCheval raceCheval = new RaceCheval();
+		raceCheval.setId(idRace);
+		cheval.setRaceCheval(raceCheval);*/
+		cheval.setDeleted(false);
+		
+		return save(cheval);
+	}
+	
+	public Cheval updateCheval(Long idCheval, String nom, Character sexe, String sire/*, Long idRace*/) {
+		if(idCheval == null) {
+			throw new ServiceException("idCheval ne doit pas être null.");
+		}
+		
+		if(nom == null) {
+			throw new ServiceException("nom ne doit pas être null.");
+		}
+		
+		Cheval cheval = getById(idCheval);
+		
+		cheval.setNom(nom);
+		cheval.setSexe(sexe);
+		cheval.setSire(sire);
+		/*RaceCheval raceCheval = new RaceCheval();
+		raceCheval.setId(idRace);
+		cheval.setRaceCheval(raceCheval);*/
+		return save(cheval);
+	}
+	
+	public void deleteCheval(Long idCheval) {
+		if(idCheval == null) {
+			throw new ServiceException("idCheval ne doit pas être null.");
+		}
+		
+		Cheval cheval = getById(idCheval);
+		
+		cheval.setDeleted(true);
+		save(cheval);
+	}
+	
+	public Cheval save(Cheval cheval) {
+		return chevalRepository.save(cheval);
 	}
 	
 }

@@ -8,7 +8,8 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
     private String nom;
     private Character sexe;
     private String sire;
-    private RaceChevalDto raceCheval;
+    //private RaceChevalDto raceCheval;
+	private Boolean deleted;
 
 	public static ChevalDto convertToDto(Cheval entity) {
 		ChevalDto chevalDto = new ChevalDto();
@@ -17,15 +18,25 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		chevalDto.setNom(entity.getNom());
 		chevalDto.setSexe(entity.getSexe());
 		chevalDto.setSire(entity.getSire());
+		chevalDto.setDeleted(entity.getDeleted());
 			
-		chevalDto.setRaceCheval(RaceChevalDto.convertToDto(entity.getRaceCheval()));
+		//chevalDto.setRaceCheval(RaceChevalDto.convertToDto(entity.getRaceCheval()));
 		
 		return chevalDto;
 	}
 
 	@Override
 	public Cheval convertToEntity() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		Cheval cheval = new Cheval();
+		
+		cheval.setId(this.id);
+		cheval.setNom(this.nom);
+		cheval.setSexe(this.sexe);
+		cheval.setSire(this.sire);
+		//cheval.setRaceCheval(this.raceCheval.convertToEntity());
+		cheval.setDeleted(this.deleted);
+		
+		return cheval;
 	}
 	
 	public Long getId() {
@@ -60,12 +71,20 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		this.sire = sire;
 	}
 
-	public RaceChevalDto getRaceCheval() {
+	/*public RaceChevalDto getRaceCheval() {
 		return raceCheval;
 	}
 
 	public void setRaceCheval(RaceChevalDto raceCheval) {
 		this.raceCheval = raceCheval;
+	}*/
+	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 }
