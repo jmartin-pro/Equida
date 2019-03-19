@@ -9,18 +9,22 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <#include "style.ftlh"/>
+            <#include "style.ftl"/>
 
         </head>
 
         <body>
+			<#include "nav.ftl"/>
+
 			<main class="container">
 			  <@content/>
 			</main>
 
+			<#include "footer.ftl"/>
+
             <@extra/>
 
-            <#include "script.ftlh"/>
+            <#include "script.ftl"/>
 
         </body>
 

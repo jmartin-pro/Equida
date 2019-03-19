@@ -1,4 +1,4 @@
-<#include "/layouts/base.ftlh"/>
+<#include "/layouts/base.ftl"/>
 
 <#macro content>
 

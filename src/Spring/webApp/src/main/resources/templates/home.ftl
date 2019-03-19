@@ -1,4 +1,4 @@
-<#include "/layouts/simple.ftlh"/>
+<#include "/layouts/simple.ftl"/>
 
 <#global theme="contextual">
 <#global css="home">
