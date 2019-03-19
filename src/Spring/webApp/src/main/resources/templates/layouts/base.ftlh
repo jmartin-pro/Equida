@@ -14,7 +14,9 @@
         </head>
 
         <body>
-            <@content/>
+			<main class="container">
+			  <@content/>
+			</main>
 
             <@extra/>
 
