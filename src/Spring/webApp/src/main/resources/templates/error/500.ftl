@@ -4,6 +4,7 @@
 
 <#macro content>
 
+	<p>Une erreur est survenue...</p>
     <p>Nous nous efforçons de corriger le problème.</p>
     <p>Si le problème persiste, merci de contacter votre administrateur.</p>
 

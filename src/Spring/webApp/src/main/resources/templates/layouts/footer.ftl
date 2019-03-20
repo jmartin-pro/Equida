@@ -7,7 +7,7 @@
             </div>
 
             <div class="col s2"> 
-                <p><a href="/mentions_legales" class="white-text">Mentions légales</a></p>
+                <p><a href="/mentions-legales" class="white-text">Mentions légales</a></p>
             </div>
         </div>
     </div>
