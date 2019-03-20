@@ -12,6 +12,6 @@ a {
 	color: green;
 }
 
-ul.default{
+ul.default li {
 	list-style-type: initial;
 }
