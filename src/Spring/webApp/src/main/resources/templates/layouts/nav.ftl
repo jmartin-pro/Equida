@@ -1,7 +1,7 @@
 <header>
 	<nav class="nav-extended">
 		<div class="nav-wrapper light-green darken-4">
-			<a href="/" class="brand-logo"><img class="brand-logo" src="assets/images/logo_blanc.png"/></a>
+			<a href="/" class="brand-logo"><img class="brand-logo" src="assets/img/logo_blanc.png"/></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<a href="#" data-target="mobileNav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down nav-mobile">
