@@ -7,8 +7,18 @@ body {
 
 main {
 	flex: 1 0 auto;
+	padding-bottom: 45px
 }
 
 a {
 	color: green;
+}
+
+.table-actions {
+	text-align: right;
+	padding-right: 35px;
+}
+
+.table-actions i:first-child {
+	margin-right: 15px;
 }

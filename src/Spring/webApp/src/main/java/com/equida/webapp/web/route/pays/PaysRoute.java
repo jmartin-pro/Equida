@@ -14,7 +14,7 @@ public class PaysRoute implements IRoute{
 
 	@Override
 	public String getView() {
-		return "view/pays/index";
+		return "view/pays/lister";
 	}
 
 	@Override

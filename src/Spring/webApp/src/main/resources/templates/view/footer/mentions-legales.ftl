@@ -2,7 +2,7 @@
 
 <#macro content>
 
-<h1 class="center-align">Mentions légales</h1>
+<h2 class="center-align">Mentions légales</h2>
 
 <div class="row">
     <div class="col s12">

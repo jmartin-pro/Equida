@@ -2,7 +2,7 @@
 
 <#macro content>
 
-<h1 class="center-align">Nous contacter</h1>
+<h2 class="center-align">Nous contacter</h2>
 
 <div class="center-align">
     <div class="col">

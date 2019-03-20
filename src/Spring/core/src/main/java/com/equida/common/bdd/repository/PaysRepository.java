@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaysRepository extends CrudRepository<Pays, Long> {
 	
-	@Override
+	@Query(value = "SELECT p FROM Pays p WHERE p.deleted=0 ORDER BY p.libelle")
 	public List<Pays> findAll();
 	
-	@Query(value = "SELECT p FROM Pays p WHERE p.deleted=0")
+	@Query(value = "SELECT p FROM Pays p WHERE p.deleted=0 ORDER BY p.libelle")
 	public List<Pays> findAll(PageRequest pageRequest);
 	
 	@Query(value = "SELECT p FROM Pays p WHERE p.id = ?1 AND p.deleted=0")

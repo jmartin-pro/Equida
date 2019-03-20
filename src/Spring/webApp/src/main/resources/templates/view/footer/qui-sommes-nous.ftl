@@ -2,7 +2,7 @@
 
 <#macro content>
 
-<h1 class="center-align">Qui sommes nous ?</h1>
+<h2 class="center-align">Qui sommes nous ?</h2>
 
 <div class="row">
     <div class="col">

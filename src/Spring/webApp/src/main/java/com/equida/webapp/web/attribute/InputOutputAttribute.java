@@ -5,6 +5,8 @@ public class InputOutputAttribute {
     public static final String ERROR_LIST = "errors";
     public static final String EXCEPTION = "exception";
 
+	public static final String LISTE_PAYS = "pays";
+	
 	public static final String TITLE = "title";
 	
     public static final String URL = "url";

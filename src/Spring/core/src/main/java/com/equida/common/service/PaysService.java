@@ -16,6 +16,10 @@ public class PaysService {
 	@Autowired
 	private PaysRepository paysRepository;
 	
+	public List<Pays> getAll() {
+		return paysRepository.findAll();
+	}
+	
 	public List<Pays> getAll(PageRequest pageRequest) {
 		return paysRepository.findAll(pageRequest);
 	}
