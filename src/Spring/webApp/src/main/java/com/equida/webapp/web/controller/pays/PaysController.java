@@ -1,16 +1,20 @@
 package com.equida.webapp.web.controller.pays;
 
 import com.equida.common.bdd.entity.Pays;
+import com.equida.common.exception.NotFoudException;
 import com.equida.common.service.PaysService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
 import com.equida.webapp.web.route.IRoute;
+import com.equida.webapp.web.route.pays.PaysDeleteRoute;
 import com.equida.webapp.web.route.pays.PaysRoute;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class PaysController extends AbstractWebController {
@@ -29,5 +33,16 @@ public class PaysController extends AbstractWebController {
 		modelAndView.addObject(InputOutputAttribute.LISTE_PAYS, pays);
 		
 		return modelAndView;
+	}
+	
+	@GetMapping(PaysDeleteRoute.RAW_URI)
+	public RedirectView delete(@PathVariable(PaysDeleteRoute.PARAM_ID_PAYS) Long idPays) {
+		try {
+			paysService.deletePays(idPays);
+		} catch(NotFoudException e) {
+			
+		} 
+			
+		return new RedirectView(PaysRoute.RAW_URI);
 	}
 }

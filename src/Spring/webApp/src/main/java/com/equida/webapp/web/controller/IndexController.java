@@ -1,7 +1,6 @@
-package com.equida.webapp.web.controller.pays;
+package com.equida.webapp.web.controller;
 
 import com.equida.webapp.web.attribute.InputOutputAttribute;
-import com.equida.webapp.web.controller.AbstractWebController;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.IndexRoute;
 import org.springframework.stereotype.Controller;

@@ -14,7 +14,7 @@
 				<tr>
 					<td>${p.libelle}</td>
 					<td class="rigth table-actions">
-						<a href=""><i class="material-icons">create</i></a><a href=""><i class="material-icons">delete</i></a>
+						<a href=""><i class="material-icons">create</i></a><a href="/pays/${p.id}/delete"><i class="material-icons">delete</i></a>
 					</td>
 				</tr>
 			</#list>
