@@ -4,6 +4,8 @@ public class InputOutputAttribute {
 
     public static final String ERROR_LIST = "errors";
     public static final String EXCEPTION = "exception";
+	
+    public static final String FORM = "form";
 
 	public static final String LISTE_PAYS = "pays";
 	

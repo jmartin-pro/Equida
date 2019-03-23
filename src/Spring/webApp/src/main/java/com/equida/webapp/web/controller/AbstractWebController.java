@@ -2,12 +2,17 @@ package com.equida.webapp.web.controller;
 
 import com.equida.common.exception.WebException;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
+import com.equida.webapp.web.controller.pays.PaysController;
+import com.equida.webapp.web.form.IForm;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -53,4 +58,18 @@ abstract public class AbstractWebController {
             attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errors);
         }
     }
+	
+	public void registerForm(ModelAndView modelAndView, Model model, Class<? extends IForm> formClass) {		
+		if(!model.containsAttribute(InputOutputAttribute.FORM)) {
+			IForm form = null;
+			try {
+				form = formClass.newInstance();
+			} catch (InstantiationException | IllegalAccessException ex) {
+				Logger.getLogger(PaysController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			modelAndView.addObject(InputOutputAttribute.FORM, form);
+		} else {
+			modelAndView.addObject(InputOutputAttribute.FORM, model.asMap().get(InputOutputAttribute.FORM));
+		}
+	}
 }

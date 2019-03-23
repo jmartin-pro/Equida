@@ -2,7 +2,7 @@
 
 <#macro content>
 
-    <h2 class="center-align striped">Liste des pays</h2>
+    <h2 class="center-align">Liste des pays</h2>
 	
 	<table class="table highlight">
 		<thead>
