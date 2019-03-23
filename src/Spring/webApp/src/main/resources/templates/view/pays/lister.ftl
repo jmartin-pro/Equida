@@ -5,7 +5,7 @@
     <h2 class="center-align">Liste des pays</h2>
 	
 	<div>
-		<a href="/pays/add"><button>Ajouter</button></a>
+		<a href="/pays/add" class="waves-effect waves-light btn green right darken-3">Ajouter</a>
 	</div>
 	
 	<table class="table highlight">

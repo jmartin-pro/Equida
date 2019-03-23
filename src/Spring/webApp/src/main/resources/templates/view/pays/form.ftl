@@ -5,9 +5,18 @@
 	
 	<h2 class="center-align"><#if form.isCreation>Ajouter un pays<#else>Modifier un pays</#if></h2>
 	
-	<form action="" method="POST">
-		<input type="text" name="libelle" placeholder="Libellé" value="<#if form.libelle??>${form.libelle}</#if>"/>
-		<input type="submit" value="Enregistrer"/>
+	<form class="row" action="" method="POST">
+		<div class="col l9 s12">
+			<div class="input-field">
+				<input class="validate" type="text" id="libelle" name="libelle" value="<#if form.libelle??>${form.libelle}</#if>"/>
+				<label for="libelle">Libellé</label>
+			</div>
+		</div>
+		
+		<div class="col l2 s12 center-align">
+			<p><button type="submit" class="waves-effect waves-light btn green white-text darken-3">Enregistrer</button></p>
+			<p><a href="/pays">Annuler les modifications</a></p>
+		</div>
 	</form>
 </#macro>
 

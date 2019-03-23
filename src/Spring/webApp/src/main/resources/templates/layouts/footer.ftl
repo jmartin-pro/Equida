@@ -12,7 +12,7 @@
         </div>
     </div>
 	
-    <div class="footer-copyright">
+    <div class="footer-copyright green darken-4">
         <div class="container">
             ©${.now?string('yyyy')} Copyright
         </div>
