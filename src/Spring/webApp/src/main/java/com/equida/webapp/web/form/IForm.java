@@ -12,10 +12,14 @@ public abstract class IForm<T> {
 		this.isCreation = isCreation;
 	}
 
-    abstract void fillFromEntity(T entity);
+    public abstract void fillFromEntity(T entity);
 
-	public boolean isIsCreation() {
+	public boolean getIsCreation() {
 		return isCreation;
+	}
+
+	public void setIsCreation(boolean isCreation) {
+		this.isCreation = isCreation;
 	}
 
 }

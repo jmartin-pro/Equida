@@ -59,14 +59,20 @@ abstract public class AbstractWebController {
         }
     }
 	
-	public void registerForm(ModelAndView modelAndView, Model model, Class<? extends IForm> formClass) {		
+	public <T> void registerForm(ModelAndView modelAndView, Model model, Class<? extends IForm<T>> formClass, T entity) {		
 		if(!model.containsAttribute(InputOutputAttribute.FORM)) {
 			IForm form = null;
 			try {
 				form = formClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException ex) {
-				Logger.getLogger(PaysController.class.getName()).log(Level.SEVERE, null, ex);
+				ex.printStackTrace();
+				return;
 			}
+			
+			if(entity != null) {
+				form.fillFromEntity(entity);
+			}
+			
 			modelAndView.addObject(InputOutputAttribute.FORM, form);
 		} else {
 			modelAndView.addObject(InputOutputAttribute.FORM, model.asMap().get(InputOutputAttribute.FORM));

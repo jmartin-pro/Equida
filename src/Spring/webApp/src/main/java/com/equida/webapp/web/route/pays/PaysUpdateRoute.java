@@ -2,14 +2,15 @@ package com.equida.webapp.web.route.pays;
 
 import com.equida.webapp.web.route.IRoute;
 
-public class PaysDeleteRoute implements IRoute{
+
+public class PaysUpdateRoute implements IRoute{
 
 	public static final String PARAM_ID_PAYS = "idPays";
-	public static final String RAW_URI = "/pays/{"+PARAM_ID_PAYS+"}/delete";
+	public static final String RAW_URI = "/pays/{"+PARAM_ID_PAYS+"}/update";
 
 	private Long idPays;
 	
-	public PaysDeleteRoute(Long idPays) {
+	public PaysUpdateRoute(Long idPays) {
 		this.idPays = idPays;
 	}
 	
@@ -20,12 +21,12 @@ public class PaysDeleteRoute implements IRoute{
 
 	@Override
 	public String getView() {
-		return null;
+		return "view/pays/form";
 	}
 
 	@Override
 	public String getTitle() {
-		return null;
+		return "Modifier un pays";
 	}
 
 	public Long getIdPays() {
