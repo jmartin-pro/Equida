@@ -1,8 +1,6 @@
 <#include "/layouts/base.ftl"/>
 
 <#macro content>
-
-	
 	<h2 class="center-align"><#if form.isCreation>Ajouter un pays<#else>Modifier un pays</#if></h2>
 	
 	<form class="row" action="" method="POST">

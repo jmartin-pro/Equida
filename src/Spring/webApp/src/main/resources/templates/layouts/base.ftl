@@ -17,7 +17,9 @@
 			<#include "nav.ftl"/>
 
 			<main class="container">
-			  <@content/>
+				<#include "messages.ftl"/>
+				
+				<@content/>
 			</main>
 
 			<#include "footer.ftl"/>

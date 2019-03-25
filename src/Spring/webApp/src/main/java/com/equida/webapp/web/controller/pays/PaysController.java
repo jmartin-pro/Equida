@@ -45,7 +45,7 @@ public class PaysController extends AbstractWebController {
 	}
 	
 	@GetMapping(PaysAddRoute.RAW_URI)
-	public ModelAndView add(Model model) {
+	public ModelAndView addGet(Model model) {
 		IRoute route = new PaysAddRoute();
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
@@ -56,9 +56,8 @@ public class PaysController extends AbstractWebController {
 	}
 	
 	@PostMapping(PaysAddRoute.RAW_URI)
-	public RedirectView add(@Valid PaysAddForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {
-		if (bindingResult.hasErrors()) {
-			attributes.addFlashAttribute(InputOutputAttribute.FORM, paysForm);
+	public RedirectView addPost(@Valid PaysAddForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {
+		if(checkForError(bindingResult, attributes, paysForm)) {
 			return new RedirectView(PaysAddRoute.RAW_URI);
 		}
 
@@ -72,7 +71,7 @@ public class PaysController extends AbstractWebController {
 	}
 	
 	@GetMapping(PaysUpdateRoute.RAW_URI)
-	public ModelAndView update(Model model, @PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays) {
+	public ModelAndView updateGet(Model model, @PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays) {
 		IRoute route = new PaysUpdateRoute(idPays);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
@@ -88,9 +87,8 @@ public class PaysController extends AbstractWebController {
 	}
 	
 	@PostMapping(PaysUpdateRoute.RAW_URI)
-	public RedirectView update(@PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays, @Valid PaysUpdateForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {		
-		if (bindingResult.hasErrors()) {
-			attributes.addFlashAttribute(InputOutputAttribute.FORM, paysForm);
+	public RedirectView updatePost(@PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays, @Valid PaysUpdateForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {		
+		if(checkForError(bindingResult, attributes, paysForm)) {
 			return new RedirectView(PaysUpdateRoute.RAW_URI);
 		}
 

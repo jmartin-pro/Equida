@@ -22,3 +22,11 @@ a {
 .table-actions i:first-child {
 	margin-right: 15px;
 }
+
+ul.messages-error {
+	background-color: red;
+	border: 2px #b9151b solid;
+	border-radius: 5px;
+	list-style-type: inherit;
+	padding: 10px 35px
+}

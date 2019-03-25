@@ -2,14 +2,11 @@ package com.equida.webapp.web.controller;
 
 import com.equida.common.exception.WebException;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
-import com.equida.webapp.web.controller.pays.PaysController;
 import com.equida.webapp.web.form.IForm;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 abstract public class AbstractWebController {
@@ -77,5 +75,16 @@ abstract public class AbstractWebController {
 		} else {
 			modelAndView.addObject(InputOutputAttribute.FORM, model.asMap().get(InputOutputAttribute.FORM));
 		}
+	}
+	
+	public boolean checkForError(BindingResult bindingResult, RedirectAttributes attributes, IForm form) {
+		if (bindingResult.hasErrors()) {
+			bindErrors(bindingResult, attributes);
+			attributes.addFlashAttribute(InputOutputAttribute.FORM, form);
+			
+			return true;
+		}
+		
+		return false;
 	}
 }
