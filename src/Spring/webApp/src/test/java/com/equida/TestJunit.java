@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationTest.class)
-public class ChevalRestControllerTest {
+public class TestJunit {
 
 	@Test(expected = ServiceException.class)
 	public void test() {
