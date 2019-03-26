@@ -21,6 +21,10 @@ public class ChevalService {
 	}
 	
 	public Cheval getById(Long idCheval) {
+		if(idCheval == null) {
+			throw new ServiceException("L'id ne doit pas être null.");
+		}
+				
 		Optional<Cheval> cheval = chevalRepository.findById(idCheval);
 	
 		if(!cheval.isPresent()) {

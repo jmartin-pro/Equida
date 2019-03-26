@@ -1,4 +1,4 @@
-package com.equida;
+package com.equida.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
