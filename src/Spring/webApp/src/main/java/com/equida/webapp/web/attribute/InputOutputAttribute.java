@@ -8,6 +8,7 @@ public class InputOutputAttribute {
     public static final String FORM = "form";
 
 	public static final String LISTE_PAYS = "pays";
+	public static final String LISTE_RACE = "races";
 	
 	public static final String TITLE = "title";
 	

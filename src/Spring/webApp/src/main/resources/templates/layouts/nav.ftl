@@ -12,7 +12,8 @@
 		<div class="nav-wrapper light-green darken-3">
 			<div class="nav-mobile">
 				<ul class="menu right hide-on-med-and-down">
-					<li><a href="/pays">Pays</a></li>	
+					<li><a href="/pays">Pays</a></li>
+                                        <li><a href="/races">Races</a></li>
 				</ul>
 			</div>
 		</div>
