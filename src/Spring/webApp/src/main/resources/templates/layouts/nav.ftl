@@ -14,6 +14,7 @@
 				<ul class="menu right hide-on-med-and-down">
 					<li><a href="/pays">Pays</a></li>
                                         <li><a href="/races">Races</a></li>
+                                        <li><a href="/lieux">Lieux</a></li>
 				</ul>
 			</div>
 		</div>

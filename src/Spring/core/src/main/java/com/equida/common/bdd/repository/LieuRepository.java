@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LieuRepository extends CrudRepository<Lieu, Long> {
 	
-	@Override
+	@Query(value = "SELECT l FROM Lieu l WHERE l.deleted=0")
 	public List<Lieu> findAll();
 	
 	@Query(value = "SELECT l FROM Lieu l WHERE l.deleted=0")

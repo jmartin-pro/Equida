@@ -3,6 +3,7 @@ package com.equida.common.service;
 import com.equida.common.exception.NotFoudException;
 import com.equida.common.bdd.entity.Lieu;
 import com.equida.common.bdd.repository.LieuRepository;
+import com.equida.common.exception.ServiceException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,13 @@ public class LieuService {
 	public List<Lieu> getAll(PageRequest pageRequest) {
 		return lieuRepository.findAll(pageRequest);
 	}
+	
+	public List<Lieu> getAll() {
+		return lieuRepository.findAll();
+	}
 
 	public Lieu getById(Long idLieu) {
+		System.err.println(""+idLieu);
 		Optional<Lieu> lieu = lieuRepository.findById(idLieu);
 	
 		if(!lieu.isPresent()) {
@@ -27,6 +33,71 @@ public class LieuService {
 		}
 		
 		return lieu.get();
+	}
+	
+	public Lieu create(String ville, Integer nbBoxes, String commentaire) {
+		if(ville == null) {
+			throw new ServiceException("ville ne doit pas être null");
+		}
+		
+		if(nbBoxes == null) {
+			throw new ServiceException("nbBoxes ne doit pas être null");
+		}
+		
+		if(commentaire == null) {
+			throw new ServiceException("commentaire ne doit pas être null");
+		}
+		
+		Lieu lieu = new Lieu();
+		
+		lieu.setId(null);
+		lieu.setVille(ville);
+		lieu.setNbBoxes(nbBoxes);
+		lieu.setCommentaire(commentaire);
+		lieu.setDeleted(false);
+		
+		return save(lieu);
+	}
+	
+	public Lieu updateLieu(Long idLieu, String ville, Integer nbBoxes, String commentaire) {
+		if(idLieu == null) {
+			throw new ServiceException("idLieu ne doit pas être null");
+		}
+		
+		if(ville == null) {
+			throw new ServiceException("ville ne doit pas être null");
+		}
+		
+		if(nbBoxes == null) {
+			throw new ServiceException("nbBoxes ne doit pas être null");
+		}
+		
+		if(commentaire == null) {
+			throw new ServiceException("commentaire ne doit pas être null");
+		}
+		
+		
+		Lieu lieu = getById(idLieu);
+		
+		lieu.setVille(ville);
+		lieu.setNbBoxes(nbBoxes);
+		lieu.setCommentaire(commentaire);
+		return save(lieu);
+	}
+	
+	public void deleteLieu(Long idLieu) {
+		if(idLieu == null) {
+			throw new ServiceException("idLieu ne doit pas être null");
+		}
+		
+		Lieu lieu = getById(idLieu);
+		
+		lieu.setDeleted(true);
+		save(lieu);
+	}
+	
+	public Lieu save(Lieu lieu) {
+		return lieuRepository.save(lieu);
 	}
 	
 }
