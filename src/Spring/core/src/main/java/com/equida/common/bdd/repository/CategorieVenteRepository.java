@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategorieVenteRepository extends CrudRepository<CategVente, Long> {
 	
-	@Override
+	@Query(value = "SELECT cv FROM CategVente cv WHERE cv.deleted=0")
 	public List<CategVente> findAll();
 	
 	@Query(value = "SELECT cv FROM CategVente cv WHERE cv.deleted=0")
