@@ -5,7 +5,8 @@ import { catchError, tap, map } from 'rxjs/operators';
 
 
 const httpOptions = {
-	headers: new HttpHeaders({'Content-Type': 'application/json'
+	headers: new HttpHeaders({'Content-Type': 'application/json',
+		'Authorization' : 'Basic Y2RlbHRvdXI6dGVzdA=='
 	}),
 };
 const apiUrl = "http://127.0.0.1:1515/api";
@@ -32,12 +33,12 @@ export class RestApiService {
 		// return an observable with a user-facing error message
 		return throwError('Something bad happened; please try again later.');
 	}
-	
+
 	private extractData(res: Response) {
 		let body = res;
 		return body || { };
 	}
-	
+
 	getPays(): Observable<any> {
 		const url = `${apiUrl}/pays`;
 		console.log('url ' + url);
@@ -45,10 +46,28 @@ export class RestApiService {
 		map(this.extractData),
 		catchError(this.handleError));
 	}
-	
+
 	getPaysById(id: string): Observable<any> {
 		const url = `${apiUrl}/pays/${id}`;
 		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	addPays(libelle: string): Observable<any> {
+		let data = {
+			libelle : libelle
+		};
+
+		const url = `${apiUrl}/pays`;
+		return this.http.post(url, data, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	deletePays(id: string): Observable<any> {
+		const url = `${apiUrl}/pays/${id}`;
+		return this.http.delete(url, httpOptions).pipe(
 		map(this.extractData),
 		catchError(this.handleError));
 	}

@@ -11,19 +11,19 @@ import { RestApiService } from '../rest-api.service';
 
 export class ListPage implements OnInit {
 	private pays: any;
-	
+
 	public items: Array<{ title: string; note: string; icon: string }> = [];
-		constructor(public api: RestApiService, public loadingController: LoadingController) { }
+	constructor(public api: RestApiService, public loadingController: LoadingController) { }
 
-		ngOnInit() {
-			this.getPays();
-		}
+	ngOnInit() {
+		this.getPays();
+	}
 
-		async getPays() {
-			const loading = await this.loadingController.create({
+	async getPays() {
+		const loading = await this.loadingController.create({
 			message: 'Loading'
 		});
-		
+
 		await loading.present();
 		await this.api.getPays()
 		.subscribe(res => {
