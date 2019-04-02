@@ -86,6 +86,7 @@ public class ClientService {
 		client.setCopos(copos);
 		client.setVille(ville);
 		client.setMail(mail);
+		client.setDeleted(false);
 		
 		return save(client);
 	}
