@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>lister</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+	<ion-list>
+		<ion-item *ngFor="let c of clients" routerLink="/clients/{{c.id}}">
+			{{c.nom}} {{c.prenom}}
+		</ion-item>
+	</ion-list>
+</ion-content>
