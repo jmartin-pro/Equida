@@ -25,8 +25,12 @@ const routes: Routes = [
   },
 
   {
-	  path: 'lister/clients', 
+	  path: 'lister/clients',
 	  loadChildren: './clients/lister/lister.module#ListerPageModule'
+  },
+  {
+	  path: 'clients/:id', 
+	  loadChildren: './clients/consulter/consulter.module#ConsulterPageModule'
   }
 
 
