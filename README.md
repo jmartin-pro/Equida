@@ -16,7 +16,9 @@ L'application devra également prendre en compte :
 Le projet comporte 3 dossiers :
 - doc → Regroupe les différents documents importants du projet
 - sql → Contient l'historique de tous les scripts (SQL ou PHP) qui ont modifié la BDD.
-- Equida → Contient le code source de l'application
+- src → Contient le code source de l'application
+
+Concernant le dossier src celui contient un dossier "ionic" contenant tout le code de l'application mobile, ainsi qu'un dossier "Spring" contenant tout le code de l'application web à savoir l'api, le site web et la partie commune aux 2.
 
 Le Trello utilisé pour le projet est disponible ici : https://trello.com/b/jrKixhpu/equida-spring
 
@@ -25,19 +27,35 @@ Le Trello utilisé pour le projet est disponible ici : https://trello.com/b/jrKi
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Materialize](https://materializecss.com/) 
 - [JQuery](https://jquery.com/)
+- [Ionic](https://ionicframework.com/)
 
-# Identifiants
+# Authentification
 
-Voici les différents identifiants pour le site 
+L'authentification est géré par le biais de Spring. Concernant l'API il s'agit d'une authentification avec Basic Access Authentification (https://en.wikipedia.org/wiki/Basic\_access\_authentication). De ce fait l'utilisation du SSL est primordial afin de permettre une sécuristation du mot de passe qui pourrait être très facilement intercepté.
 
-## Client
+## Roles
+
+L'API propose 2 roles pour le moment.
+
+- ADMIN pour exécuter des actions tels que l'ajout d'une vente ou d'une race. 
+- USER pour exécuter des actions tels que la mise en vente d'un cheval.
+
+## Identifiants
+
+Voici les différents identifiants pour le site.
+
+### Client 
 
 login : cdeltour
 
 mdp : test
 
-## Directeur Général
+role : USER
+
+### Directeur Général
 
 login : nfime
 
 mdp : test
+
+role : ADMIN
