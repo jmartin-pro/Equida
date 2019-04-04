@@ -69,6 +69,7 @@ public class CourseService {
 		course.setNom(nom);
 		course.setDateCourse(dateCourse);
 		course.setVille(ville);
+		
 		return save(course);
 	}
 	

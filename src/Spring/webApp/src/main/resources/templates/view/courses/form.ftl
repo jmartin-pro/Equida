@@ -9,14 +9,14 @@
 				<input class="validate" type="text" id="nom" name="nom" value="<#if form.nom??>${form.nom}</#if>"/>
 				<label for="nom">Nom</label>                                
 			</div>
-                        <div class="input-field">
-                                <input class="validate" type="date" id="dateCourse" name="dateCourse" value="<#if form.dateCourseStr??>${form.dateCourseStr}</#if>"/>
+			<div class="input-field">
+				<input class="validate" type="date" id="dateCourse" name="dateCourse" value="<#if form.dateCourse??>${form.dateCourse?string["yyyy-MM-dd"]}</#if>"/>
 				<label for="dateCourse">Date de la course</label>
-                        </div>
-                        <div class="input-field">
-                                <input class="validate" type="text" id="ville" name="ville" value="<#if form.ville??>${form.ville}</#if>"/>
+			</div>
+			<div class="input-field">
+				<input class="validate" type="text" id="ville" name="ville" value="<#if form.ville??>${form.ville}</#if>"/>
 				<label for="ville">Ville</label>
-                        </div>
+			</div>
 		</div>
 		
 		<div class="col l2 s12 center-align">

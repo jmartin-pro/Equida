@@ -19,8 +19,8 @@
 			<#list courses as c>
 				<tr>
 					<td>${c.nom}</td>
-                                        <td>${c.dateCourse}</td>
-                                        <td>${c.ville}</td>
+					<td>${c.dateCourse?string["yyyy-MM-dd"]}</td>
+					<td>${c.ville}</td>
 					<td class="rigth table-actions">
 						<a href="/courses/${c.id}/update"><i class="material-icons">create</i></a><a href="/courses/${c.id}/delete" class="modal-delete-confirm"><i class="material-icons">delete</i></a>
 					</td>

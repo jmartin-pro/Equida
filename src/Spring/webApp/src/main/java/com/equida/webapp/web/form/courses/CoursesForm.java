@@ -4,8 +4,6 @@ import com.equida.common.bdd.entity.Course;
 import com.equida.common.converter.DateConverter;
 import com.equida.webapp.web.form.IForm;
 import java.util.Date;
-import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -51,13 +49,6 @@ public abstract class CoursesForm extends IForm<Course> {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public String getDateCourseStr() {
-		if(dateCourse == null)
-			return null;
-		
-		return dateConverter.convertToDatabaseColumn(dateCourse);
 	}
 	
 	public Date getDateCourse() {
