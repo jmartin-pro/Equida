@@ -12,6 +12,8 @@ public class InputOutputAttribute {
 	public static final String LISTE_LIEUX = "lieux";
 	public static final String LISTE_CATEG_VENTES = "categVentes";
 	
+	public static final String MESSAGES_LIST = "messages";
+	
 	public static final String TITLE = "title";
 	
     public static final String URL = "url";

@@ -3,6 +3,7 @@ package com.equida.webapp.web.controller;
 import com.equida.common.exception.WebException;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.form.IForm;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 abstract public class AbstractWebController {
+	
+	private Map<String, String> errorMap = new HashMap<>();
+	private ArrayList<String> messages = new ArrayList<>();
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(HttpServletRequest request, Exception exception) {
@@ -36,23 +40,30 @@ abstract public class AbstractWebController {
     }
 
     protected void addError(String fieldError, String messageError, RedirectAttributes attributes) {
-        Map<String, String> errorMap = new HashMap<>();
         errorMap.put(fieldError, messageError);
         attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errorMap);
     }
+	
+	protected void addError(String messageError, ModelAndView modelAndView) {
+        errorMap.put(""+errorMap.size(), messageError);
+        modelAndView.addObject(InputOutputAttribute.ERROR_LIST, errorMap);
+    }
+	
+	protected void addMessage(String message, ModelAndView modelAndView) {
+        messages.add(message);
+        modelAndView.addObject(InputOutputAttribute.MESSAGES_LIST, messages);
+    }
 
     protected void bindErrors(BindingResult bindingResult, RedirectAttributes attributes) {
-        Map<String, String> errors = new HashMap<>();
-
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+		List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         Iterator<FieldError> fieldErrorIterator = fieldErrors.iterator();
         while (fieldErrorIterator.hasNext()) {
             FieldError fieldError = fieldErrorIterator.next();
-            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 
-        if (errors.size() > 0) {
-            attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errors);
+        if (errorMap.size() > 0) {
+            attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errorMap);
         }
     }
 	

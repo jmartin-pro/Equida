@@ -23,10 +23,18 @@ a {
 	margin-right: 15px;
 }
 
-ul.messages-error {
-	background-color: red;
-	border: 2px #b9151b solid;
+ul.messages-error,ul.messages-info {
 	border-radius: 5px;
 	list-style-type: inherit;
 	padding: 10px 35px
+}
+
+ul.messages-error {
+	background-color: red;
+	border: 2px #b9151b solid;
+}
+
+ul.messages-info {
+	background-color: #00b0ff;
+	border: 2px #00acc1 solid;
 }
