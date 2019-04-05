@@ -20,9 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 abstract public class AbstractWebController {
 	
-	private Map<String, String> errorMap = new HashMap<>();
-	private ArrayList<String> messages = new ArrayList<>();
-
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(HttpServletRequest request, Exception exception) {
 
@@ -38,23 +35,28 @@ abstract public class AbstractWebController {
     public ModelAndView handleWebException(HttpServletRequest request, WebException exception) {
         return handleException(request, exception);
     }
-
-    protected void addError(String fieldError, String messageError, RedirectAttributes attributes) {
-        errorMap.put(fieldError, messageError);
-        attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errorMap);
-    }
 	
 	protected void addError(String messageError, ModelAndView modelAndView) {
+		Map<String, String> errorMap = (Map<String, String>) modelAndView.getModel().get(InputOutputAttribute.ERROR_LIST);
+		if(errorMap == null)
+			errorMap = new HashMap<>();
+		
         errorMap.put(""+errorMap.size(), messageError);
         modelAndView.addObject(InputOutputAttribute.ERROR_LIST, errorMap);
     }
 	
 	protected void addMessage(String message, ModelAndView modelAndView) {
+		ArrayList<String> messages = (ArrayList<String>) modelAndView.getModel().get(InputOutputAttribute.MESSAGES_LIST);
+		if(messages == null)
+			messages = new ArrayList<>();
+			
         messages.add(message);
         modelAndView.addObject(InputOutputAttribute.MESSAGES_LIST, messages);
     }
 
     protected void bindErrors(BindingResult bindingResult, RedirectAttributes attributes) {
+		Map<String, String> errorMap = new HashMap<>();
+		
 		List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         Iterator<FieldError> fieldErrorIterator = fieldErrors.iterator();
         while (fieldErrorIterator.hasNext()) {
