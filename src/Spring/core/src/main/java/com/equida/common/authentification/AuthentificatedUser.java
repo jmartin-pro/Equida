@@ -1,4 +1,4 @@
-package com.equida.rest.authentification;
+package com.equida.common.authentification;
 
 import com.equida.common.bdd.entity.Compte;
 import java.util.ArrayList;

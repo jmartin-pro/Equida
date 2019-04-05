@@ -1,7 +1,7 @@
 package com.equida.rest.config;
 
-import com.equida.rest.utils.Sha256PasswordEncoder;
-import com.equida.rest.authentification.AuthentificationService;
+import com.equida.common.utils.Sha256PasswordEncoder;
+import com.equida.common.authentification.AuthentificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

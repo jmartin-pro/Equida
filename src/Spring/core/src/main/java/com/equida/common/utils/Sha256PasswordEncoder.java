@@ -1,10 +1,7 @@
-package com.equida.rest.utils;
+package com.equida.common.utils;
 
-import com.equida.rest.config.SecurityConfig;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,7 +13,7 @@ public class Sha256PasswordEncoder implements PasswordEncoder {
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(SecurityConfig.class.getName()).log(Level.SEVERE, null, ex);
+			ex.printStackTrace();
 		}
 		md.update(cs.toString().getBytes());
 		byte[] digest = md.digest();

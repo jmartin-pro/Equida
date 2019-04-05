@@ -1,4 +1,4 @@
-package com.equida.rest.authentification;
+package com.equida.common.authentification;
 
 import com.equida.common.bdd.entity.Compte;
 import com.equida.common.bdd.repository.CompteRepository;
