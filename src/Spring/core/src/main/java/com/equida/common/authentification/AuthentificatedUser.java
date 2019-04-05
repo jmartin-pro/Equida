@@ -22,6 +22,10 @@ public class AuthentificatedUser implements UserDetails {
 
 		return grantedAuthoritys;
 	}
+	
+	public boolean hasRole(String role) {
+		return compte.getRole().getLibelle().equals(role);
+	}
 
 	@Override
 	public String getPassword() {
