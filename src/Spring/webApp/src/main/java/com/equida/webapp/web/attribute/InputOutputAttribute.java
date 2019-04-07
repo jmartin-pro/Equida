@@ -7,10 +7,11 @@ public class InputOutputAttribute {
 	
     public static final String FORM = "form";
 
+	public static final String LISTE_CATEG_VENTES = "categVentes";
+	public static final String LISTE_LIEUX = "lieux";
 	public static final String LISTE_PAYS = "pays";
 	public static final String LISTE_RACE = "races";
-	public static final String LISTE_LIEUX = "lieux";
-	public static final String LISTE_CATEG_VENTES = "categVentes";
+	public static final String LISTE_VENTES = "ventes";
 	
 	public static final String MESSAGES_LIST = "messages";
 	

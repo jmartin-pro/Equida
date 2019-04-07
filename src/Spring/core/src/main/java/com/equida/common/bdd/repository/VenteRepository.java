@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VenteRepository extends CrudRepository<Vente, Long> {
-	
-	@Override
+		
+	@Query(value = "SELECT v FROM Vente v WHERE v.deleted=0")
 	public List<Vente> findAll();
 	
 	@Query(value = "SELECT v FROM Vente v WHERE v.deleted=0")
@@ -22,5 +22,8 @@ public interface VenteRepository extends CrudRepository<Vente, Long> {
 	
 	@Query(value = "SELECT v FROM Vente v WHERE v.id = ?1 AND v.deleted=0")
 	public Optional<Vente> findById(Long idVente);
+	
+	@Query(value = "SELECT COUNT(v) FROM Vente v WHERE v.deleted=0")
+	public long count();
 	
 }

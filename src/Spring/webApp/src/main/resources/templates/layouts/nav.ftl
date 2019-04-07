@@ -16,11 +16,23 @@
 			<div class="nav-mobile">
 				<ul class="menu right hide-on-med-and-down">
 					<#if user?? && user.hasRole("ADMIN")>
+						<#-- Liens admin -->
 						<li><a href="/pays">Pays</a></li>
 						<li><a href="/races">Races</a></li>
 						<li><a href="/lieux">Lieux</a></li>
 						<li><a href="/categ-ventes">Catégories de vente</a></li>
 					</#if>
+
+					<#if user?? && user.hasRole("USER")>
+						<#-- Liens user -->
+						<li><a href="/pays">Pays</a></li>
+						<li><a href="/races">Races</a></li>
+						<li><a href="/lieux">Lieux</a></li>
+						<li><a href="/categ-ventes">Catégories de vente</a></li>
+					</#if>
+
+					<#-- Liens publiques -->
+					<li><a href="/ventes">Ventes</a></li>
 				</ul>
 			</div>
 		</div>
