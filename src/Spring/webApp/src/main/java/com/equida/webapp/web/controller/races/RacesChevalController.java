@@ -15,6 +15,7 @@ import com.equida.webapp.web.route.races.RacesChevalUpdateRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class RacesChevalController extends AbstractWebController {
 	@Autowired
 	private RaceChevalService raceChevalService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(RacesChevalRoute.RAW_URI)
 	public ModelAndView index() {
 		IRoute route = new RacesChevalRoute();
@@ -44,6 +46,7 @@ public class RacesChevalController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(RacesChevalAddRoute.RAW_URI)
 	public ModelAndView addGet(Model model) {
 		IRoute route = new RacesChevalAddRoute();
@@ -55,6 +58,7 @@ public class RacesChevalController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(RacesChevalAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid RacesChevalAddForm raceChevalForm, BindingResult bindingResult, RedirectAttributes attributes) {
 		if(checkForError(bindingResult, attributes, raceChevalForm)) {
@@ -70,6 +74,7 @@ public class RacesChevalController extends AbstractWebController {
 		return new RedirectView(RacesChevalRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(RacesChevalUpdateRoute.RAW_URI)
 	public ModelAndView updateGet(Model model, @PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval) throws NotFoundException {
 		IRoute route = new RacesChevalUpdateRoute(idRaceCheval);
@@ -87,6 +92,7 @@ public class RacesChevalController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(RacesChevalUpdateRoute.RAW_URI)
 	public RedirectView updatePost(@PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval, @Valid RacesChevalUpdateForm raceChevalForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, raceChevalForm)) {
@@ -104,6 +110,7 @@ public class RacesChevalController extends AbstractWebController {
 		return new RedirectView(RacesChevalRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(RacesChevalDeleteRoute.RAW_URI)
 	public RedirectView delete(@PathVariable(RacesChevalDeleteRoute.PARAM_ID_RACE) Long idRaceCheval) {
 		try {

@@ -15,6 +15,7 @@ import com.equida.webapp.web.route.categVentes.CategVentesUpdateRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class CategVentesController extends AbstractWebController {
 	@Autowired
 	private CategorieVenteService categVenteService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(CategVentesRoute.RAW_URI)
 	public ModelAndView index() {
 		IRoute route = new CategVentesRoute();
@@ -44,6 +46,7 @@ public class CategVentesController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(CategVentesAddRoute.RAW_URI)
 	public ModelAndView addGet(Model model) {
 		IRoute route = new CategVentesAddRoute();
@@ -55,6 +58,7 @@ public class CategVentesController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(CategVentesAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid CategVentesAddForm categVentesForm, BindingResult bindingResult, RedirectAttributes attributes) {
 		if(checkForError(bindingResult, attributes, categVentesForm)) {
@@ -70,6 +74,7 @@ public class CategVentesController extends AbstractWebController {
 		return new RedirectView(CategVentesRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(CategVentesUpdateRoute.RAW_URI)
 	public ModelAndView updateGet(Model model, @PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes) throws NotFoundException {
 		IRoute route = new CategVentesUpdateRoute(idCategVentes);
@@ -87,6 +92,7 @@ public class CategVentesController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(CategVentesUpdateRoute.RAW_URI)
 	public RedirectView updatePost(@PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes, @Valid CategVentesUpdateForm categVentesForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, categVentesForm)) {
@@ -104,6 +110,7 @@ public class CategVentesController extends AbstractWebController {
 		return new RedirectView(CategVentesRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(CategVentesDeleteRoute.RAW_URI)
 	public RedirectView delete(@PathVariable(CategVentesDeleteRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes) {
 		try {

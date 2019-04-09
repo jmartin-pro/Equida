@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,21 +20,38 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 abstract public class AbstractWebController {
-	
+		
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(HttpServletRequest request, Exception exception) {
+    public ModelAndView handleException(HttpServletRequest request, Exception exception) {	
+		if(exception instanceof AccessDeniedException) {
+			return handle403(request, exception);
+		} else if(exception instanceof WebException) {
+			return handleWebException(request, exception);
+		} else {
+			return handleDefault(request, exception);
+		}
+    }
+	
+	public ModelAndView handle403(HttpServletRequest request, Exception exception) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(InputOutputAttribute.EXCEPTION, exception);
+        modelAndView.addObject(InputOutputAttribute.URL, request.getRequestURL());
+        modelAndView.setViewName("error/403");
 
+        return modelAndView;
+    }
+	
+	private ModelAndView handleWebException(HttpServletRequest request, Exception exception) {
+		return handleDefault(request, exception);
+	}
+	
+    public ModelAndView handleDefault(HttpServletRequest request, Exception exception) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(InputOutputAttribute.EXCEPTION, exception);
         modelAndView.addObject(InputOutputAttribute.URL, request.getRequestURL());
         modelAndView.setViewName("error/500");
-
-        return modelAndView;
-    }
-
-    @ExceptionHandler(WebException.class)
-    public ModelAndView handleWebException(HttpServletRequest request, WebException exception) {
-        return handleException(request, exception);
+		
+		return modelAndView;
     }
 	
 	protected void addError(String messageError, ModelAndView modelAndView) {
@@ -108,4 +126,5 @@ abstract public class AbstractWebController {
 		
 		return false;
 	}
+
 }

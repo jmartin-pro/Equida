@@ -1,12 +1,12 @@
 <#include "/layouts/base.ftl"/>
 
-<#global theme="login">
+<#global title="Oups ! Vous ne devriez pas être ici...">
 
-<#macro layout>
+<#macro content>
 <div class="container">
-	<h1>
+	<p>
 		Vous n'êtes pas autorisé à accéder à cette page.
-	</h1>
+	</p>
 </div>
 </#macro>
 

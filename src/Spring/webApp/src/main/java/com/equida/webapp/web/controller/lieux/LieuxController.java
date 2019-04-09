@@ -15,6 +15,7 @@ import com.equida.webapp.web.route.lieux.LieuxUpdateRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class LieuxController extends AbstractWebController {
 	@Autowired
 	private LieuService lieuService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(LieuxRoute.RAW_URI)
 	public ModelAndView index() {
 		IRoute route = new LieuxRoute();
@@ -44,6 +46,7 @@ public class LieuxController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(LieuxAddRoute.RAW_URI)
 	public ModelAndView addGet(Model model) {
 		IRoute route = new LieuxAddRoute();
@@ -55,6 +58,7 @@ public class LieuxController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(LieuxAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid LieuxAddForm lieuxForm, BindingResult bindingResult, RedirectAttributes attributes) {
 		if(checkForError(bindingResult, attributes, lieuxForm)) {
@@ -70,6 +74,7 @@ public class LieuxController extends AbstractWebController {
 		return new RedirectView(LieuxRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(LieuxUpdateRoute.RAW_URI)
 	public ModelAndView updateGet(Model model, @PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu) throws NotFoundException {
 		IRoute route = new LieuxUpdateRoute(idLieu);
@@ -87,6 +92,7 @@ public class LieuxController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(LieuxUpdateRoute.RAW_URI)
 	public RedirectView updatePost(@PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu, @Valid LieuxUpdateForm lieuxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, lieuxForm)) {
@@ -104,6 +110,7 @@ public class LieuxController extends AbstractWebController {
 		return new RedirectView(LieuxRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(LieuxDeleteRoute.RAW_URI)
 	public RedirectView delete(@PathVariable(LieuxDeleteRoute.PARAM_ID_LIEU) Long idLieu) {
 		try {

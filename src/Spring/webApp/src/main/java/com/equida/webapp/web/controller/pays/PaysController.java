@@ -15,6 +15,7 @@ import com.equida.webapp.web.route.pays.PaysUpdateRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class PaysController extends AbstractWebController {
 	@Autowired
 	private PaysService paysService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(PaysRoute.RAW_URI)
 	public ModelAndView index() {
 		IRoute route = new PaysRoute();
@@ -44,6 +46,7 @@ public class PaysController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(PaysAddRoute.RAW_URI)
 	public ModelAndView addGet(Model model) {
 		IRoute route = new PaysAddRoute();
@@ -55,6 +58,7 @@ public class PaysController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(PaysAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid PaysAddForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {
 		if(checkForError(bindingResult, attributes, paysForm)) {
@@ -70,6 +74,7 @@ public class PaysController extends AbstractWebController {
 		return new RedirectView(PaysRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(PaysUpdateRoute.RAW_URI)
 	public ModelAndView updateGet(Model model, @PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays) throws NotFoundException {
 		IRoute route = new PaysUpdateRoute(idPays);
@@ -87,6 +92,7 @@ public class PaysController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(PaysUpdateRoute.RAW_URI)
 	public RedirectView updatePost(@PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays, @Valid PaysUpdateForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, paysForm)) {
@@ -104,6 +110,7 @@ public class PaysController extends AbstractWebController {
 		return new RedirectView(PaysRoute.RAW_URI);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(PaysDeleteRoute.RAW_URI)
 	public RedirectView delete(@PathVariable(PaysDeleteRoute.PARAM_ID_PAYS) Long idPays) {
 		try {
