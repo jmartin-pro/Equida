@@ -69,6 +69,15 @@ abstract public class AbstractWebController {
         }
     }
 	
+	protected void addError(String messageError, RedirectAttributes attributes) {
+		Map<String, String> errorMap = (Map<String, String>) attributes.getFlashAttributes().get(InputOutputAttribute.ERROR_LIST);
+		if(errorMap == null)
+			errorMap = new HashMap<>();
+		
+        errorMap.put(""+errorMap.size(), messageError);
+        attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errorMap);
+    }
+	
 	public <T> void registerForm(ModelAndView modelAndView, Model model, Class<? extends IForm<T>> formClass, T entity) {		
 		if(!model.containsAttribute(InputOutputAttribute.FORM)) {
 			IForm form = null;

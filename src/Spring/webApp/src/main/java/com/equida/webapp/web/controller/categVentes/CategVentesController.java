@@ -1,7 +1,7 @@
 package com.equida.webapp.web.controller.categVentes;
 
 import com.equida.common.bdd.entity.CategVente;
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.CategorieVenteService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
@@ -71,29 +71,32 @@ public class CategVentesController extends AbstractWebController {
 	}
 	
 	@GetMapping(CategVentesUpdateRoute.RAW_URI)
-	public ModelAndView updateGet(Model model, @PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes) {
+	public ModelAndView updateGet(Model model, @PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes) throws NotFoundException {
 		IRoute route = new CategVentesUpdateRoute(idCategVentes);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		try {
 			registerForm(modelAndView, model, CategVentesUpdateForm.class, categVenteService.getById(idCategVentes));	
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw new NotFoudException();
 		}
 		
 		return modelAndView;
 	}
 	
 	@PostMapping(CategVentesUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes, @Valid CategVentesUpdateForm categVentesForm, BindingResult bindingResult, RedirectAttributes attributes) {		
+	public RedirectView updatePost(@PathVariable(CategVentesUpdateRoute.PARAM_ID_CATEG_VENTES) Long idCategVentes, @Valid CategVentesUpdateForm categVentesForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, categVentesForm)) {
 			return new RedirectView(CategVentesUpdateRoute.RAW_URI);
 		}
 
 		try {
 			categVenteService.updateCategVente(idCategVentes, categVentesForm.getLibelle());
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

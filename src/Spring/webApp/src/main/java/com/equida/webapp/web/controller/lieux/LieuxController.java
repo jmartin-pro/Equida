@@ -1,7 +1,7 @@
 package com.equida.webapp.web.controller.lieux;
 
 import com.equida.common.bdd.entity.Lieu;
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.LieuService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
@@ -71,29 +71,32 @@ public class LieuxController extends AbstractWebController {
 	}
 	
 	@GetMapping(LieuxUpdateRoute.RAW_URI)
-	public ModelAndView updateGet(Model model, @PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu) {
+	public ModelAndView updateGet(Model model, @PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu) throws NotFoundException {
 		IRoute route = new LieuxUpdateRoute(idLieu);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		try {
 			registerForm(modelAndView, model, LieuxUpdateForm.class, lieuService.getById(idLieu));	
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw new NotFoudException();
 		}
 		
 		return modelAndView;
 	}
 	
 	@PostMapping(LieuxUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu, @Valid LieuxUpdateForm lieuxForm, BindingResult bindingResult, RedirectAttributes attributes) {		
+	public RedirectView updatePost(@PathVariable(LieuxUpdateRoute.PARAM_ID_LIEU) Long idLieu, @Valid LieuxUpdateForm lieuxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, lieuxForm)) {
 			return new RedirectView(LieuxUpdateRoute.RAW_URI);
 		}
 
 		try {
 			lieuService.updateLieu(idLieu, lieuxForm.getVille(), lieuxForm.getNbBoxes(), lieuxForm.getCommentaire());
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

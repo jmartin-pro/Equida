@@ -1,9 +1,12 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.ServiceException;
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.Client;
+import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.repository.ChevalRepository;
+import com.equida.common.bdd.repository.ClientRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,28 @@ public class ChevalService {
 	@Autowired
 	private ChevalRepository chevalRepository;
 	
+	@Autowired
+	private ClientRepository clientRepository;
+	
+	public List<Cheval> getChevauxByClientId(Long idClient) throws NotFoundException {
+		if(idClient == null) {
+			throw new ServiceException("L'id ne doit pas être null.");
+		}
+		
+		Optional<Client> client = clientRepository.findById(idClient);
+	
+		if(!client.isPresent()) {
+			throw new NotFoundException("L'id du client spécifié n'existe pas.");
+		}
+		
+		return chevalRepository.findAll(idClient);
+	}
+	
 	public List<Cheval> getAll(PageRequest pageRequest) {
 		return chevalRepository.findAll(pageRequest);
 	}
 	
-	public Cheval getById(Long idCheval) {
+	public Cheval getById(Long idCheval) throws NotFoundException {
 		if(idCheval == null) {
 			throw new ServiceException("L'id ne doit pas être null.");
 		}
@@ -28,15 +48,45 @@ public class ChevalService {
 		Optional<Cheval> cheval = chevalRepository.findById(idCheval);
 	
 		if(!cheval.isPresent()) {
-			throw new NotFoudException("L'id du cheval spécifié n'existe pas.");
+			throw new NotFoundException("L'id du cheval spécifié n'existe pas.");
+		}
+		
+		return cheval.get();
+	}
+	
+	public Cheval getBySire(String sireCheval) throws NotFoundException {
+		if(sireCheval == null) {
+			throw new ServiceException("Le sire ne doit pas être null.");
+		}
+				
+		Optional<Cheval> cheval = chevalRepository.findBySire(sireCheval);
+	
+		if(!cheval.isPresent()) {
+			throw new NotFoundException("Le sire du cheval spécifié n'existe pas.");
 		}
 		
 		return cheval.get();
 	}
 
-	public Cheval create(String nom, Character sexe, String sire/*, Long idRace*/) {
+	public Cheval create(String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, Long idClient) {
 		if(nom == null) {
 			throw new ServiceException("Nom ne doit pas être null.");
+		}
+		
+		if(sexe == null) {
+			throw new ServiceException("Sexe ne doit pas être null.");
+		}
+		
+		if(sire == null) {
+			throw new ServiceException("Sire ne doit pas être null.");
+		}
+		
+		if(idRace == null) {
+			throw new ServiceException("idRace ne doit pas être null.");
+		}
+		
+		if(idClient == null) {
+			throw new ServiceException("idClient ne doit pas être null.");
 		}
 		
 		Cheval cheval = new Cheval();
@@ -45,21 +95,51 @@ public class ChevalService {
 		cheval.setNom(nom);
 		cheval.setSexe(sexe);
 		cheval.setSire(sire);
-		/*RaceCheval raceCheval = new RaceCheval();
+		
+		RaceCheval raceCheval = new RaceCheval();
 		raceCheval.setId(idRace);
-		cheval.setRaceCheval(raceCheval);*/
+		cheval.setRaceCheval(raceCheval);
+		
+		if(idMere != null) {
+			Cheval mere = new Cheval();
+			mere.setId(idMere);
+			cheval.setMere(mere);
+		}
+		
+		if(idPere != null) { 
+			Cheval pere = new Cheval();
+			pere.setId(idPere);
+			cheval.setPere(pere);
+		} 
+		
+		Client client = new Client();
+		client.setId(idClient);
+		cheval.setClient(client);
+		
 		cheval.setDeleted(false);
 		
 		return save(cheval);
 	}
 	
-	public Cheval updateCheval(Long idCheval, String nom, Character sexe, String sire/*, Long idRace*/) {
+	public Cheval update(Long idCheval, String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere) throws NotFoundException {
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null.");
 		}
 		
 		if(nom == null) {
-			throw new ServiceException("nom ne doit pas être null.");
+			throw new ServiceException("Nom ne doit pas être null.");
+		}
+		
+		if(sexe == null) {
+			throw new ServiceException("Sexe ne doit pas être null.");
+		}
+		
+		if(sire == null) {
+			throw new ServiceException("Sire ne doit pas être null.");
+		}
+		
+		if(idRace == null) {
+			throw new ServiceException("idRace ne doit pas être null.");
 		}
 		
 		Cheval cheval = getById(idCheval);
@@ -67,13 +147,33 @@ public class ChevalService {
 		cheval.setNom(nom);
 		cheval.setSexe(sexe);
 		cheval.setSire(sire);
-		/*RaceCheval raceCheval = new RaceCheval();
+		
+		RaceCheval raceCheval = new RaceCheval();
 		raceCheval.setId(idRace);
-		cheval.setRaceCheval(raceCheval);*/
+		cheval.setRaceCheval(raceCheval);
+				
+		if(idMere != null) {
+			Cheval mere = new Cheval();
+			mere.setId(idMere);
+			cheval.setMere(mere);
+		} else {
+			cheval.setMere(null);
+		}
+		
+		if(idPere != null) { 
+			Cheval pere = new Cheval();
+			pere.setId(idPere);
+			cheval.setPere(pere);
+		} else {
+			cheval.setPere(null);
+		}
+		
+		cheval.setDeleted(false);
+		
 		return save(cheval);
 	}
 	
-	public void deleteCheval(Long idCheval) {
+	public void delete(Long idCheval) throws NotFoundException {
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null.");
 		}

@@ -1,6 +1,7 @@
 package com.equida.rest.api.dto;
 
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.RaceCheval;
 
 public class ChevalDto implements IDto<Cheval, ChevalDto>{
 	
@@ -8,7 +9,7 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
     private String nom;
     private Character sexe;
     private String sire;
-    //private RaceChevalDto raceCheval;
+    private Long idRaceCheval;
 	private Boolean deleted;
 
 	public static ChevalDto convertToDto(Cheval entity) {
@@ -19,8 +20,7 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		chevalDto.setSexe(entity.getSexe());
 		chevalDto.setSire(entity.getSire());
 		chevalDto.setDeleted(entity.getDeleted());
-			
-		//chevalDto.setRaceCheval(RaceChevalDto.convertToDto(entity.getRaceCheval()));
+		chevalDto.setIdRaceCheval(entity.getRaceCheval().getId());
 		
 		return chevalDto;
 	}
@@ -33,7 +33,11 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		cheval.setNom(this.nom);
 		cheval.setSexe(this.sexe);
 		cheval.setSire(this.sire);
-		//cheval.setRaceCheval(this.raceCheval.convertToEntity());
+		
+		RaceCheval raceCheval = new RaceCheval();
+		raceCheval.setId(idRaceCheval);
+		cheval.setRaceCheval(raceCheval);
+		
 		cheval.setDeleted(this.deleted);
 		
 		return cheval;
@@ -71,13 +75,13 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		this.sire = sire;
 	}
 
-	/*public RaceChevalDto getRaceCheval() {
-		return raceCheval;
+	public Long getIdRaceCheval() {
+		return idRaceCheval;
 	}
 
-	public void setRaceCheval(RaceChevalDto raceCheval) {
-		this.raceCheval = raceCheval;
-	}*/
+	public void setIdRaceCheval(Long idRaceCheval) {
+		this.idRaceCheval = idRaceCheval;
+	}
 	
 	public Boolean getDeleted() {
 		return deleted;

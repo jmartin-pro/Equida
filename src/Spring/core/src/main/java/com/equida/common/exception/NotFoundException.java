@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value=HttpStatus.NOT_FOUND)
-public class NotFoudException extends RuntimeException {
+public class NotFoundException extends Exception {
 
-	public NotFoudException() {
+	public NotFoundException() {
 		super("La page demandée n'existe pas.");
 	}
 
-	public NotFoudException(String msg) {
+	public NotFoundException(String msg) {
 		super(msg);
 	}
 

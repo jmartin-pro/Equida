@@ -1,6 +1,6 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.entity.Lieu;
 import com.equida.common.bdd.repository.LieuRepository;
 import com.equida.common.exception.ServiceException;
@@ -24,12 +24,12 @@ public class LieuService {
 		return lieuRepository.findAll();
 	}
 
-	public Lieu getById(Long idLieu) {
+	public Lieu getById(Long idLieu) throws NotFoundException {
 		System.err.println(""+idLieu);
 		Optional<Lieu> lieu = lieuRepository.findById(idLieu);
 	
 		if(!lieu.isPresent()) {
-			throw new NotFoudException("L'id du lieu n'existe pas.");
+			throw new NotFoundException("L'id du lieu n'existe pas.");
 		}
 		
 		return lieu.get();
@@ -59,7 +59,7 @@ public class LieuService {
 		return save(lieu);
 	}
 	
-	public Lieu updateLieu(Long idLieu, String ville, Integer nbBoxes, String commentaire) {
+	public Lieu updateLieu(Long idLieu, String ville, Integer nbBoxes, String commentaire) throws NotFoundException {
 		if(idLieu == null) {
 			throw new ServiceException("idLieu ne doit pas être null");
 		}
@@ -85,7 +85,7 @@ public class LieuService {
 		return save(lieu);
 	}
 	
-	public void deleteLieu(Long idLieu) {
+	public void deleteLieu(Long idLieu) throws NotFoundException {
 		if(idLieu == null) {
 			throw new ServiceException("idLieu ne doit pas être null");
 		}

@@ -1,7 +1,7 @@
 package com.equida.webapp.web.controller.pays;
 
 import com.equida.common.bdd.entity.Pays;
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.PaysService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
@@ -71,29 +71,32 @@ public class PaysController extends AbstractWebController {
 	}
 	
 	@GetMapping(PaysUpdateRoute.RAW_URI)
-	public ModelAndView updateGet(Model model, @PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays) {
+	public ModelAndView updateGet(Model model, @PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays) throws NotFoundException {
 		IRoute route = new PaysUpdateRoute(idPays);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		try {
 			registerForm(modelAndView, model, PaysUpdateForm.class, paysService.getById(idPays));	
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw new NotFoudException();
 		}
 		
 		return modelAndView;
 	}
 	
 	@PostMapping(PaysUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays, @Valid PaysUpdateForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) {		
+	public RedirectView updatePost(@PathVariable(PaysUpdateRoute.PARAM_ID_PAYS) Long idPays, @Valid PaysUpdateForm paysForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, paysForm)) {
 			return new RedirectView(PaysUpdateRoute.RAW_URI);
 		}
 
 		try {
 			paysService.updatePays(idPays, paysForm.getLibelle());
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

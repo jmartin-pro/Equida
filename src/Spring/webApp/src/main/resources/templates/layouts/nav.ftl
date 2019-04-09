@@ -25,10 +25,7 @@
 
 					<#if user?? && user.hasRole("USER")>
 						<#-- Liens user -->
-						<li><a href="/pays">Pays</a></li>
-						<li><a href="/races">Races</a></li>
-						<li><a href="/lieux">Lieux</a></li>
-						<li><a href="/categ-ventes">Catégories de vente</a></li>
+						<li><a href="/chevaux">Mes chevaux</a></li>
 					</#if>
 
 					<#-- Liens publiques -->

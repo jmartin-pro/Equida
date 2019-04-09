@@ -56,5 +56,9 @@ public class AuthentificatedUser implements UserDetails {
 	public boolean isEnabled() {
 		return !compte.getDeleted();
 	}
+
+	public Compte getCompte() {
+		return compte;
+	}
 	
 }

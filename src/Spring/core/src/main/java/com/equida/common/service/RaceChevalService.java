@@ -1,6 +1,6 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.repository.RaceChevalRepository;
 import com.equida.common.exception.ServiceException;
@@ -24,11 +24,11 @@ public class RaceChevalService {
 		return raceChevalRepository.findAll();
 	}
 
-	public RaceCheval getById(Long idRaceCheval) {
+	public RaceCheval getById(Long idRaceCheval) throws NotFoundException {
 		Optional<RaceCheval> raceCheval = raceChevalRepository.findById(idRaceCheval);
 	
 		if(!raceCheval.isPresent()) {
-			throw new NotFoudException("L'id de la race de cheval n'existe pas.");
+			throw new NotFoundException("L'id de la race de cheval n'existe pas.");
 		}
 		
 		return raceCheval.get();
@@ -53,7 +53,7 @@ public class RaceChevalService {
 		return save(raceCheval);
 	}
 	
-	public RaceCheval updateRaceCheval(Long idRaceCheval, String libelle, String description) {
+	public RaceCheval updateRaceCheval(Long idRaceCheval, String libelle, String description) throws NotFoundException {
 		if(idRaceCheval == null) {
 			throw new ServiceException("idRaceCheval ne doit pas être null");
 		}
@@ -73,7 +73,7 @@ public class RaceChevalService {
 		return save(raceCheval);
 	}
 	
-	public void deleteRaceCheval(Long idRaceCheval) {
+	public void deleteRaceCheval(Long idRaceCheval) throws NotFoundException {
 		if(idRaceCheval == null) {
 			throw new ServiceException("idRaceCheval ne doit pas être null");
 		}

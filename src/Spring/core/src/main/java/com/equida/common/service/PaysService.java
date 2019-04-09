@@ -1,6 +1,6 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.entity.Pays;
 import com.equida.common.bdd.repository.PaysRepository;
 import com.equida.common.exception.ServiceException;
@@ -24,11 +24,11 @@ public class PaysService {
 		return paysRepository.findAll(pageRequest);
 	}
 
-	public Pays getById(Long idPays) {
+	public Pays getById(Long idPays) throws NotFoundException {
 		Optional<Pays> pays = paysRepository.findById(idPays);
 	
 		if(!pays.isPresent()) {
-			throw new NotFoudException("L'id du pays spécifié n'existe pas.");
+			throw new NotFoundException("L'id du pays spécifié n'existe pas.");
 		}
 		
 		return pays.get();
@@ -48,7 +48,7 @@ public class PaysService {
 		return save(pays);
 	}
 	
-	public Pays updatePays(Long idPays, String libelle) {
+	public Pays updatePays(Long idPays, String libelle) throws NotFoundException {
 		if(idPays == null) {
 			throw new ServiceException("idPays ne doit pas être null");
 		}
@@ -63,7 +63,7 @@ public class PaysService {
 		return save(pays);
 	}
 	
-	public void deletePays(Long idPays) {
+	public void deletePays(Long idPays) throws NotFoundException {
 		if(idPays == null) {
 			throw new ServiceException("idPays ne doit pas être null");
 		}

@@ -1,12 +1,11 @@
 package com.equida.webapp.web.controller.races;
 
 import com.equida.common.bdd.entity.RaceCheval;
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.RaceChevalService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
 import com.equida.webapp.web.form.races.RacesChevalAddForm;
-import com.equida.webapp.web.form.races.RacesChevalForm;
 import com.equida.webapp.web.form.races.RacesChevalUpdateForm;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.races.RacesChevalAddRoute;
@@ -40,7 +39,7 @@ public class RacesChevalController extends AbstractWebController {
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		
 		List<RaceCheval> raceCheval = raceChevalService.getAll();
-		modelAndView.addObject(InputOutputAttribute.LISTE_RACE, raceCheval);
+		modelAndView.addObject(InputOutputAttribute.LISTE_RACES, raceCheval);
 		
 		return modelAndView;
 	}
@@ -72,29 +71,32 @@ public class RacesChevalController extends AbstractWebController {
 	}
 	
 	@GetMapping(RacesChevalUpdateRoute.RAW_URI)
-	public ModelAndView updateGet(Model model, @PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval) {
+	public ModelAndView updateGet(Model model, @PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval) throws NotFoundException {
 		IRoute route = new RacesChevalUpdateRoute(idRaceCheval);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		try {
 			registerForm(modelAndView, model, RacesChevalUpdateForm.class, raceChevalService.getById(idRaceCheval));	
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw new NotFoudException();
 		}
 		
 		return modelAndView;
 	}
 	
 	@PostMapping(RacesChevalUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval, @Valid RacesChevalUpdateForm raceChevalForm, BindingResult bindingResult, RedirectAttributes attributes) {		
+	public RedirectView updatePost(@PathVariable(RacesChevalUpdateRoute.PARAM_ID_RACE) Long idRaceCheval, @Valid RacesChevalUpdateForm raceChevalForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, raceChevalForm)) {
 			return new RedirectView(RacesChevalUpdateRoute.RAW_URI);
 		}
 
 		try {
 			raceChevalService.updateRaceCheval(idRaceCheval, raceChevalForm.getLibelle(), raceChevalForm.getDescription());
+		} catch(NotFoundException e) {
+			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

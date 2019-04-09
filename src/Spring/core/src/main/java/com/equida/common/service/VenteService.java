@@ -1,6 +1,6 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoudException;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.bdd.repository.VenteRepository;
 import java.util.List;
@@ -31,11 +31,11 @@ public class VenteService {
 		return venteRepository.findAll(pageRequest);
 	}
 
-	public Vente getById(Long idVente) {
+	public Vente getById(Long idVente) throws NotFoundException {
 		Optional<Vente> vente = venteRepository.findById(idVente);
 	
 		if(!vente.isPresent()) {
-			throw new NotFoudException("L'id de vente spécifié n'existe pas.");
+			throw new NotFoundException("L'id de vente spécifié n'existe pas.");
 		}
 		
 		return vente.get();
