@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un pays</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+	  <ion-label>Libellé</ion-label>
+	  <ion-input [(ngModel)]="libelle"></ion-input>
+	</ion-item>
+
+	<ion-button (click)="addPays()" >Enregistrer</ion-button>
+</ion-content>

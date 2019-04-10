@@ -11,6 +11,7 @@
 
 <ion-content>
 	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+	<ion-button href="/ajout/pays">Ajouter</ion-button>
 	<ion-list>
 		<ion-item *ngFor="let p of pays" routerLink="/pays/{{p.id}}">
 			<p>{{p.id}}</p>

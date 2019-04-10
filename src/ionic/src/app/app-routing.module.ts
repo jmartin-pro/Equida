@@ -15,10 +15,15 @@ const routes: Routes = [
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
   },
-  { 
-	path: 'pays/:id', 
-	loadChildren: './pays/consulter/pays.module#PaysPageModule' 
+  {
+	path: 'pays/:id',
+	loadChildren: './pays/consulter/pays.module#PaysPageModule'
+  },
+  {
+	  path: 'ajout/pays',
+	  loadChildren: './pays/ajout/ajout.module#AjoutPageModule'
   }
+
 ];
 
 @NgModule({

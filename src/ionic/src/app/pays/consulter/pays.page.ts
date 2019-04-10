@@ -35,4 +35,19 @@ export class PaysPage implements OnInit {
 			loading.dismiss();
 		});
 	}
+
+	async deletePays() {
+		const loading = await this.loadingController.create({
+			message: 'Envoi des informations'
+		});
+		await loading.present();
+		await this.api.deletePays(this.route.snapshot.paramMap.get('id'))
+		.subscribe(res => {
+			console.log(res);
+			loading.dismiss();
+		}, err => {
+			console.log(err);
+			loading.dismiss();
+		});
+	}
 }
