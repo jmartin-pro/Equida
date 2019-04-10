@@ -5,6 +5,7 @@ import com.equida.common.authentification.AuthentificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -56,7 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.applyPermitDefaultValues();
+		corsConfiguration.addAllowedMethod(HttpMethod.GET);
+		corsConfiguration.addAllowedMethod(HttpMethod.POST);
+		corsConfiguration.addAllowedMethod(HttpMethod.PATCH);
+		corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 

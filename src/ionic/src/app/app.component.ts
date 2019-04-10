@@ -20,11 +20,16 @@ export class AppComponent {
       url: '/list',
       icon: 'list'
   },
-	{
-      title: 'ajout',
-      url: '/ajout/pays',
-      icon: 'add'
-    }
+  {
+	title: 'ajout',
+	url: '/ajout/pays',
+	icon: 'add'
+},
+  {
+	title: 'Clients',
+	url: '/lister/clients',
+	icon: 'list'
+  }
   ];
 
   constructor(

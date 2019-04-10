@@ -22,7 +22,17 @@ const routes: Routes = [
   {
 	  path: 'ajout/pays',
 	  loadChildren: './pays/ajout/ajout.module#AjoutPageModule'
+  },
+
+  {
+	  path: 'lister/clients',
+	  loadChildren: './clients/lister/lister.module#ListerPageModule'
+  },
+  {
+	  path: 'clients/:id', 
+	  loadChildren: './clients/consulter/consulter.module#ConsulterPageModule'
   }
+
 
 ];
 

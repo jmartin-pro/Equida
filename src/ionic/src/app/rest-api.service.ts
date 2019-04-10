@@ -71,4 +71,19 @@ export class RestApiService {
 		map(this.extractData),
 		catchError(this.handleError));
 	}
+
+	getClients(): Observable<any> {
+		const url = `${apiUrl}/clients`;
+		console.log('url ' + url);
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	getClientById(id: string): Observable<any> {
+		const url = `${apiUrl}/clients/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
 }
