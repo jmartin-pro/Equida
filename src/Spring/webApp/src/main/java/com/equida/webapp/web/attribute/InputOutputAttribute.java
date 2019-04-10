@@ -6,6 +6,8 @@ public class InputOutputAttribute {
     public static final String EXCEPTION = "exception";
 	
     public static final String FORM = "form";
+	
+	public static final String IS_INSCRIPTION_OUVERTE = "isInscriptionOuverte";
 
 	public static final String LISTE_CATEG_VENTES = "categVentes";
 	public static final String LISTE_CHEVAUX = "chevaux";
@@ -20,4 +22,6 @@ public class InputOutputAttribute {
 	
     public static final String URL = "url";
 	public static final String USER = "user";
+	
+	public static final String VENTE = "vente";
 }

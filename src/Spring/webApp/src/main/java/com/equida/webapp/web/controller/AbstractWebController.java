@@ -1,5 +1,6 @@
 package com.equida.webapp.web.controller;
 
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.form.IForm;
@@ -25,6 +26,8 @@ abstract public class AbstractWebController {
     public ModelAndView handleException(HttpServletRequest request, Exception exception) {	
 		if(exception instanceof AccessDeniedException) {
 			return handle403(request, exception);
+		} else if(exception instanceof NotFoundException) {
+			return handleNotFoundException(request, exception);
 		} else if(exception instanceof WebException) {
 			return handleWebException(request, exception);
 		} else {
@@ -37,6 +40,15 @@ abstract public class AbstractWebController {
         modelAndView.addObject(InputOutputAttribute.EXCEPTION, exception);
         modelAndView.addObject(InputOutputAttribute.URL, request.getRequestURL());
         modelAndView.setViewName("error/403");
+
+        return modelAndView;
+    }
+	
+	public ModelAndView handleNotFoundException(HttpServletRequest request, Exception exception) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(InputOutputAttribute.EXCEPTION, exception);
+        modelAndView.addObject(InputOutputAttribute.URL, request.getRequestURL());
+        modelAndView.setViewName("error/404");
 
         return modelAndView;
     }

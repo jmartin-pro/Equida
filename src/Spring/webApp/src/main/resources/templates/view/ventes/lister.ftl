@@ -10,16 +10,23 @@
 		</div>
 	</#if>
 	
-	<div class="row">
-		<#list ventes as v>
-			<h3>${v.nom}</h3>
-			<p>Catégorie : ${v.categVente.libelle}</p>
-			<p>Lieu : ${v.lieu.ville}</p>
-			<p>Date vente: ${v.dateVente?string["dd/MM/yyyy"]}</p>
-			<p>Inscription : ${v.dateDebut?string["dd/MM/yyyy"]} - ${v.dateFin?string["dd/MM/yyyy"]}</p>
+	<#list ventes as v>
+		<div class="row valign-wrapper">
+			<div class="col s12 l9">
+				<h3>${v.nom}</h3>
+				<p>Catégorie : ${v.categVente.libelle}</p>
+				<p>Lieu : ${v.lieu.ville}</p>
+				<p>Date vente : ${v.dateVente?string["dd/MM/yyyy"]}</p>
+				<p>Inscription : ${v.dateDebut?string["dd/MM/yyyy"]} - ${v.dateFin?string["dd/MM/yyyy"]}</p>
+			</div>
+		
+			<div class="col s12 l3">
+				<a class="btn waves-effect waves-light green white-text darken-3" href="/ventes/${v.id}">Voir plus</a>
+			</div>
+		
 			<hr/>
-		</#list>
-	</div>
+		</div>
+	</#list>
 </#macro>
 
 <@render_html/>
