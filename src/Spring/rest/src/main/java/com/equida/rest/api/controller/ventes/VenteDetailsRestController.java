@@ -3,6 +3,7 @@ package com.equida.rest.api.controller.ventes;
 import com.equida.rest.api.dto.VenteDto;
 import com.equida.rest.api.route.ventes.VenteDetailsApiRoute;
 import com.equida.common.bdd.entity.Vente;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class VenteDetailsRestController {
 	private VenteService venteService;
 	
 	@GetMapping(VenteDetailsApiRoute.RAW_URI)
-	public VenteDto getVente(@PathVariable(value = VenteDetailsApiRoute.PARAM_ID_VENTE) Long idVente) {
+	public VenteDto getVente(@PathVariable(value = VenteDetailsApiRoute.PARAM_ID_VENTE) Long idVente) throws NotFoundException {
 		Vente vente = venteService.getById(idVente);
 		
 		return VenteDto.convertToDto(vente);

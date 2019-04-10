@@ -3,6 +3,7 @@ package com.equida.rest.api.controller.races_chevaux;
 import com.equida.rest.api.dto.RaceChevalDto;
 import com.equida.rest.api.route.races_chevaux.RaceChevalDetailsApiRoute;
 import com.equida.common.bdd.entity.RaceCheval;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.RaceChevalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class RaceChevalDetailsRestController {
 	private RaceChevalService chevalService;
 	
 	@GetMapping(RaceChevalDetailsApiRoute.RAW_URI)
-	public RaceChevalDto getRaceCheval(@PathVariable(value = RaceChevalDetailsApiRoute.PARAM_ID_RACE_CHEVAL) Long idRaceCheval) {
+	public RaceChevalDto getRaceCheval(@PathVariable(value = RaceChevalDetailsApiRoute.PARAM_ID_RACE_CHEVAL) Long idRaceCheval) throws NotFoundException {
 		RaceCheval raceCheval = chevalService.getById(idRaceCheval);
 		
 		return RaceChevalDto.convertToDto(raceCheval);

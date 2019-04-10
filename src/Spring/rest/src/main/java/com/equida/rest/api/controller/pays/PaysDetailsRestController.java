@@ -3,6 +3,7 @@ package com.equida.rest.api.controller.pays;
 import com.equida.rest.api.dto.PaysDto;
 import com.equida.rest.api.route.pays.PaysDetailsApiRoute;
 import com.equida.common.bdd.entity.Pays;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.PaysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,19 +20,19 @@ public class PaysDetailsRestController {
 	private PaysService paysService;
 	
 	@GetMapping(PaysDetailsApiRoute.RAW_URI)
-	public PaysDto getPays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays) {
+	public PaysDto getPays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays) throws NotFoundException {
 		Pays pays = paysService.getById(idPays);
 		
 		return PaysDto.convertToDto(pays);
 	}
 	
 	@PatchMapping(PaysDetailsApiRoute.RAW_URI)
-	public void updatePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays, @RequestBody PaysDto paysDto) {
+	public void updatePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays, @RequestBody PaysDto paysDto) throws NotFoundException {
 		paysService.updatePays(idPays, paysDto.getLibelle());
 	}
 	
 	@DeleteMapping(PaysDetailsApiRoute.RAW_URI)
-	public void deletePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays) {
+	public void deletePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays) throws NotFoundException {
 		paysService.deletePays(idPays);
 	}
 
