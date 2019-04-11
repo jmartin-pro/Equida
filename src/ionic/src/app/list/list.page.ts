@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoadingController } from '@ionic/angular';
-import { RestApiService } from '../rest-api.service';
+import { RestApiService } from '../rest-api/rest-api.service';
 
 @Component({
 	selector: 'app-list',

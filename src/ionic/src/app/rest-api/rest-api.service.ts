@@ -30,7 +30,7 @@ export class RestApiService {
 				`body was: ${error.error}`
 			);
 		}
-		// return an observable with a user-facing error message
+
 		return throwError('Something bad happened; please try again later.');
 	}
 
@@ -72,8 +72,8 @@ export class RestApiService {
 		catchError(this.handleError));
 	}
 
-	getClients(): Observable<any> {
-		const url = `${apiUrl}/clients`;
+	getClients(offset : number): Observable<any> {
+		const url = `${apiUrl}/clients?offset=${offset}`;
 		console.log('url ' + url);
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),

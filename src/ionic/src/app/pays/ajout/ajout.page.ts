@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RestApiService } from '../../rest-api.service';
+import { RestApiService } from '../../rest-api/rest-api.service';
 import { LoadingController, NavController } from '@ionic/angular';
 
 @Component({
