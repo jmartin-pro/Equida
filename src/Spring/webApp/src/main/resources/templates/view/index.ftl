@@ -29,11 +29,17 @@
 			<li class="collection-header"><h4>Ventes à venir</h4></li>
 				
 			<li class="collection-item">
-				<p>
-					<a href="#">Nom vente</a><br/>
-					Categorie vente<br/>
-					date ouverture
-				</p>
+				<#if ventes?size == 0>
+					<p>Aucune vente à venir</p>
+				</#if>
+				
+				<#list ventes as v>
+					<p>
+						<a href="/ventes/${v.id}">${v.nom}</a><br/>
+						${v.categVente.libelle}<br/>
+						${v.dateVente?string["dd/MM/yyyy"]}
+					</p>
+				</#list>
 			</li>
 			
 			<li class="collection-item"><a href="/ventes">Plus d'infos</a></li>

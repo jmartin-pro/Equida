@@ -40,5 +40,9 @@ public class VenteService {
 		
 		return vente.get();
 	}
+
+	public List<Vente> get5Recents() {
+		return venteRepository.find5Recents(PageRequest.of(0, 5));
+	}
 	
 }

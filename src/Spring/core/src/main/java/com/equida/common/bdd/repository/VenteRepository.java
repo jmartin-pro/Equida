@@ -26,4 +26,7 @@ public interface VenteRepository extends CrudRepository<Vente, Long> {
 	@Query(value = "SELECT COUNT(v) FROM Vente v WHERE v.deleted=0")
 	public long count();
 	
+	@Query(value = "SELECT v FROM Vente v WHERE v.dateVente > NOW() AND v.deleted=0 ORDER BY v.dateVente")
+	public List<Vente> find5Recents(PageRequest pageRequest);
+	
 }
