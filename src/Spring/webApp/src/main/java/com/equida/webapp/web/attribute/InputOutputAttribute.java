@@ -13,6 +13,7 @@ public class InputOutputAttribute {
 	public static final String LISTE_CHEVAUX = "chevaux";
 	public static final String LISTE_COURSES = "courses";
 	public static final String LISTE_LIEUX = "lieux";
+	public static final String LISTE_LOTS = "lots";
 	public static final String LISTE_PAYS = "pays";
 	public static final String LISTE_RACES = "races";
 	public static final String LISTE_VENTES = "ventes";
@@ -25,4 +26,6 @@ public class InputOutputAttribute {
 	public static final String USER = "user";
 	
 	public static final String VENTE = "vente";
+	public static final String LOT = "lot";
+	public static final String CHEVAL = "cheval";
 }

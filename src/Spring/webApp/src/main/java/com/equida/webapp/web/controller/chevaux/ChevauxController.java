@@ -2,9 +2,11 @@ package com.equida.webapp.web.controller.chevaux;
 
 import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.Lot;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
+import com.equida.common.service.LotService;
 import com.equida.common.service.RaceChevalService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
@@ -12,6 +14,7 @@ import com.equida.webapp.web.form.chevaux.ChevauxAddForm;
 import com.equida.webapp.web.form.chevaux.ChevauxUpdateForm;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxAddRoute;
+import com.equida.webapp.web.route.chevaux.ChevauxConsulterRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxDeleteRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxUpdateRoute;
@@ -35,6 +38,9 @@ public class ChevauxController extends AbstractWebController {
 	
 	@Autowired
 	private ChevalService chevalService;
+	
+	@Autowired
+	private LotService lotService;
 	
 	@Autowired
 	private RaceChevalService raceChevalService;
@@ -175,5 +181,24 @@ public class ChevauxController extends AbstractWebController {
 		} 
 			
 		return new RedirectView(ChevauxRoute.RAW_URI);
+	}
+	
+	@GetMapping(ChevauxConsulterRoute.RAW_URI)
+	public ModelAndView consulter(@PathVariable(ChevauxConsulterRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
+		IRoute route = new ChevauxConsulterRoute(idCheval);
+		
+		ModelAndView modelAndView = new ModelAndView(route.getView());
+		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
+		
+		Cheval cheval = chevalService.getById(idCheval);
+		modelAndView.addObject(InputOutputAttribute.CHEVAL, cheval);
+		try {
+			Lot lot = lotService.getLotByIdCheval(idCheval);
+			modelAndView.addObject(InputOutputAttribute.LOT, lot);
+		} catch(NotFoundException ex) {
+			
+		}
+		
+		return modelAndView;
 	}
 }
