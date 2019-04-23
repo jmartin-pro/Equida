@@ -20,6 +20,7 @@
 						<li><a href="/pays">Pays</a></li>
 						<li><a href="/races">Races</a></li>
 						<li><a href="/lieux">Lieux</a></li>
+						<li><a href="/courses">Courses</a></li>
 						<li><a href="/categ-ventes">Catégories de vente</a></li>
 					</#if>
 
