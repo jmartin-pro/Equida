@@ -30,6 +30,10 @@ public class VenteService {
 		
 		return venteRepository.findAll(pageRequest);
 	}
+	
+	public List<Vente> getAllByIdCategVente(Long idCategVente) {
+		return venteRepository.findAllByIdCategVente(idCategVente);
+	}
 
 	public Vente getById(Long idVente) throws NotFoundException {
 		Optional<Vente> vente = venteRepository.findById(idVente);

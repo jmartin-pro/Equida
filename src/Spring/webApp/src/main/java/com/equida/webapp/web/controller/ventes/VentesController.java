@@ -1,8 +1,10 @@
 package com.equida.webapp.web.controller.ventes;
 
+import com.equida.common.bdd.entity.CategVente;
 import com.equida.common.bdd.entity.Lot;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.exception.NotFoundException;
+import com.equida.common.service.CategorieVenteService;
 import com.equida.common.service.LotService;
 import com.equida.common.service.VenteService;
 import com.equida.common.utils.DateUtils;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,17 +28,24 @@ public class VentesController extends AbstractWebController {
 	private LotService lotService;
 	
 	@Autowired
+	private CategorieVenteService categorieVenteService;
+	
+	@Autowired
 	private VenteService venteService;
 	
 	@GetMapping(VentesRoute.RAW_URI)
-	public ModelAndView lister() {
+	public ModelAndView lister(@RequestParam(required = false, name = VentesRoute.PARAM_ID_CATEG_VENTE)Long idCategVente) {
 		IRoute route = new VentesRoute();
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		
-		List<Vente> ventes = venteService.getAll();
+		List<CategVente> categVentes = categorieVenteService.getAll();
+		List<Vente> ventes = (idCategVente == null) ? venteService.getAll() : venteService.getAllByIdCategVente(idCategVente);
+		
 		modelAndView.addObject(InputOutputAttribute.LISTE_VENTES, ventes);
+		modelAndView.addObject(InputOutputAttribute.LISTE_CATEG_VENTES, categVentes);
+		modelAndView.addObject(InputOutputAttribute.CATEG_VENTE, idCategVente);
 		
 		return modelAndView;
 	}
