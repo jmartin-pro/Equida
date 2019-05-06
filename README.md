@@ -31,7 +31,7 @@ Le Trello utilisé pour le projet est disponible ici : https://trello.com/b/jrKi
 
 # Authentification
 
-L'authentification est géré par le biais de Spring. Concernant l'API il s'agit d'une authentification avec Basic Access Authentification (https://en.wikipedia.org/wiki/Basic\_access\_authentication). De ce fait l'utilisation du SSL est primordial afin de permettre une sécuristation du mot de passe qui pourrait être très facilement intercepté.
+L'authentification est géré par le biais de Spring. Concernant l'API il s'agit d'une authentification avec Basic Access Authentification (https://en.wikipedia.org/wiki/Basic_access_authentication). De ce fait l'utilisation du SSL est primordial afin de permettre une sécuristation du mot de passe qui pourrait être très facilement intercepté.
 
 ## Roles
 
