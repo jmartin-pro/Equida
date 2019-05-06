@@ -52,7 +52,7 @@ public class VentesController extends AbstractWebController {
 		
 		modelAndView.addObject(InputOutputAttribute.VENTE, vente);
 		modelAndView.addObject(InputOutputAttribute.IS_INSCRIPTION_OUVERTE, DateUtils.isBetween(vente.getDateDebut(), vente.getDateFin()));
-		modelAndView.addObject(InputOutputAttribute.LOTS, lots);
+		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
 		return modelAndView;
 	}

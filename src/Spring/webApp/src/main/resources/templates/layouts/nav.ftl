@@ -30,6 +30,7 @@
 					</#if>
 
 					<#-- Liens publiques -->
+					<li><a href="/lots">Lots</a></li>
 					<li><a href="/ventes">Ventes</a></li>
 				</ul>
 			</div>

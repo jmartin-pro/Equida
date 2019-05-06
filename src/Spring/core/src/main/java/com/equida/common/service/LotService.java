@@ -12,6 +12,10 @@ public class LotService {
 	@Autowired
 	private LotRepository lotRepository;
 	
+	public List<Lot> getAllValide() {
+		return lotRepository.findAllValide();
+	}
+	
 	public List<Lot> getLotsByIdVente(long idVente) {
 		return lotRepository.findByIdVente(idVente);
 	}

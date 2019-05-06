@@ -13,10 +13,10 @@ public class InputOutputAttribute {
 	public static final String LISTE_CHEVAUX = "chevaux";
 	public static final String LISTE_COURSES = "courses";
 	public static final String LISTE_LIEUX = "lieux";
+	public static final String LISTE_LOTS = "lots";
 	public static final String LISTE_PAYS = "pays";
 	public static final String LISTE_RACES = "races";
 	public static final String LISTE_VENTES = "ventes";
-	public static final String LOTS = "lots";
 	
 	public static final String MESSAGES_LIST = "messages";
 	
