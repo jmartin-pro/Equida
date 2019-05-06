@@ -5,14 +5,16 @@
     <h2 class="center-align">Liste des ventes</h2>
 	
 	<form class="row" method="GET">
-		<select class="s8" name="idCategVente">
-			<option value="">Sélectionnez votre catégorie de vente</option>
-			<#list categVentes as cv>
-				<option value="${cv.id}" <#if categVente?? && categVente==cv.id>selected</#if>>${cv.libelle}</option>
-			</#list>
-		</select>
+		<div class="col s11">
+			<select class="" name="idCategVente">
+				<option value="">Sélectionnez votre catégorie de vente</option>
+				<#list categVentes as cv>
+					<option value="${cv.id}" <#if categVente?? && categVente==cv.id>selected</#if>>${cv.libelle}</option>
+				</#list>
+			</select>
+		</div>
 		
-		<input class="s4" type="submit" value="Filtrer"/>
+		<input class="col s1" type="submit" value="Filtrer"/>
 	</form>
 	
 	<#if user?? && user.hasRole("ADMIN")>
