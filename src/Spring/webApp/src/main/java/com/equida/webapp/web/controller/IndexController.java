@@ -1,5 +1,6 @@
 package com.equida.webapp.web.controller;
 
+import com.equida.common.service.LotService;
 import com.equida.common.service.VenteService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.route.IRoute;
@@ -13,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController extends AbstractWebController {
 	
 	@Autowired
+	private LotService lotService;
+	
+	@Autowired
 	private VenteService venteService;
 	
 	@GetMapping(IndexRoute.RAW_URI)
@@ -23,6 +27,7 @@ public class IndexController extends AbstractWebController {
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		
 		modelAndView.addObject(InputOutputAttribute.LISTE_VENTES, venteService.get5Recents());
+		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lotService.get5Recents());
 		
 		return modelAndView;
 	}
