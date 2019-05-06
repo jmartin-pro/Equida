@@ -22,6 +22,14 @@
 			<p>Les inscriptions sont uniquement ouvertes du ${vente.dateDebut?string["dd/MM/yyyy"]} au ${vente.dateFin?string["dd/MM/yyyy"]}</p>
 		</#if>
 	</div>
+	
+	<h3>Lots en vente</h3>
+
+	<#if lots?size == 0>
+		<p>La vente ne possède aucun lot en vente pour le moment.</p>
+	<#else>
+		<#include "/view/include/lotLister.ftl"/>
+	</#if>
 </#macro>
 
 <@render_html/>

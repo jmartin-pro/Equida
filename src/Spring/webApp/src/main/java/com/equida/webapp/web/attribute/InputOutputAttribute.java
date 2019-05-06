@@ -16,6 +16,7 @@ public class InputOutputAttribute {
 	public static final String LISTE_PAYS = "pays";
 	public static final String LISTE_RACES = "races";
 	public static final String LISTE_VENTES = "ventes";
+	public static final String LOTS = "lots";
 	
 	public static final String MESSAGES_LIST = "messages";
 	

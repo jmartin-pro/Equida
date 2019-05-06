@@ -1,7 +1,9 @@
 package com.equida.webapp.web.controller.ventes;
 
+import com.equida.common.bdd.entity.Lot;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.exception.NotFoundException;
+import com.equida.common.service.LotService;
 import com.equida.common.service.VenteService;
 import com.equida.common.utils.DateUtils;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
@@ -18,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class VentesController extends AbstractWebController {
+	
+	@Autowired
+	private LotService lotService;
 	
 	@Autowired
 	private VenteService venteService;
@@ -43,8 +48,11 @@ public class VentesController extends AbstractWebController {
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		
 		Vente vente = venteService.getById(idVente);
+		List<Lot> lots = lotService.getLotsByIdVente(idVente);
+		
 		modelAndView.addObject(InputOutputAttribute.VENTE, vente);
 		modelAndView.addObject(InputOutputAttribute.IS_INSCRIPTION_OUVERTE, DateUtils.isBetween(vente.getDateDebut(), vente.getDateFin()));
+		modelAndView.addObject(InputOutputAttribute.LOTS, lots);
 		
 		return modelAndView;
 	}
