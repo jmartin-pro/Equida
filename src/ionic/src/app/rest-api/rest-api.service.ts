@@ -39,20 +39,6 @@ export class RestApiService {
 		return body || { };
 	}
 
-	getPays(): Observable<any> {
-		const url = `${apiUrl}/pays`;
-		console.log('url ' + url);
-		return this.http.get(url, httpOptions).pipe(
-		map(this.extractData),
-		catchError(this.handleError));
-	}
-
-	getPaysById(id: string): Observable<any> {
-		const url = `${apiUrl}/pays/${id}`;
-		return this.http.get(url, httpOptions).pipe(
-		map(this.extractData),
-		catchError(this.handleError));
-	}
 
 	addPays(libelle: string): Observable<any> {
 		let data = {
@@ -72,16 +58,45 @@ export class RestApiService {
 		catchError(this.handleError));
 	}
 
-	getClients(offset : number): Observable<any> {
-		const url = `${apiUrl}/clients?offset=${offset}`;
+	getChevalById(id: string): Observable<any> {
+		const url = `${apiUrl}/chevaux/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	getLots(offset : number): Observable<any> {
+		const url = `${apiUrl}/lots?offset=${offset}`;
 		console.log('url ' + url);
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
 		catchError(this.handleError));
 	}
 
-	getClientById(id: string): Observable<any> {
-		const url = `${apiUrl}/clients/${id}`;
+	getLotById(id: string): Observable<any> {
+		const url = `${apiUrl}/lots/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	getPays(): Observable<any> {
+		const url = `${apiUrl}/pays`;
+		console.log('url ' + url);
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	getPaysById(id: string): Observable<any> {
+		const url = `${apiUrl}/pays/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError));
+	}
+
+	getRaceChevalById(id: string): Observable<any> {
+		const url = `${apiUrl}/racesChevaux/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
 		catchError(this.handleError));

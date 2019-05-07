@@ -22,7 +22,7 @@ export class ConsulterPage implements OnInit {
   }
 
   async getClientById() {
-	  const loading = await this.loadingController.create({
+	/*  const loading = await this.loadingController.create({
 		  message: 'Chargement'
 	  });
 	  await loading.present();
@@ -34,7 +34,7 @@ export class ConsulterPage implements OnInit {
 	  }, err => {
 		  console.log(err);
 		  loading.dismiss();
-	  });
+	  });*/
   }
 
 }

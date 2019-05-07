@@ -10,7 +10,7 @@ import { RestApiService } from '../../rest-api/rest-api.service';
 })
 export class ListerPage implements OnInit {
 
-	private clients: any;
+	private lots: any;
 	private currentOffset: number;
 	private shouldDisableInfiniteScroll : boolean;
 
@@ -18,19 +18,19 @@ export class ListerPage implements OnInit {
 
 	ngOnInit() {
 		this.currentOffset = 0;
-		this.clients = [];
+		this.lots = [];
 		this.shouldDisableInfiniteScroll = false;
-		this.getClients();
+		this.getLots();
 	}
 
-	async getClients() {
+	async getLots() {
 		const loading = await this.loadingController.create({
 			message: 'Chargement'
 		});
 
 		await loading.present();
 
-		this.loadClients();
+		this.loadLots();
 
 		loading.dismiss();
 	}
@@ -38,7 +38,7 @@ export class ListerPage implements OnInit {
 	async loadData(event) {
 		this.currentOffset += 1;
 
-		this.loadClients();
+		this.loadLots();
 
 		if(this.shouldDisableInfiniteScroll)
 			event.target.disabled = true;
@@ -46,8 +46,8 @@ export class ListerPage implements OnInit {
 		event.target.complete();
 	}
 
-	async loadClients() {
-		await this.api.getClients(this.currentOffset)
+	async loadLots() {
+		await this.api.getLots(this.currentOffset)
 			.subscribe(res => {
 				console.log(res);
 
@@ -55,7 +55,20 @@ export class ListerPage implements OnInit {
 					this.shouldDisableInfiniteScroll = true;
 				} else {
 					for(let i = 0 ; i < res.length ; i++) {
-						this.clients.push(res[i]);
+						this.api.getChevalById(res[i].idCheval).subscribe(c => {
+								res[i].cheval = c;
+								this.api.getRaceChevalById(res[i].cheval.idRaceCheval).subscribe(rc => {
+									res[i].cheval.raceCheval = rc;
+								}, err => {
+									console.log(err);
+								});
+
+							}, err => {
+								console.log(err);
+							});
+						
+						
+						this.lots.push(res[i]);
 					}
 				}
 			}, err => {
