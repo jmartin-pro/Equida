@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
-  {
 	path: 'pays/:id',
 	loadChildren: './pays/consulter/pays.module#PaysPageModule'
   },
@@ -29,7 +25,7 @@ const routes: Routes = [
 	  loadChildren: './clients/lister/lister.module#ListerPageModule'
   },
   {
-	  path: 'clients/:id', 
+	  path: 'clients/:id',
 	  loadChildren: './clients/consulter/consulter.module#ConsulterPageModule'
   }
 
