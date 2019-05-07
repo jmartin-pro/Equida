@@ -45,7 +45,11 @@
 		
 		<div class="col l2 s12 center-align">
 			<p><button type="submit" class="waves-effect waves-light btn green white-text darken-3">Enregistrer</button></p>
-			<p><a href="/chevaux">Annuler les modifications</a></p>
+			<#if user?? && user.hasRole("ADMIN")>
+				<p><a href="/lots">Annuler les modifications</a></p>
+			<#else>
+				<p><a href="/chevaux">Annuler les modifications</a></p>
+			</#if>
 		</div>
 	</form>
 </#macro>

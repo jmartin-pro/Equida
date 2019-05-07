@@ -3,6 +3,8 @@ package com.equida.common.service;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.entity.Lot;
 import com.equida.common.bdd.repository.LotRepository;
+import com.equida.common.exception.ServiceException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,31 @@ public class LotService {
 		}
 		
 		return lot.get();
+	}
+	
+	public void deleteLot(Long idLot) throws NotFoundException {
+		if(idLot == null) {
+			throw new ServiceException("idLot ne doit pas être null.");
+		}
+		
+		Lot lot = getById(idLot);
+		
+		lot.setDeleted(true);
+		save(lot);
+	}
+	
+	public void validerLot(Long idLot) throws NotFoundException {
+		if(idLot == null) {
+			throw new ServiceException("idLot ne doit pas être null.");
+		}
+		
+		Lot lot = getById(idLot);
+		
+		lot.setValidation(new Date());
+		save(lot);
+	}
+	
+	public Lot save(Lot lot) {
+		return lotRepository.save(lot);
 	}
 }

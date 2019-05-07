@@ -18,6 +18,7 @@ import com.equida.webapp.web.route.chevaux.ChevauxConsulterRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxDeleteRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxUpdateRoute;
+import com.equida.webapp.web.route.lots.LotsRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +114,7 @@ public class ChevauxController extends AbstractWebController {
 		return new RedirectView(ChevauxRoute.RAW_URI);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping(ChevauxUpdateRoute.RAW_URI)
 	public ModelAndView updateGet(Model model, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
 		IRoute route = new ChevauxUpdateRoute(idCheval);
@@ -133,7 +134,7 @@ public class ChevauxController extends AbstractWebController {
 		return modelAndView;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@PostMapping(ChevauxUpdateRoute.RAW_URI)
 	public RedirectView updatePost(@PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid ChevauxUpdateForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, chevauxForm)) {
