@@ -4,13 +4,22 @@ import com.equida.common.bdd.entity.Lot;
 import com.equida.common.service.LotService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
+import com.equida.webapp.web.form.lot.LotsAddForm;
 import com.equida.webapp.web.route.IRoute;
+import com.equida.webapp.web.route.lots.LotsAddRoute;
 import com.equida.webapp.web.route.lots.LotsRoute;
+import com.equida.webapp.web.route.ventes.VentesConsulterRoute;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class LotsController extends AbstractWebController {
@@ -29,5 +38,25 @@ public class LotsController extends AbstractWebController {
 		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
 		return modelAndView;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@PostMapping(LotsAddRoute.RAW_URI)
+	public RedirectView addPost(@Valid LotsAddForm lotForm, BindingResult bindingResult, RedirectAttributes attributes) {
+		IRoute route = new VentesConsulterRoute(lotForm.getIdVente());
+		
+		if(checkForError(bindingResult, attributes, lotForm)) {
+			return new RedirectView(route.getUri());
+		}
+
+		try {
+			lotService.create(lotForm.getIdVente(), lotForm.getIdCheval(), lotForm.getPrix());
+			addMessage("Le cheval à bien été ajouté à la vente", attributes);
+		} catch(Exception e) {
+			e.printStackTrace();
+			addError("Une erreur est survenue...", attributes);
+		}
+		
+		return new RedirectView(route.getUri());
 	}
 }

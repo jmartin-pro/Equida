@@ -1,5 +1,6 @@
 package com.equida.webapp.web.controller.ventes;
 
+import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.common.bdd.entity.CategVente;
 import com.equida.common.bdd.entity.Lot;
 import com.equida.common.bdd.entity.Vente;
@@ -10,14 +11,17 @@ import com.equida.common.service.VenteService;
 import com.equida.common.utils.DateUtils;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
+import com.equida.webapp.web.form.lot.LotsAddForm;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.ventes.VentesConsulterRoute;
 import com.equida.webapp.web.route.ventes.VentesRoute;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,7 +55,7 @@ public class VentesController extends AbstractWebController {
 	}
 	
 	@GetMapping(VentesConsulterRoute.RAW_URI)
-	public ModelAndView consulter(@PathVariable(VentesConsulterRoute.PARAM_ID_VENTE) Long idVente) throws NotFoundException {
+	public ModelAndView consulter(Model model, @RequestAttribute(name = "user", required = false) AuthentificatedUser user, @PathVariable(VentesConsulterRoute.PARAM_ID_VENTE) Long idVente) throws NotFoundException {
 		IRoute route = new VentesConsulterRoute(idVente);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
@@ -59,11 +63,16 @@ public class VentesController extends AbstractWebController {
 		
 		Vente vente = venteService.getById(idVente);
 		List<Lot> lots = lotService.getLotsByIdVente(idVente);
+		if(user != null) {
+			List<Lot> chevauxDispoVente = lotService.getChevauxDispoVenteClient(user.getCompte().getUtilisateur().getId());	
+			modelAndView.addObject(InputOutputAttribute.LISTE_CHEVAUX, chevauxDispoVente);
+		}
 		
 		modelAndView.addObject(InputOutputAttribute.VENTE, vente);
 		modelAndView.addObject(InputOutputAttribute.IS_INSCRIPTION_OUVERTE, DateUtils.isBetween(vente.getDateDebut(), vente.getDateFin()));
-		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
-		
+		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);		
+		registerForm(modelAndView, model, LotsAddForm.class, null);
+
 		return modelAndView;
 	}
 

@@ -15,7 +15,7 @@ public class VentesConsulterRoute implements IRoute {
 
 	@Override
 	public String getUri() {
-		return RAW_URI.replace(PARAM_ID_VENTE, ""+idVente);
+		return RAW_URI.replace("{"+PARAM_ID_VENTE+"}", ""+idVente);
 	}
 
 	@Override

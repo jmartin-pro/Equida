@@ -108,6 +108,15 @@ abstract public class AbstractWebController {
         attributes.addFlashAttribute(InputOutputAttribute.ERROR_LIST, errorMap);
     }
 	
+	protected void addMessage(String message, RedirectAttributes attributes) {
+		ArrayList<String> messages = (ArrayList<String>)  attributes.getFlashAttributes().get(InputOutputAttribute.MESSAGES_LIST);
+		if(messages == null)
+			messages = new ArrayList<>();
+		
+        messages.add(message);
+        attributes.addFlashAttribute(InputOutputAttribute.MESSAGES_LIST, messages);
+    }
+	
 	public <T> void registerForm(ModelAndView modelAndView, Model model, Class<? extends IForm<T>> formClass, T entity) {		
 		if(!model.containsAttribute(InputOutputAttribute.FORM)) {
 			IForm form = null;

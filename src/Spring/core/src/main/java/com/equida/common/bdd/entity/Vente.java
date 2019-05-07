@@ -54,6 +54,13 @@ public class Vente {
 	@OneToMany(mappedBy = "vente", cascade = CascadeType.ALL)
 	private List<Courriel> courriels;
 
+	public Vente() {
+	}	
+	
+	public Vente(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}
