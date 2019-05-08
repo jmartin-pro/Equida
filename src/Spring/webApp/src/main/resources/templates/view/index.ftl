@@ -15,28 +15,37 @@
 		<ul class="col s12 l6 left collection with-header">
 			<li class="collection-header"><h4>Nouveaux chevaux</h4></li>
 			
-			<li class="collection-item">
-				<p>
-					<a href="#">Nom cheval</a><br/>
-					Race<br/>
-					Prix€
-				</p>
-			</li>
-			<li class="collection-item"><a href="/lots">Plus d'infos</a></li>
+			<#if lots?size == 0>
+				<li class="collection-item">Aucun lot en vente</li>
+			</#if>
+
+			<#list lots as l>
+				<li class="collection-item">
+					<a href="/chevaux/${l.cheval.id}">${l.cheval.nom}</a><br/>
+					${l.cheval.raceCheval.libelle}<br/>
+					${l.prixDepart}€
+				</li>
+			</#list>
+
+			<li class="collection-item"><a href="/lots">Voir plus de lots</a></li>
 		</ul>
 
 		<ul class="col s12 l6 right collection with-header">
 			<li class="collection-header"><h4>Ventes à venir</h4></li>
 				
-			<li class="collection-item">
-				<p>
-					<a href="#">Nom vente</a><br/>
-					Categorie vente<br/>
-					date ouverture
-				</p>
-			</li>
-			
-			<li class="collection-item"><a href="/ventes">Plus d'infos</a></li>
+			<#if ventes?size == 0>
+				<li class="collection-item">Aucune vente à venir</li>
+			</#if>
+
+			<#list ventes as v>
+				<li class="collection-item">
+					<a href="/ventes/${v.id}">${v.nom}</a><br/>
+					${v.categVente.libelle}<br/>
+					${v.dateVente?string["dd/MM/yyyy"]}
+				</li>
+			</#list>
+
+			<li class="collection-item"><a href="/ventes">Voir plus de ventes</a></li>
 		</ul>
 	</div>
 </#macro>

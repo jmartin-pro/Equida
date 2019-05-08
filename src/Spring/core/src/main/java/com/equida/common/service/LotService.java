@@ -1,12 +1,14 @@
 package com.equida.common.service;
 
 import com.equida.common.exception.NotFoundException;
+import java.util.Date;
+import java.util.Optional;
+import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Lot;
+import com.equida.common.bdd.entity.Vente;
 import com.equida.common.bdd.repository.LotRepository;
 import com.equida.common.exception.ServiceException;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,47 @@ public class LotService {
 		
 		lot.setValidation(new Date());
 		save(lot);
+	}
+
+	public List<Lot> getAllValide() {
+		return lotRepository.findAllEnVente();
+	}
+	
+	public List<Lot> getLotsByIdVente(long idVente) {
+		return lotRepository.findByIdVente(idVente);
+	}
+	
+	public List<Lot> getChevauxDispoVenteClient(long idClient) {
+		return lotRepository.findChevauxDispoVenteClient(idClient);
+	}
+	
+	public List<Lot> get5Recents() {
+		return lotRepository.find5Recents(PageRequest.of(0, 5));
+	}
+
+	public Lot create(Long idVente, Long idCheval, Float prix) {
+		if(idVente == null) {
+			throw new ServiceException("idVente ne doit pas être null");
+		}	
+		
+		if(idCheval == null) {
+			throw new ServiceException("idCheval ne doit pas être null");
+		}
+		
+		if(prix == null) {
+			throw new ServiceException("prix ne doit pas être null");
+		}
+		
+		Lot lot = new Lot();
+		
+		lot.setId(null);
+		lot.setCheval(new Cheval(idCheval));
+		lot.setVente(new Vente(idVente));
+		lot.setPrixDepart(prix);
+		lot.setValidation(null);
+		lot.setDeleted(false);
+		
+		return this.save(lot);
 	}
 	
 	public Lot save(Lot lot) {

@@ -2,6 +2,7 @@
 
 <#macro content>
 
+<#if user?? && user.hasRole("ADMIN")>
     <h2 class="center-align">Liste des lots à valider</h2>
 	
 	<#list lots as l>
@@ -21,6 +22,12 @@
 			<hr/>
 		</div>
 	</#list>
+<#else>
+    <h2 class="center-align">Liste des lots en vente</h2>
+
+	<#include "/view/include/lotLister.ftl"/>
+</#if>
+	
 </#macro>
 
 <@render_html/>

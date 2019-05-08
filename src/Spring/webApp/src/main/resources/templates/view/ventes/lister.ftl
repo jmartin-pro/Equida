@@ -4,6 +4,19 @@
 
     <h2 class="center-align">Liste des ventes</h2>
 	
+	<form class="row" method="GET">
+		<div class="col s11">
+			<select class="" name="idCategVente">
+				<option value="">Sélectionnez votre catégorie de vente</option>
+				<#list categVentes as cv>
+					<option value="${cv.id}" <#if categVente?? && categVente==cv.id>selected</#if>>${cv.libelle}</option>
+				</#list>
+			</select>
+		</div>
+		
+		<input class="col s1" type="submit" value="Filtrer"/>
+	</form>
+	
 	<#if user?? && user.hasRole("ADMIN")>
 		<div>
 			<a href="/ventes/add" class="waves-effect waves-light btn green right darken-3">Ajouter</a>

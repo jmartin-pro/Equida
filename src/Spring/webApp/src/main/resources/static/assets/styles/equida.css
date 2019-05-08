@@ -38,3 +38,15 @@ ul.messages-info {
 	background-color: #00b0ff;
 	border: 2px #00acc1 solid;
 }
+
+.row.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row.row-eq-height .card {
+    height: 100%;
+}

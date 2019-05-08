@@ -30,6 +30,10 @@ public class VenteService {
 		
 		return venteRepository.findAll(pageRequest);
 	}
+	
+	public List<Vente> getAllByIdCategVente(Long idCategVente) {
+		return venteRepository.findAllByIdCategVente(idCategVente);
+	}
 
 	public Vente getById(Long idVente) throws NotFoundException {
 		Optional<Vente> vente = venteRepository.findById(idVente);
@@ -39,6 +43,10 @@ public class VenteService {
 		}
 		
 		return vente.get();
+	}
+
+	public List<Vente> get5Recents() {
+		return venteRepository.find5Recents(PageRequest.of(0, 5));
 	}
 	
 }

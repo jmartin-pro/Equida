@@ -28,13 +28,6 @@
 			<p>Ce cheval n'est pas encore validé.</p>
 		</#if>
 		<p>Course(s) : </p>
-		
-		<#if lot?? && lot.validation??>
-			<p>Prix : ${lot.prixDepart}</p>
-			<p> Vente : <a href="/ventes/${lot.vente.id}">${lot.vente.nom}</a></p>
-		<#elseif lot?? && !lot.validation??>
-			<p>Ce cheval n'est pas encore validé.</p>
-		</#if>
 	</div>
 
 </#macro>

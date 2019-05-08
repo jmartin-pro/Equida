@@ -136,7 +136,7 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@PostMapping(ChevauxUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid ChevauxUpdateForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
+	public RedirectView updatePost(@RequestAttribute(name = "user", required = false) AuthentificatedUser user, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid ChevauxUpdateForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, chevauxForm)) {
 			return new RedirectView(ChevauxUpdateRoute.RAW_URI);
 		}
@@ -169,7 +169,12 @@ public class ChevauxController extends AbstractWebController {
 			e.printStackTrace();
 		}
 		
-		return new RedirectView(ChevauxRoute.RAW_URI);
+		if(user != null && user.hasRole("USER") ) {
+			return new RedirectView(ChevauxRoute.RAW_URI);		
+		}
+		else {
+			return new RedirectView(ChevauxConsulterRoute.RAW_URI);
+		}
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")

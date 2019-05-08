@@ -1,6 +1,8 @@
 package com.equida.webapp.web.attribute;
 
 public class InputOutputAttribute {
+	
+	public static final String CATEG_VENTE = "categVente";
 
     public static final String ERROR_LIST = "errors";
     public static final String EXCEPTION = "exception";

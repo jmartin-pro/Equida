@@ -63,6 +63,13 @@ public class Cheval {
 	
 	@OneToMany(mappedBy = "cheval", cascade = CascadeType.ALL)
 	private List<Lot> lots;
+
+	public Cheval() {
+	}
+	
+	public Cheval(Long id) {
+		this.id = id;
+	}
 	
 	public Long getId() {
 		return id;
