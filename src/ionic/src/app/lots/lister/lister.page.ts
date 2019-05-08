@@ -48,16 +48,16 @@ export class ListerPage implements OnInit {
 
 	async loadLots() {
 		await this.api.getLots(this.currentOffset)
-			.subscribe(res => {
+			.then(async res => {
 				console.log(res);
 
 				if(res.length == 0) {
 					this.shouldDisableInfiniteScroll = true;
 				} else {
 					for(let i = 0 ; i < res.length ; i++) {
-						this.api.getChevalById(res[i].idCheval).subscribe(c => {
+						await this.api.getChevalById(res[i].idCheval).then(async c => {
 								res[i].cheval = c;
-								this.api.getRaceChevalById(res[i].cheval.idRaceCheval).subscribe(rc => {
+								await this.api.getRaceChevalById(res[i].cheval.idRaceCheval).then(async rc => {
 									res[i].cheval.raceCheval = rc;
 								}, err => {
 									console.log(err);

@@ -40,7 +40,7 @@ export class RestApiService {
 	}
 
 
-	addPays(libelle: string): Observable<any> {
+	addPays(libelle: string): Promise<any> {
 		let data = {
 			libelle : libelle
 		};
@@ -48,57 +48,57 @@ export class RestApiService {
 		const url = `${apiUrl}/pays`;
 		return this.http.post(url, data, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	deletePays(id: string): Observable<any> {
+	deletePays(id: string): Promise<any> {
 		const url = `${apiUrl}/pays/${id}`;
 		return this.http.delete(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getChevalById(id: string): Observable<any> {
+	getChevalById(id: string): Promise<any> {
 		const url = `${apiUrl}/chevaux/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getLots(offset : number): Observable<any> {
+	getLots(offset : number): Promise<any> {
 		const url = `${apiUrl}/lots?offset=${offset}`;
 		console.log('url ' + url);
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getLotById(id: string): Observable<any> {
+	getLotById(id: string): Promise<any> {
 		const url = `${apiUrl}/lots/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getPays(): Observable<any> {
+	getPays(): Promise<any> {
 		const url = `${apiUrl}/pays`;
 		console.log('url ' + url);
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getPaysById(id: string): Observable<any> {
+	getPaysById(id: string): Promise<any> {
 		const url = `${apiUrl}/pays/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getRaceChevalById(id: string): Observable<any> {
+	getRaceChevalById(id: string): Promise<any> {
 		const url = `${apiUrl}/racesChevaux/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 }

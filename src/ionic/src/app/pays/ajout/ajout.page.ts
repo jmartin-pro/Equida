@@ -25,7 +25,7 @@ export class AjoutPage implements OnInit {
 	  await loading.present();
 
 	  await this.api.addPays(this.libelle)
-	  .subscribe(res => {
+	  .then(res => {
 		  loading.dismiss();
 		  this.navCtrl.pop();
 	  },
