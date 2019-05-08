@@ -26,7 +26,7 @@ export class PaysPage implements OnInit {
 		});
 		await loading.present();
 		await this.api.getPaysById(this.route.snapshot.paramMap.get('id'))
-		.subscribe(res => {
+		.then(res => {
 			console.log(res);
 			this.pays = res;
 			loading.dismiss();
@@ -42,7 +42,7 @@ export class PaysPage implements OnInit {
 		});
 		await loading.present();
 		await this.api.deletePays(this.route.snapshot.paramMap.get('id'))
-		.subscribe(res => {
+		.then(res => {
 			console.log(res);
 			loading.dismiss();
 		}, err => {

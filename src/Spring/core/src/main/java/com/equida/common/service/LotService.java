@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.Optional;
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Lot;
+import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.bdd.repository.LotRepository;
+import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.ServiceException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -73,6 +76,10 @@ public class LotService {
 		return lotRepository.findAllEnVente();
 	}
 	
+	public List<Lot> getAllValide(PageRequest pageRequest) {
+		return lotRepository.findAllEnVente(pageRequest);
+	}
+	
 	public List<Lot> getLotsByIdVente(long idVente) {
 		return lotRepository.findByIdVente(idVente);
 	}
@@ -85,6 +92,16 @@ public class LotService {
 		return lotRepository.find5Recents(PageRequest.of(0, 5));
 	}
 
+	public Lot getById(Long idLot) throws NotFoundException {
+		Optional<Lot> lot = lotRepository.findById(idLot);
+	
+		if(!lot.isPresent()) {
+			throw new NotFoundException("L'id du lot n'existe pas.");
+		}
+		
+		return lot.get();
+	}
+	
 	public Lot create(Long idVente, Long idCheval, Float prix) {
 		if(idVente == null) {
 			throw new ServiceException("idVente ne doit pas être null");

@@ -39,22 +39,8 @@ export class RestApiService {
 		return body || { };
 	}
 
-	getPays(): Observable<any> {
-		const url = `${apiUrl}/pays`;
-		console.log('url ' + url);
-		return this.http.get(url, httpOptions).pipe(
-		map(this.extractData),
-		catchError(this.handleError));
-	}
 
-	getPaysById(id: string): Observable<any> {
-		const url = `${apiUrl}/pays/${id}`;
-		return this.http.get(url, httpOptions).pipe(
-		map(this.extractData),
-		catchError(this.handleError));
-	}
-
-	addPays(libelle: string): Observable<any> {
+	addPays(libelle: string): Promise<any> {
 		let data = {
 			libelle : libelle
 		};
@@ -62,28 +48,57 @@ export class RestApiService {
 		const url = `${apiUrl}/pays`;
 		return this.http.post(url, data, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	deletePays(id: string): Observable<any> {
+	deletePays(id: string): Promise<any> {
 		const url = `${apiUrl}/pays/${id}`;
 		return this.http.delete(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getClients(offset : number): Observable<any> {
-		const url = `${apiUrl}/clients?offset=${offset}`;
+	getChevalById(id: string): Promise<any> {
+		const url = `${apiUrl}/chevaux/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError)).toPromise();
+	}
+
+	getLots(offset : number): Promise<any> {
+		const url = `${apiUrl}/lots?offset=${offset}`;
 		console.log('url ' + url);
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
 	}
 
-	getClientById(id: string): Observable<any> {
-		const url = `${apiUrl}/clients/${id}`;
+	getLotById(id: string): Promise<any> {
+		const url = `${apiUrl}/lots/${id}`;
 		return this.http.get(url, httpOptions).pipe(
 		map(this.extractData),
-		catchError(this.handleError));
+		catchError(this.handleError)).toPromise();
+	}
+
+	getPays(): Promise<any> {
+		const url = `${apiUrl}/pays`;
+		console.log('url ' + url);
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError)).toPromise();
+	}
+
+	getPaysById(id: string): Promise<any> {
+		const url = `${apiUrl}/pays/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError)).toPromise();
+	}
+
+	getRaceChevalById(id: string): Promise<any> {
+		const url = `${apiUrl}/racesChevaux/${id}`;
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError)).toPromise();
 	}
 }

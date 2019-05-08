@@ -28,10 +28,10 @@
 	<#if user?? && user.hasRole("USER")>
 		<a href="#ajouterCheval" onclick="$('#ajouterChevalVente').show(); $(this).hide();">Ajouter un cheval à la vente</a>
 		<div class="row">
-			<#if chevaux?size == 0>
-				<p>Vous n'avez plus de chevaux à vendre, vous ne pouvez donc pas en ajouter à cette vente.</p>
-			<#else>
-				<form class="col s12" id="ajouterChevalVente" style="display: none;" action="/lots/add" method="POST">
+			<form class="col s12" id="ajouterChevalVente" style="display: none;" action="/lots/add" method="POST">			
+				<#if chevaux?size == 0>
+					<p>Vous n'avez plus de chevaux à vendre, vous ne pouvez donc pas en ajouter à cette vente.</p>
+				<#else>
 					<input type="hidden" value="${vente.id}" name="idVente"/>
 					<div class="row">
 						<div class="input-field col s12 l6">
@@ -52,8 +52,8 @@
 							<input type="submit" value="Inscrire à la vente"/>
 						</div>
 					</div>
-				</form>
-			</#if>
+				</#if>
+			</form>
 		</div>
 	</#if>
 

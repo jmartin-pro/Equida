@@ -2,9 +2,9 @@ package com.equida.rest.api.controller.lieux;
 
 import com.equida.rest.api.dto.LieuDto;
 import com.equida.rest.api.dto.filter.BasicFilterDto;
-import com.equida.rest.api.route.lieux.LieuxApiRoute;
 import com.equida.common.bdd.entity.Lieu;
 import com.equida.common.service.LieuService;
+import com.equida.rest.api.route.lieux.LieuxApiRoute;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;

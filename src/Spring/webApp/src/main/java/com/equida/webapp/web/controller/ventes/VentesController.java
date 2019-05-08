@@ -63,7 +63,7 @@ public class VentesController extends AbstractWebController {
 		
 		Vente vente = venteService.getById(idVente);
 		List<Lot> lots = lotService.getLotsByIdVente(idVente);
-		if(user != null) {
+		if(user != null && user.hasRole("USER")) {
 			List<Lot> chevauxDispoVente = lotService.getChevauxDispoVenteClient(user.getCompte().getUtilisateur().getId());	
 			modelAndView.addObject(InputOutputAttribute.LISTE_CHEVAUX, chevauxDispoVente);
 		}
