@@ -36,7 +36,7 @@ public class ChevauxRestController {
 	
 	@PostMapping(ChevauxApiRoute.RAW_URI)
 	public ChevalDto add(@RequestBody ChevalDto chevalDto) {
-		Cheval cheval = chevalService.create(chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire(), chevalDto.getIdRaceCheval(), null, null, 1L);
+		Cheval cheval = chevalService.create(chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire(), chevalDto.getIdRaceCheval(), null, null, 1L, null, null);
 		
 		return chevalDto.convertToDto(cheval);
 	}
