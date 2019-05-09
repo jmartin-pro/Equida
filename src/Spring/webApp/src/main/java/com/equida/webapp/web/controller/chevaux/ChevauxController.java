@@ -3,10 +3,12 @@ package com.equida.webapp.web.controller.chevaux;
 import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Lot;
+import com.equida.common.bdd.entity.Participer;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
 import com.equida.common.service.LotService;
+import com.equida.common.service.ParticiperService;
 import com.equida.common.service.RaceChevalService;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
@@ -18,7 +20,6 @@ import com.equida.webapp.web.route.chevaux.ChevauxConsulterRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxDeleteRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxUpdateRoute;
-import com.equida.webapp.web.route.lots.LotsRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ public class ChevauxController extends AbstractWebController {
 	
 	@Autowired
 	private RaceChevalService raceChevalService;
+	
+	@Autowired
+	private ParticiperService participerService;
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(ChevauxRoute.RAW_URI)
@@ -198,6 +202,10 @@ public class ChevauxController extends AbstractWebController {
 		
 		Cheval cheval = chevalService.getById(idCheval);
 		modelAndView.addObject(InputOutputAttribute.CHEVAL, cheval);
+		
+		List<Participer> participations = participerService.getAllByChevalId(idCheval);
+		modelAndView.addObject(InputOutputAttribute.LISTE_PARTICIPER, participations);
+		
 		try {
 			Lot lot = lotService.getLotByIdCheval(idCheval);
 			modelAndView.addObject(InputOutputAttribute.LOT, lot);

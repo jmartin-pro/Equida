@@ -27,7 +27,30 @@
 		<#elseif lot?? && !lot.validation??>
 			<p>Ce cheval n'est pas encore validé.</p>
 		</#if>
-		<p>Course(s) : </p>
+	</div>
+	
+	<h3>Les courses</h3>
+
+	<div class="row">
+		<table class="table highlight">
+			<thead>
+				<th>Nom course</th>
+				<th>Ville</th>
+				<th>Date</th>
+				<th>Classement</th>
+			</thead>
+
+			<tbody>
+				<#list participations as p>
+					<tr>
+						<td>${p.course.nom}</td>
+						<td>${p.course.ville}</td>
+						<td>${p.course.dateCourse?string["dd/MM/YYYY"]}</td>
+						<td>${p.classement}</td>
+					</tr>
+				</#list>
+			</tbody>
+		</table>
 	</div>
 
 </#macro>

@@ -32,6 +32,13 @@ public class Participer {
 	@Column(name = "CLASSEMENT")
 	private Integer classement;
 
+	public Participer() {
+	}
+	
+	public Participer(Long idParticiper) {
+		this.id = idParticiper;
+	}
+
 	public Long getId() {
 		return id;
 	}

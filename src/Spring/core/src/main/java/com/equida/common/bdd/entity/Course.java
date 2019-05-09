@@ -37,6 +37,13 @@ public class Course {
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private List<Participer> participer;
 
+	public Course() {
+	}
+	
+	public Course(Long idCourse) {
+		this.id = idCourse;
+	}
+
 	public Long getId() {
 		return id;
 	}
