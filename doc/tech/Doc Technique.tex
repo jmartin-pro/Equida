@@ -1,0 +1,37 @@
+\documentclass[report]{BetterDocument}
+
+\newcommand{\bdd}{base de données}
+
+\title{Équida}
+\subtitle{Doc Technique}
+\who{MARTIN Justine\\
+	BOTTON Léa}
+\date{2019}
+\place{BTS SIO 2 - Jean Rostand Caen - E4}
+
+\graphicspath{
+    {include/appli_mobile/}
+    {include/appli_web/}
+    {include/contexte/}
+    {include/core/}
+}
+
+\begin{document}
+
+	\pageDeGarde
+
+	\tableDesMatieres
+
+	\input{include/contexte/contexte}
+
+	\input{include/core/core}
+
+	\input{include/contexte/contexte}
+
+	\input{include/appli_web/appli_web}
+
+	\input{include/appli_mobile/appli_mobile}
+
+	\input{include/ressources/ressources}
+
+\end{document}
