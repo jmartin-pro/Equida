@@ -1,15 +1,12 @@
 package com.equida.common.service;
 
-import com.equida.common.exception.NotFoundException;
-import java.util.Date;
-import java.util.Optional;
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Lot;
-import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.bdd.repository.LotRepository;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.ServiceException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
