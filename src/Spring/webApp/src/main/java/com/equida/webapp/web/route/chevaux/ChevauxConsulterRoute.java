@@ -1,6 +1,5 @@
 package com.equida.webapp.web.route.chevaux;
 
-import com.equida.webapp.web.route.chevaux.*;
 import com.equida.webapp.web.route.IRoute;
 
 public class ChevauxConsulterRoute implements IRoute {

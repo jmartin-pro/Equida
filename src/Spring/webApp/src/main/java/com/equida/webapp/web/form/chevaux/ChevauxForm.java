@@ -2,7 +2,6 @@ package com.equida.webapp.web.form.chevaux;
 
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Participer;
-import com.equida.common.utils.DateUtils;
 import com.equida.webapp.web.form.IForm;
 import java.util.ArrayList;
 import java.util.List;

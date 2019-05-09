@@ -1,7 +1,6 @@
 package com.equida.common.service;
 
 import com.equida.common.bdd.entity.CategVente;
-import com.equida.common.bdd.entity.Pays;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.bdd.repository.CategorieVenteRepository;
 import com.equida.common.exception.ServiceException;

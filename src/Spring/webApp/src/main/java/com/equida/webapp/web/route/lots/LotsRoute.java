@@ -1,6 +1,5 @@
 package com.equida.webapp.web.route.lots;
 
-import com.equida.webapp.web.route.lots.*;
 import com.equida.webapp.web.route.IRoute;
 
 public class LotsRoute implements IRoute {

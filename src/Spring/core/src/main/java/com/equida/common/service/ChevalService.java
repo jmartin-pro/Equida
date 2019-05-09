@@ -4,8 +4,6 @@ import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.ServiceException;
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Client;
-import com.equida.common.bdd.entity.Course;
-import com.equida.common.bdd.entity.Participer;
 import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.repository.ChevalRepository;
 import com.equida.common.bdd.repository.ClientRepository;
