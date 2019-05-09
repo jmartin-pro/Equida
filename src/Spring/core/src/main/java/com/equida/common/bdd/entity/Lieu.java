@@ -35,6 +35,13 @@ public class Lieu {
 	
 	@OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL)
 	private List<Vente> ventes;
+	
+	public Lieu() {
+	}
+	
+	public Lieu(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

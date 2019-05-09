@@ -8,7 +8,10 @@
 	
 	<#if user?? && user.hasRole("ADMIN")>
 		<div>
-			<a href="/ventes/update" class="waves-effect waves-light btn green right darken-3">Modifier</a>
+			<a href="/ventes/${vente.id}/delete" class="waves-effect waves-light btn red right darken-3">Supprimer</a>
+			<#if .now < vente.dateVente >
+			<a href="/ventes/${vente.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a>
+			</#if>
 		</div>
 	</#if>
 	
