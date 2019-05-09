@@ -12,7 +12,7 @@ ajouterCourseButton.addEventListener("click", ajouterCourse);
 function ajouterCourse(event) {
 	event.preventDefault();
 	
-	if(parseInt(idCourseInput.value) != idCourseInput.value || idCourseInput.value.length == 0)
+	if(parseInt(classementCourseInput.value) != classementCourseInput.value || classementCourseInput.value.length == 0)
 		return;
 	
 	let node = document.createElement("a");
