@@ -42,6 +42,26 @@
 				<label for="sirePere">Sire du père</label>
 			</div>
 		</div>
+		<div class="col l9 s12">
+			<div class="input-field col s6">
+				<select id="idCourse">
+					<#list courses as c>
+						<option value="${c.id}">${c.nom} - ${c.ville} ${c.dateCourse?string["dd/MM/YYYY"]}</option>
+					</#list>
+				</select>
+				<label for="idCourse">Course</label>
+			</div>
+
+			<div class="input-field col s6">
+				<input class="validate" id="classementCourse" type="number"/>
+				<label for="classementCourse">Classement de la course</label>
+			</div>
+
+			<button class="waves-effect waves-light btn green white-text darken-3" id="ajouterCourse">Ajouter la course</button>
+
+			<div class="collection" id="listeCourses">
+			</div>
+		</div>
 		
 		<div class="col l2 s12 center-align">
 			<p><button type="submit" class="waves-effect waves-light btn green white-text darken-3">Enregistrer</button></p>
@@ -52,6 +72,10 @@
 			</#if>
 		</div>
 	</form>
+</#macro>
+	
+<#macro extra>
+	<script src="/assets/js/chevaux/courses.js"></script>
 </#macro>
 
 <@render_html/>

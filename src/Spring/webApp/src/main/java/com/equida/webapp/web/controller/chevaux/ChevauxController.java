@@ -7,6 +7,7 @@ import com.equida.common.bdd.entity.Participer;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
+import com.equida.common.service.CourseService;
 import com.equida.common.service.LotService;
 import com.equida.common.service.ParticiperService;
 import com.equida.common.service.RaceChevalService;
@@ -50,6 +51,9 @@ public class ChevauxController extends AbstractWebController {
 	@Autowired
 	private ParticiperService participerService;
 	
+	@Autowired
+	private CourseService courseService;
+	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(ChevauxRoute.RAW_URI)
 	public ModelAndView index(@RequestAttribute(InputOutputAttribute.USER) AuthentificatedUser user) throws WebException {
@@ -77,6 +81,7 @@ public class ChevauxController extends AbstractWebController {
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		modelAndView.addObject(InputOutputAttribute.LISTE_RACES, raceChevalService.getAll());
+		modelAndView.addObject(InputOutputAttribute.LISTE_COURSES, courseService.getAll());
 		registerForm(modelAndView, model, ChevauxAddForm.class, null);
 		
 		return modelAndView;
@@ -126,6 +131,7 @@ public class ChevauxController extends AbstractWebController {
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 		modelAndView.addObject(InputOutputAttribute.LISTE_RACES, raceChevalService.getAll());
+		modelAndView.addObject(InputOutputAttribute.LISTE_COURSES, courseService.getAll());
 
 		try {
 			registerForm(modelAndView, model, ChevauxUpdateForm.class, chevalService.getById(idCheval));	
