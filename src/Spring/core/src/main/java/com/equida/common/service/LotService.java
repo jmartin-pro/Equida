@@ -88,16 +88,6 @@ public class LotService {
 	public List<Lot> get5Recents() {
 		return lotRepository.find5Recents(PageRequest.of(0, 5));
 	}
-
-	public Lot getById(Long idLot) throws NotFoundException {
-		Optional<Lot> lot = lotRepository.findById(idLot);
-	
-		if(!lot.isPresent()) {
-			throw new NotFoundException("L'id du lot n'existe pas.");
-		}
-		
-		return lot.get();
-	}
 	
 	public Lot create(Long idVente, Long idCheval, Float prix) {
 		if(idVente == null) {
