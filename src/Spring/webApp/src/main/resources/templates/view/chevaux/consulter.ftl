@@ -9,8 +9,10 @@
 	<#if user?? && user.hasRole("ADMIN")>
 		<div>
 			<p><a href="/chevaux/${cheval.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a></p>
-			<a href="/lots/${lot.id}/valider" class="waves-effect waves-light btn green right darken-3">Accepter</a>
-			<a href="/lots/${lot.id}/delete" class="waves-effect waves-light btn green right darken-3">Refuser</a>
+			<#if lot??>
+				<a href="/lots/${lot.id}/valider" class="waves-effect waves-light btn green right darken-3">Accepter</a>
+				<a href="/lots/${lot.id}/delete" class="waves-effect waves-light btn green right darken-3">Refuser</a>
+			</#if>
 		</div>
 	</#if>
 	
