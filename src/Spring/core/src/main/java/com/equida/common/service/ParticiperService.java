@@ -89,7 +89,12 @@ public class ParticiperService {
 		participerRepository.delete(new Participer(idParticiper));
 	}
 	
+	public void deleteEveryParticipationByIdCheval(Long idCheval) {
+		participerRepository.deleteEveryParticipationByIdCheval(idCheval);
+	}
+	
 	public Participer save(Participer participer) {
 		return participerRepository.save(participer);
 	}
+
 }

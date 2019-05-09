@@ -115,7 +115,7 @@ public class ChevauxController extends AbstractWebController {
 		}
 		
 		try {
-			chevalService.create(chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere, user.getCompte().getId());
+			chevalService.create(chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere, user.getCompte().getId(), chevauxForm.getIdCourse(), chevauxForm.getClassement());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -172,7 +172,8 @@ public class ChevauxController extends AbstractWebController {
 		}
 		
 		try {
-			chevalService.update(idCheval, chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere);
+			participerService.deleteEveryParticipationByIdCheval(idCheval);
+			chevalService.update(idCheval, chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere, chevauxForm.getIdCourse(), chevauxForm.getClassement());
 		} catch(NotFoundException e) {
 			throw e;
 		} catch(Exception e) {

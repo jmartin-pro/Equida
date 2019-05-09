@@ -4,9 +4,12 @@ import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.ServiceException;
 import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Client;
+import com.equida.common.bdd.entity.Course;
+import com.equida.common.bdd.entity.Participer;
 import com.equida.common.bdd.entity.RaceCheval;
 import com.equida.common.bdd.repository.ChevalRepository;
 import com.equida.common.bdd.repository.ClientRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChevalService {
 
+	@Autowired
+	private ParticiperService participerService;
+	
 	@Autowired
 	private ChevalRepository chevalRepository;
 	
@@ -68,7 +74,7 @@ public class ChevalService {
 		return cheval.get();
 	}
 
-	public Cheval create(String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, Long idClient) {
+	public Cheval create(String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, Long idClient, List<Long> idCourse, List<Integer> classement) {
 		if(nom == null) {
 			throw new ServiceException("Nom ne doit pas être null.");
 		}
@@ -116,12 +122,22 @@ public class ChevalService {
 		client.setId(idClient);
 		cheval.setClient(client);
 		
+		cheval.setParticiper(new ArrayList<>());
+		
 		cheval.setDeleted(false);
 		
-		return save(cheval);
+		Cheval chevalBdd = save(cheval);
+		
+		if(classement != null) {
+			for(int i = 0 ; i < classement.size() ; i++) {
+				participerService.create(chevalBdd.getId(), idCourse.get(i), classement.get(i));
+			}
+		}
+		
+		return chevalBdd;
 	}
 	
-	public Cheval update(Long idCheval, String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere) throws NotFoundException {
+	public Cheval update(Long idCheval, String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, List<Long> idCourse, List<Integer> classement) throws NotFoundException {
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null.");
 		}
@@ -170,7 +186,15 @@ public class ChevalService {
 		
 		cheval.setDeleted(false);
 		
-		return save(cheval);
+		Cheval chevalBdd = save(cheval);
+		
+		if(classement != null) {
+			for(int i = 0 ; i < classement.size() ; i++) {
+				participerService.create(idCheval, idCourse.get(i), classement.get(i));
+			}
+		}
+		
+		return chevalBdd;
 	}
 	
 	public void delete(Long idCheval) throws NotFoundException {

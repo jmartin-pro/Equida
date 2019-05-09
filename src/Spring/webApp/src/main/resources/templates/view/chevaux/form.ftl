@@ -63,7 +63,14 @@
 				<#if form.classement??>
 					<#assign i=0/>
 					<#list form.classement as c>
-						<a href="#" class="collection-item"><input name="idCourse[]" type="hidden" value="${form.idCourse[i]}"><input name="classement[]" type="hidden" value="${c}"><span class="badge">X</span>${form.course[i]} - Position : ${c}</a>
+						<#assign j=0/>
+						<#list courses as co>
+							<#if co.id == form.idCourse[i]>
+								<#break/>
+							</#if>
+							<#assign j=j+1/>							
+						</#list>
+						<a href="#" class="collection-item"><input name="idCourse[${i}]" type="hidden" value="${form.idCourse[i]}"><input name="classement[${i}]" type="hidden" value="${c}"><span class="badge">X</span>${courses[j].nom} - ${courses[j].ville} ${courses[j].dateCourse?string["dd/MM/YYYY"]} - Position : ${c}</a>
 						<#assign i=i+1/>
 					</#list>
 				</#if>

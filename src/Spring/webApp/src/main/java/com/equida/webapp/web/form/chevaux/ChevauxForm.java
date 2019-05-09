@@ -44,8 +44,6 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 	private List<Long> idCourse;
 	
 	private List<Integer> classement;
-	
-	private List<String> course;
 
 	public ChevauxForm(boolean isCreation) {
 		super(isCreation);
@@ -68,12 +66,10 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 		
 		this.classement = new ArrayList<>();
 		this.idCourse = new ArrayList<>();
-		this.course = new ArrayList<>();
 		
 		for(Participer p : entity.getParticiper()) {
 			this.classement.add(p.getClassement());
 			this.idCourse.add(p.getCourse().getId());
-			this.course.add(p.getCourse().getNom() + " - " + p.getCourse().getVille() + " " + DateUtils.format(p.getCourse().getDateCourse()));
 		}
 	}
 
@@ -140,13 +136,4 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 	public void setClassement(List<Integer> classement) {
 		this.classement = classement;
 	}
-
-	public List<String> getCourse() {
-		return course;
-	}
-
-	public void setCourse(List<String> course) {
-		this.course = course;
-	}
-
 }

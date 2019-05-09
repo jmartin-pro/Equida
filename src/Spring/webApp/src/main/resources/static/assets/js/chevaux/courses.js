@@ -25,12 +25,12 @@ function ajouterCourse(event) {
 	badgeNode.appendChild(document.createTextNode("X"));
 	
 	let inputIdCourseNode = document.createElement("input");
-	inputIdCourseNode.name="idCourse[]";
+	inputIdCourseNode.name="idCourse["+listeCourses.children.length+"]";
 	inputIdCourseNode.type="hidden";
 	inputIdCourseNode.value=idCourseInput.value;
 	
 	let inputClassementCourseNode = document.createElement("input");
-	inputClassementCourseNode.name="classement[]";
+	inputClassementCourseNode.name="classement["+listeCourses.children.length+"]";
 	inputClassementCourseNode.type="hidden";
 	inputClassementCourseNode.value=classementCourseInput.value;
 	
@@ -41,11 +41,21 @@ function ajouterCourse(event) {
 	
 	listeCourses.appendChild(node);  
 	
-	idCourseInput.value = 0;
 	classementCourseInput.value = "";
 }
 
 function supprimerCourse(event) {
 	event.preventDefault();
+	
+	let deleteCourse = event.currentTarget.children[0].name;
+	let index = parseInt(deleteCourse.slice(deleteCourse.indexOf("[")+1, deleteCourse.indexOf("]")));
+	
 	event.currentTarget.parentNode.removeChild(event.currentTarget);
+	
+	for(let i = index; i<listeCourses.children.length; i++){
+		listeCourses.children[i].children[0].name = "idCourse[" + index + "]";
+		listeCourses.children[i].children[1].name = "classement[" + index + "]"
+		index++;
+	}
+	
 }
