@@ -1,27 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>consulter</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>Consultation lot</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-card>
-		<ion-card-header>
-			<ion-card-title>{{client.nom}} {{client.prenom}}</ion-card-title>
-		</ion-card-header>
+	<div *ngIf="lot">
 
-		<ion-card-content>
-			<ion-item>
-				{{client.mail}}
-			</ion-item>
+		<ion-card>
+			<ion-card-header>
+				<ion-card-title>{{lot.cheval.nom}} - {{lot.cheval.sire}}</ion-card-title>
+			</ion-card-header>
 
-			<ion-item>
-				{{client.ville}} {{client.copos}}
-			</ion-item>
+			<ion-card-content>
+				<ion-item>
+					{{lot.cheval.raceCheval.libelle}}
+				</ion-item>
 
-			<ion-item>
-				{{client.rue}}
-			</ion-item>
-		</ion-card-content>
-	</ion-card>
+				<ion-item>
+					{{lot.cheval.sexe}}
+				</ion-item>
+
+				<ion-item>
+					{{lot.prixDepart}}€
+				</ion-item>
+			</ion-card-content>
+		</ion-card>
+	</div>
 </ion-content>

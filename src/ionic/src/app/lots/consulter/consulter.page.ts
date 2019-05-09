@@ -4,37 +4,43 @@ import { RestApiService } from '../../rest-api/rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-consulter',
-  templateUrl: './consulter.page.html',
-  styleUrls: ['./consulter.page.scss'],
+	selector: 'app-consulter',
+	templateUrl: './consulter.page.html',
+	styleUrls: ['./consulter.page.scss'],
 })
 export class ConsulterPage implements OnInit {
 
-	client: any = {};
+	lot: any = null;
 
-  constructor(public api: RestApiService,
-  public loadingController: LoadingController,
-  public route: ActivatedRoute,
-  public router: Router) { }
+	constructor(public api: RestApiService,
+		public loadingController: LoadingController,
+		public route: ActivatedRoute,
+		public router: Router) { }
 
-  ngOnInit() {
-	  this.getClientById();
-  }
+	async ngOnInit() {
+		await this.getLotById();
+	}
 
-  async getClientById() {
-	/*  const loading = await this.loadingController.create({
-		  message: 'Chargement'
-	  });
-	  await loading.present();
-	  await this.api.getClientById(this.route.snapshot.paramMap.get('id'))
-	  .subscribe(res => {
-		  console.log(res);
-		  this.client = res;
-		  loading.dismiss();
-	  }, err => {
-		  console.log(err);
-		  loading.dismiss();
-	  });*/
-  }
+	async getLotById() {
+		await this.api.getLotById(this.route.snapshot.paramMap.get('id'))
+			.then(async res => {
+				await this.api.getChevalById(res.idCheval).then(async c => {
+						res.cheval = c;
+						await this.api.getRaceChevalById(res.cheval.idRaceCheval).then(async rc => {
+							res.cheval.raceCheval = rc;
+						}, err => {
+							console.log(err);
+						});
+
+					}, err => {
+						console.log(err);
+					});
+
+
+				this.lot = res;
+			}, err => {
+				console.log(err);
+			});
+	}
 
 }

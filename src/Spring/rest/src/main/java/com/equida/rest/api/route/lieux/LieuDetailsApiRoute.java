@@ -1,12 +1,11 @@
 package com.equida.rest.api.route.lieux;
 
-import com.equida.rest.api.route.lots.LotsApiRoute;
 import com.equida.rest.api.route.IRoute;
 
 public class LieuDetailsApiRoute implements IRoute {
 
-	public static final String PARAM_ID_LIEU = "idVente";
-	public static final String RAW_URI = LotsApiRoute.RAW_URI+"/{"+PARAM_ID_LIEU+"}";
+	public static final String PARAM_ID_LIEU = "idLieu";
+	public static final String RAW_URI = LieuxApiRoute.RAW_URI+"/{"+PARAM_ID_LIEU+"}";
 	
 	private Long id = 0L;
 	
