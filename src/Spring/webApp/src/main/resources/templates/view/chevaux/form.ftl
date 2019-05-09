@@ -60,6 +60,13 @@
 			<button class="waves-effect waves-light btn green white-text darken-3" id="ajouterCourse">Ajouter la course</button>
 
 			<div class="collection" id="listeCourses">
+				<#if form.classement??>
+					<#assign i=0/>
+					<#list form.classement as c>
+						<a href="#" class="collection-item"><input name="idCourse[]" type="hidden" value="${form.idCourse[i]}"><input name="classement[]" type="hidden" value="${c}"><span class="badge">X</span>${form.course[i]} - Position : ${c}</a>
+						<#assign i=i+1/>
+					</#list>
+				</#if>
 			</div>
 		</div>
 		

@@ -3,6 +3,10 @@ let idCourseInput = document.querySelector("#idCourse");
 let classementCourseInput = document.querySelector("#classementCourse");
 let listeCourses = document.querySelector("#listeCourses");
 
+for(let i = 0 ; i < listeCourses.children.length ; i++) {
+	listeCourses.children[i].addEventListener("click", supprimerCourse);
+}
+
 ajouterCourseButton.addEventListener("click", ajouterCourse);
 
 function ajouterCourse(event) {

@@ -1,7 +1,11 @@
 package com.equida.webapp.web.form.chevaux;
 
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.Participer;
+import com.equida.common.utils.DateUtils;
 import com.equida.webapp.web.form.IForm;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -36,6 +40,12 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 	private String sireMere;
 	
 	private String sirePere;
+	
+	private List<Long> idCourse;
+	
+	private List<Integer> classement;
+	
+	private List<String> course;
 
 	public ChevauxForm(boolean isCreation) {
 		super(isCreation);
@@ -55,6 +65,16 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 		
 		if(entity.getRaceCheval()!= null)
 			this.idRaceCheval = entity.getRaceCheval().getId();
+		
+		this.classement = new ArrayList<>();
+		this.idCourse = new ArrayList<>();
+		this.course = new ArrayList<>();
+		
+		for(Participer p : entity.getParticiper()) {
+			this.classement.add(p.getClassement());
+			this.idCourse.add(p.getCourse().getId());
+			this.course.add(p.getCourse().getNom() + " - " + p.getCourse().getVille() + " " + DateUtils.format(p.getCourse().getDateCourse()));
+		}
 	}
 
 	public String getNom() {
@@ -103,6 +123,30 @@ public abstract class ChevauxForm extends IForm<Cheval> {
 
 	public void setSirePere(String sirePere) {
 		this.sirePere = sirePere;
+	}
+
+	public List<Long> getIdCourse() {
+		return idCourse;
+	}
+
+	public void setIdCourse(List<Long> idCourse) {
+		this.idCourse = idCourse;
+	}
+
+	public List<Integer> getClassement() {
+		return classement;
+	}
+
+	public void setClassement(List<Integer> classement) {
+		this.classement = classement;
+	}
+
+	public List<String> getCourse() {
+		return course;
+	}
+
+	public void setCourse(List<String> course) {
+		this.course = course;
 	}
 
 }
