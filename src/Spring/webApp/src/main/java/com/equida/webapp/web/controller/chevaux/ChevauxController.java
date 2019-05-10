@@ -180,12 +180,8 @@ public class ChevauxController extends AbstractWebController {
 			e.printStackTrace();
 		}
 		
-		if(user != null && user.hasRole("USER") ) {
-			return new RedirectView(ChevauxRoute.RAW_URI);		
-		}
-		else {
-			return new RedirectView(ChevauxConsulterRoute.RAW_URI);
-		}
+		IRoute route = new ChevauxConsulterRoute(idCheval);
+		return new RedirectView(route.getUri());
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")

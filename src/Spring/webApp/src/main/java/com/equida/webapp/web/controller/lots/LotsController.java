@@ -11,6 +11,7 @@ import com.equida.webapp.web.controller.AbstractWebController;
 import com.equida.webapp.web.form.lot.LotsAddForm;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.lots.LotsAddRoute;
+import com.equida.webapp.web.route.lots.LotsAValiderRoute;
 import com.equida.webapp.web.route.lots.LotsRoute;
 import com.equida.webapp.web.route.ventes.VentesConsulterRoute;
 import java.util.List;
@@ -38,15 +39,23 @@ public class LotsController extends AbstractWebController {
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
+
+		List<Lot> lots = lotService.getAll();
+		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
-		if(user != null && user.hasRole("USER") || user == null) {
-			List<Lot> lots = lotService.getAllValide();
-			modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);		
-		}
-		else {
-			List<Lot> lots = lotService.getAll();
-			modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
-		}
+		return modelAndView;
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping(LotsAValiderRoute.RAW_URI)
+	public ModelAndView listerLotsAValider(@RequestAttribute(name = "user", required = false) AuthentificatedUser user) {
+		IRoute route = new LotsAValiderRoute();
+		
+		ModelAndView modelAndView = new ModelAndView(route.getView());
+		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
+
+		List<Lot> lots = lotService.getAllValide();
+		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
 		return modelAndView;
 	}
