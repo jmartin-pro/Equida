@@ -56,7 +56,7 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(ChevauxRoute.RAW_URI)
-	public ModelAndView index(@RequestAttribute(InputOutputAttribute.USER) AuthentificatedUser user) throws WebException {
+	public ModelAndView index(@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user) throws WebException {
 		IRoute route = new ChevauxRoute();
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
@@ -89,7 +89,7 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping(ChevauxAddRoute.RAW_URI)
-	public RedirectView addPost(@RequestAttribute(InputOutputAttribute.USER) AuthentificatedUser user, @Valid ChevauxAddForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) {
+	public RedirectView addPost(@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user, @Valid ChevauxAddForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) {
 		if(checkForError(bindingResult, attributes, chevauxForm)) {
 			return new RedirectView(ChevauxAddRoute.RAW_URI);
 		}
@@ -125,7 +125,10 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping(ChevauxUpdateRoute.RAW_URI)
-	public ModelAndView updateGet(Model model, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
+	public ModelAndView updateGet(@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user, Model model, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
+		if(!user.getCompte().getUtilisateur().getId().equals(chevalService.getById(idCheval).getClient().getId()))
+			throw new NotFoundException();
+		
 		IRoute route = new ChevauxUpdateRoute(idCheval);
 		
 		ModelAndView modelAndView = new ModelAndView(route.getView());
@@ -146,7 +149,7 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@PostMapping(ChevauxUpdateRoute.RAW_URI)
-	public RedirectView updatePost(@RequestAttribute(name = "user", required = false) AuthentificatedUser user, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid ChevauxUpdateForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
+	public RedirectView updatePost(@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user, @PathVariable(ChevauxUpdateRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid ChevauxUpdateForm chevauxForm, BindingResult bindingResult, RedirectAttributes attributes) throws NotFoundException {		
 		if(checkForError(bindingResult, attributes, chevauxForm)) {
 			return new RedirectView(ChevauxUpdateRoute.RAW_URI);
 		}
@@ -173,7 +176,7 @@ public class ChevauxController extends AbstractWebController {
 		
 		try {
 			participerService.deleteEveryParticipationByIdCheval(idCheval);
-			chevalService.update(idCheval, chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere, chevauxForm.getIdCourse(), chevauxForm.getClassement());
+			chevalService.update(user.getCompte().getUtilisateur().getId(), idCheval, chevauxForm.getNom(), chevauxForm.getSexe(), chevauxForm.getSire(), chevauxForm.getIdRaceCheval(), idMere, idPere, chevauxForm.getIdCourse(), chevauxForm.getClassement());
 		} catch(NotFoundException e) {
 			throw e;
 		} catch(Exception e) {
@@ -186,12 +189,11 @@ public class ChevauxController extends AbstractWebController {
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping(ChevauxDeleteRoute.RAW_URI)
-	public RedirectView delete(@PathVariable(ChevauxDeleteRoute.PARAM_ID_CHEVAL) Long idCheval) {
-		try {
-			chevalService.delete(idCheval);
-		} catch(Exception e) {
-			e.printStackTrace();
-		} 
+	public RedirectView delete(@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user, @PathVariable(ChevauxDeleteRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
+		if(!user.getCompte().getUtilisateur().getId().equals(chevalService.getById(idCheval).getClient().getId()))
+			throw new NotFoundException();
+		
+		chevalService.delete(user.getCompte().getUtilisateur().getId(), idCheval);
 			
 		return new RedirectView(ChevauxRoute.RAW_URI);
 	}

@@ -135,7 +135,11 @@ public class ChevalService {
 		return chevalBdd;
 	}
 	
-	public Cheval update(Long idCheval, String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, List<Long> idCourse, List<Integer> classement) throws NotFoundException {
+	public Cheval update(Long idClient, Long idCheval, String nom, Character sexe, String sire, Long idRace, Long idMere, Long idPere, List<Long> idCourse, List<Integer> classement) throws NotFoundException {
+		if(idClient == null) {
+			throw new ServiceException("idClient ne doit pas être null.");
+		}
+		
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null.");
 		}
@@ -157,6 +161,10 @@ public class ChevalService {
 		}
 		
 		Cheval cheval = getById(idCheval);
+		
+		if(!cheval.getClient().getId().equals(idClient)) {
+			throw new NotFoundException();
+		}
 		
 		cheval.setNom(nom);
 		cheval.setSexe(sexe);
@@ -195,12 +203,20 @@ public class ChevalService {
 		return chevalBdd;
 	}
 	
-	public void delete(Long idCheval) throws NotFoundException {
+	public void delete(Long idClient, Long idCheval) throws NotFoundException {
+		if(idClient == null) {
+			throw new ServiceException("idClient ne doit pas être null.");
+		}
+		
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null.");
 		}
 		
 		Cheval cheval = getById(idCheval);
+		
+		if(!cheval.getClient().getId().equals(idClient)) {
+			throw new NotFoundException();
+		}
 		
 		cheval.setDeleted(true);
 		save(cheval);

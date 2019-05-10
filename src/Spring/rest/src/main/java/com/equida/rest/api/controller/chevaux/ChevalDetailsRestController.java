@@ -27,12 +27,12 @@ public class ChevalDetailsRestController {
 	
 	@PatchMapping(ChevalDetailsApiRoute.RAW_URI)
 	public void updateCheval(@PathVariable(value = ChevalDetailsApiRoute.PARAM_ID_CHEVAL) Long idCheval, @RequestBody ChevalDto chevalDto) throws NotFoundException {
-		chevalService.update(idCheval, chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire(), chevalDto.getIdRaceCheval(), null, null, null, null);
+		chevalService.update(1L, idCheval, chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire(), chevalDto.getIdRaceCheval(), null, null, null, null);
 	}
 	
 	@DeleteMapping(ChevalDetailsApiRoute.RAW_URI)
 	public void deleteCheval(@PathVariable(value = ChevalDetailsApiRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
-		chevalService.delete(idCheval);
+		chevalService.delete(1L, idCheval);
 	}
 
 }
