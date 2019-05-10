@@ -2,13 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import {NavController} from '@ionic/angular';
 
-
-const httpOptions = {
-	headers: new HttpHeaders({'Content-Type': 'application/json',
-		'Authorization' : 'Basic Y2RlbHRvdXI6dGVzdA=='
-	}),
-};
 const apiUrl = "http://127.0.0.1:1515/api";
 
 @Injectable({
@@ -16,7 +11,9 @@ const apiUrl = "http://127.0.0.1:1515/api";
 })
 
 export class RestApiService {
-	constructor(private http: HttpClient) { }
+
+	constructor(public navCtrl: NavController, private http: HttpClient) {
+	}
 
 	private handleError(error: HttpErrorResponse) {
 		if (error.error instanceof ErrorEvent) {
@@ -39,6 +36,46 @@ export class RestApiService {
 		return body || { };
 	}
 
+	private saveCredentials(username : string, passwd : string) {
+		localStorage.setItem("username", username);
+		localStorage.setItem("passwd", passwd);
+	}
+
+	private getHttpOptions() {
+		let username = localStorage.getItem("username");
+		let passwd = localStorage.getItem("passwd");
+
+		if(username == undefined || passwd == undefined) {
+			this.navCtrl.navigateForward('/login');			
+			//this.navCtrl.push('LoginPageModule');
+			return;
+		}
+
+		let base64Auth = btoa(username+":"+passwd);
+		const httpOptions = {
+			headers: new HttpHeaders({'Content-Type': 'application/json',
+				'Authorization' : 'Basic '+base64Auth
+			}),
+		};
+
+		return httpOptions;
+	}
+
+	checkLogin(username : string, passwd : string): Promise<any> {
+		const url = `${apiUrl}/lots`;
+		console.log('url ' + url);
+
+		let base64Auth = btoa(username+":"+passwd);
+		const httpOptions = {
+			headers: new HttpHeaders({'Content-Type': 'application/json',
+				'Authorization' : 'Basic '+base64Auth
+			})
+		};
+
+		return this.http.get(url, httpOptions).pipe(
+		map(this.extractData),
+		catchError(this.handleError)).toPromise();
+	}
 
 	addPays(libelle: string): Promise<any> {
 		let data = {
@@ -46,21 +83,21 @@ export class RestApiService {
 		};
 
 		const url = `${apiUrl}/pays`;
-		return this.http.post(url, data, httpOptions).pipe(
+		return this.http.post(url, data, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
 
 	deletePays(id: string): Promise<any> {
 		const url = `${apiUrl}/pays/${id}`;
-		return this.http.delete(url, httpOptions).pipe(
+		return this.http.delete(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
 
 	getChevalById(id: string): Promise<any> {
 		const url = `${apiUrl}/chevaux/${id}`;
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
@@ -68,14 +105,14 @@ export class RestApiService {
 	getLots(offset : number): Promise<any> {
 		const url = `${apiUrl}/lots?offset=${offset}`;
 		console.log('url ' + url);
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
 
 	getLotById(id: string): Promise<any> {
 		const url = `${apiUrl}/lots/${id}`;
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
@@ -83,21 +120,21 @@ export class RestApiService {
 	getPays(): Promise<any> {
 		const url = `${apiUrl}/pays`;
 		console.log('url ' + url);
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
 
 	getPaysById(id: string): Promise<any> {
 		const url = `${apiUrl}/pays/${id}`;
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}
 
 	getRaceChevalById(id: string): Promise<any> {
 		const url = `${apiUrl}/racesChevaux/${id}`;
-		return this.http.get(url, httpOptions).pipe(
+		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
 		catchError(this.handleError)).toPromise();
 	}

@@ -26,7 +26,12 @@ const routes: Routes = [
 	{
 		path: 'lots/:id',
 		loadChildren: './lots/consulter/consulter.module#ConsulterPageModule'
+	},
+	{
+		path: 'login',
+		loadChildren: './login/login.module#LoginPageModule'
 	}
+
 
 ];
 
