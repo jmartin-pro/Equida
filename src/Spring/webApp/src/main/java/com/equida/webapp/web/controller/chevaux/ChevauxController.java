@@ -18,7 +18,7 @@ import com.equida.webapp.web.route.chevaux.ChevauxConsulterRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxDeleteRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxRoute;
 import com.equida.webapp.web.route.chevaux.ChevauxUpdateRoute;
-import com.equida.webapp.web.route.lots.LotsRoute;
+import com.equida.webapp.web.route.lots.LotsAValiderRoute;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
