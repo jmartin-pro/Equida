@@ -28,6 +28,9 @@ export class RestApiService {
 			);
 		}
 
+		localStorage.removeItem("username");
+		localStorage.removeItem("passwd");
+
 		return throwError('Something bad happened; please try again later.');
 	}
 
