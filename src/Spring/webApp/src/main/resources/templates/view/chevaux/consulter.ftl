@@ -6,15 +6,20 @@
 
     <h2 class="center-align">${cheval.nom}</h2>
 	
-	<#if user?? && user.hasRole("ADMIN")>
-		<div>
+	<div>
+		<#if user?? && user.hasRole("USER") && user.compte.utilisateur.id == cheval.client.id >
+			<a href="/chevaux/${cheval.id}/delete" class="waves-effect waves-light btn red right darken-3">Supprimer</a>
+		</#if>
+		<#if user?? && user.hasRole("ADMIN")|| user?? && user.hasRole("USER") && user.compte.utilisateur.id == cheval.client.id >
 			<a href="/chevaux/${cheval.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a>
+		</#if>
+		<#if user?? && user.hasRole("ADMIN")>
 			<#if lot??>
 				<a href="/lots/${lot.id}/delete" class="waves-effect waves-light btn red right darken-3">Refuser</a>
 				<a href="/lots/${lot.id}/valider" class="waves-effect waves-light btn green right darken-3">Accepter</a>
 			</#if>
-		</div>
-	</#if>
+		</#if>
+	</div>
 	
 	<div class="row">
 		<p>SIRE : ${cheval.sire}</p>

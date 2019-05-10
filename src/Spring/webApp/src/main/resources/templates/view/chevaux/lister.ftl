@@ -19,7 +19,7 @@
 		<tbody>
 			<#list chevaux as c>
 				<tr>
-					<td>${c.nom}</td>
+					<td><a href="/chevaux/${c.id}/">${c.nom}</a></td>
 					<td>${c.sexe}</td>
 					<td><a class="tooltipped" data-position="bottom" data-tooltip="${c.raceCheval.description}">${c.raceCheval.libelle}</a></td>
 					<td>${c.sire}</td>
