@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Connexion</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<div *ngIf="error">
+		<ion-item color="danger">
+			{{error}}
+	     </ion-item>
+	 </div>
 
+	<ion-item>
+	  <ion-label>Login</ion-label>
+	  <ion-input [(ngModel)]="username"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Mot de passe</ion-label>
+	  <ion-input [(ngModel)]="passwd"></ion-input>
+	</ion-item>
+
+	<ion-button (click)="checkCredentials()">Connexion</ion-button>
 </ion-content>

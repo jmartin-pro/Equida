@@ -36,7 +36,7 @@ export class RestApiService {
 		return body || { };
 	}
 
-	private saveCredentials(username : string, passwd : string) {
+	public saveCredentials(username : string, passwd : string) {
 		localStorage.setItem("username", username);
 		localStorage.setItem("passwd", passwd);
 	}
@@ -46,8 +46,7 @@ export class RestApiService {
 		let passwd = localStorage.getItem("passwd");
 
 		if(username == undefined || passwd == undefined) {
-			this.navCtrl.navigateForward('/login');			
-			//this.navCtrl.push('LoginPageModule');
+			this.navCtrl.navigateForward('/login');
 			return;
 		}
 
