@@ -31,6 +31,13 @@ public class CategVente {
 	
 	@OneToMany(mappedBy = "categVente", cascade = CascadeType.ALL)
 	private List<ClientCategVente> clientCategVentes;
+	
+	public CategVente() {
+	}
+	
+	public CategVente(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

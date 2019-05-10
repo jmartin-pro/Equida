@@ -8,10 +8,10 @@
 	
 	<#if user?? && user.hasRole("ADMIN")>
 		<div>
-			<p><a href="/chevaux/${cheval.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a></p>
+			<a href="/chevaux/${cheval.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a>
 			<#if lot??>
+				<a href="/lots/${lot.id}/delete" class="waves-effect waves-light btn red right darken-3">Refuser</a>
 				<a href="/lots/${lot.id}/valider" class="waves-effect waves-light btn green right darken-3">Accepter</a>
-				<a href="/lots/${lot.id}/delete" class="waves-effect waves-light btn green right darken-3">Refuser</a>
 			</#if>
 		</div>
 	</#if>
@@ -32,28 +32,32 @@
 	</div>
 	
 	<h3>Les courses</h3>
+	
+	<#if participations?size != 0>
+		<div class="row">
+			<table class="table highlight">
+				<thead>
+					<th>Nom course</th>
+					<th>Ville</th>
+					<th>Date</th>
+					<th>Classement</th>
+				</thead>
 
-	<div class="row">
-		<table class="table highlight">
-			<thead>
-				<th>Nom course</th>
-				<th>Ville</th>
-				<th>Date</th>
-				<th>Classement</th>
-			</thead>
-
-			<tbody>
-				<#list participations as p>
-					<tr>
-						<td>${p.course.nom}</td>
-						<td>${p.course.ville}</td>
-						<td>${p.course.dateCourse?string["dd/MM/YYYY"]}</td>
-						<td>${p.classement}</td>
-					</tr>
-				</#list>
-			</tbody>
-		</table>
-	</div>
+				<tbody>
+					<#list participations as p>
+						<tr>
+							<td>${p.course.nom}</td>
+							<td>${p.course.ville}</td>
+							<td>${p.course.dateCourse?string["dd/MM/YYYY"]}</td>
+							<td>${p.classement}</td>
+						</tr>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+	<#else>
+		<p>Ce cheval n'a participé à aucune course.</p>
+	</#if>
 
 </#macro>
 
