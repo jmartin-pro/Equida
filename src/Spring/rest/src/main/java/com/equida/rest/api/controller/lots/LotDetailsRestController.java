@@ -17,7 +17,7 @@ public class LotDetailsRestController {
 	private LotService lotService;
 	
 	@GetMapping(LotDetailsApiRoute.RAW_URI)
-	public LotDto getLieu(@PathVariable(value = LotDetailsApiRoute.PARAM_ID_LOT) Long idLot) throws NotFoundException {
+	public LotDto getLot(@PathVariable(value = LotDetailsApiRoute.PARAM_ID_LOT) Long idLot) throws NotFoundException {
 		Lot lot = lotService.getById(idLot);
 		
 		return LotDto.convertToDto(lot);
