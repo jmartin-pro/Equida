@@ -87,7 +87,7 @@ public class LotsController extends AbstractWebController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping(LotsAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid LotsAddForm lotForm, BindingResult bindingResult, RedirectAttributes attributes) {
-		IRoute route = new VentesConsulterRoute(lotForm.getIdVente());
+		IRoute route = new LotsRoute();
 		
 		if(checkForError(bindingResult, attributes, lotForm)) {
 			return new RedirectView(route.getUri());
