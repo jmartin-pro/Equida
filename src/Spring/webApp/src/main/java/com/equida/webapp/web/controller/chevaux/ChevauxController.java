@@ -2,12 +2,14 @@ package com.equida.webapp.web.controller.chevaux;
 
 import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.Enchere;
 import com.equida.common.bdd.entity.Lot;
 import com.equida.common.bdd.entity.Participer;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
 import com.equida.common.service.CourseService;
+import com.equida.common.service.EnchereService;
 import com.equida.common.service.LotService;
 import com.equida.common.service.ParticiperService;
 import com.equida.common.service.RaceChevalService;
@@ -47,6 +49,9 @@ public class ChevauxController extends AbstractWebController {
 	
 	@Autowired
 	private RaceChevalService raceChevalService;
+	
+	@Autowired
+	private EnchereService enchereService;
 	
 	@Autowired
 	private ParticiperService participerService;
@@ -213,6 +218,8 @@ public class ChevauxController extends AbstractWebController {
 		
 		try {
 			Lot lot = lotService.getLotByIdCheval(idCheval);
+			List<Enchere> encheres = enchereService.getAllByIdLot(lot.getId());
+			modelAndView.addObject(InputOutputAttribute.LISTE_ENCHERES, encheres);
 			modelAndView.addObject(InputOutputAttribute.LOT, lot);
 		} catch(NotFoundException ex) {
 			

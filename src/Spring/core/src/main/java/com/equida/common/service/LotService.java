@@ -19,12 +19,12 @@ public class LotService {
 	@Autowired
 	private LotRepository lotRepository;
 	
-	public List<Lot> getAll() {
-		return lotRepository.findAll();
+	public List<Lot> getAllAValider() {
+		return lotRepository.findAllAValider();
 	}
 	
-	public List<Lot> getAll(PageRequest pageRequest) {
-		return lotRepository.findAll(pageRequest);
+	public List<Lot> getAllAValider(PageRequest pageRequest) {
+		return lotRepository.findAllAValider(pageRequest);
 	}
 
 	public Lot getById(Long idLot) throws NotFoundException {
@@ -69,11 +69,11 @@ public class LotService {
 		save(lot);
 	}
 
-	public List<Lot> getAllValide() {
+	public List<Lot> getAllEnVente() {
 		return lotRepository.findAllEnVente();
 	}
 	
-	public List<Lot> getAllValide(PageRequest pageRequest) {
+	public List<Lot> getAllEnVente(PageRequest pageRequest) {
 		return lotRepository.findAllEnVente(pageRequest);
 	}
 	

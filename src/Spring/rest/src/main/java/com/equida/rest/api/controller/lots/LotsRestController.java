@@ -20,7 +20,7 @@ public class LotsRestController {
 	
 	@GetMapping(LotsApiRoute.RAW_URI)
 	public List<LotDto> get(@Valid BasicFilterDto filterDto) {
-		List<Lot> lots = lotService.getAllValide(filterDto.getPageRequest());
+		List<Lot> lots = lotService.getAllEnVente(filterDto.getPageRequest());
 		
 		List<LotDto> lotsDto = new ArrayList<>();
 		

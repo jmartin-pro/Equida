@@ -40,7 +40,7 @@ public class LotsController extends AbstractWebController {
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 
-		List<Lot> lots = lotService.getAll();
+		List<Lot> lots = lotService.getAllEnVente();
 		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
 		return modelAndView;
@@ -54,7 +54,7 @@ public class LotsController extends AbstractWebController {
 		ModelAndView modelAndView = new ModelAndView(route.getView());
 		modelAndView.addObject(InputOutputAttribute.TITLE, route.getTitle());
 
-		List<Lot> lots = lotService.getAllValide();
+		List<Lot> lots = lotService.getAllAValider();
 		modelAndView.addObject(InputOutputAttribute.LISTE_LOTS, lots);
 		
 		return modelAndView;
@@ -69,7 +69,7 @@ public class LotsController extends AbstractWebController {
 			e.printStackTrace();
 		} 
 			
-		return new RedirectView(LotsRoute.RAW_URI);
+		return new RedirectView(LotsAValiderRoute.RAW_URI);
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -81,13 +81,13 @@ public class LotsController extends AbstractWebController {
 			e.printStackTrace();
 		} 
 			
-		return new RedirectView(LotsRoute.RAW_URI);
+		return new RedirectView(LotsAValiderRoute.RAW_URI);
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping(LotsAddRoute.RAW_URI)
 	public RedirectView addPost(@Valid LotsAddForm lotForm, BindingResult bindingResult, RedirectAttributes attributes) {
-		IRoute route = new VentesConsulterRoute(lotForm.getIdVente());
+		IRoute route = new LotsRoute();
 		
 		if(checkForError(bindingResult, attributes, lotForm)) {
 			return new RedirectView(route.getUri());

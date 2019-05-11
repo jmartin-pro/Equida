@@ -63,6 +63,22 @@
 	<#else>
 		<p>Ce cheval n'a participé à aucune course.</p>
 	</#if>
+	
+	<#if encheres??>
+		<h3>Les enchères</h3>
+
+		<#if user?? && user.hasRole("ADMIN")>		
+			<div>
+				<a href="/encheres/${cheval.id}/add" class="waves-effect waves-light btn green right darken-3">Ajouter</a>
+			</div>
+		</#if>
+
+		<#if encheres?size == 0>
+			<p>Ce cheval n'a pas encore d'enchères</p>
+		<#else>
+			<#include "/view/encheres/lister.ftl"/>
+		</#if>
+	</#if>
 
 </#macro>
 
