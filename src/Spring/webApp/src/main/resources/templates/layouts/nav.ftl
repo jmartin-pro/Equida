@@ -23,6 +23,7 @@
 						<li><a href="/lots/listerAValider">Lots en attente</a></li>
 						<li><a href="/courses">Courses</a></li>
 						<li><a href="/categ-ventes">Catégories de vente</a></li>
+						<li><a href="/utilisateurs">Utilisateurs</a></li>
 					</#if>
 
 					<#if user?? && user.hasRole("USER")>

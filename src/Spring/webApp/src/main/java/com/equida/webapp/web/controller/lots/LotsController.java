@@ -95,7 +95,7 @@ public class LotsController extends AbstractWebController {
 
 		try {
 			lotService.create(lotForm.getIdVente(), lotForm.getIdCheval(), lotForm.getPrix());
-			addMessage("Le cheval à bien été ajouté à la vente", attributes);
+			addMessage("Le cheval a bien été ajouté à la vente", attributes);
 		} catch(Exception e) {
 			e.printStackTrace();
 			addError("Une erreur est survenue...", attributes);
