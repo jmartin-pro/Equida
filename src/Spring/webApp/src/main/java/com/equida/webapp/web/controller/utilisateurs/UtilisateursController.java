@@ -44,6 +44,7 @@ public class UtilisateursController extends AbstractWebController {
 	@Autowired
 	private RoleService roleService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(UtilisateursRoute.RAW_URI)
 	public ModelAndView lister() {
 		IRoute route = new UtilisateursRoute();
@@ -58,6 +59,7 @@ public class UtilisateursController extends AbstractWebController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(UtilisateursConsulterRoute.RAW_URI)
 	public ModelAndView consulter(@PathVariable(UtilisateursConsulterRoute.PARAM_ID_UTILISATEUR) Long idUtilisateur) throws NotFoundException {
 		IRoute route = new UtilisateursConsulterRoute(idUtilisateur);

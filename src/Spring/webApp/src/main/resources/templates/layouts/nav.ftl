@@ -29,6 +29,7 @@
 					<#if user?? && user.hasRole("USER")>
 						<#-- Liens user -->
 						<li><a href="/chevaux">Mes chevaux</a></li>
+						<li><a href="/monProfil">Modifier profil</a></li>
 					</#if>
 
 					<#-- Liens publiques -->
