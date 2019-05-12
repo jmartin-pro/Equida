@@ -48,6 +48,84 @@ public class UtilisateurService {
 		
 		return utilisateur.get();
 	}
+	
+	public Utilisateur update(Long idUtilisateur, String nom, String prenom, String rue, String copos, String ville, Long idPays, String mail, String login, String mdp) throws NotFoundException, FieldException {	
+		if(idUtilisateur == null) {
+			throw new ServiceException("idCheval ne doit pas être null.");
+		}
+		
+		if(nom == null) {
+			throw new ServiceException("nom ne doit pas être null");
+		}
+		
+		if(prenom == null) {
+			throw new ServiceException("prenom ne doit pas être null");
+		}	
+		
+		if(rue == null) {
+			throw new ServiceException("rue ne doit pas être null");
+		}
+		
+		if(copos == null) {
+			throw new ServiceException("copos ne doit pas être null");
+		}
+		
+		if(ville == null) {
+			throw new ServiceException("ville ne doit pas être null");
+		}
+		
+		if(mail == null) {
+			throw new ServiceException("mail ne doit pas être null");
+		}
+		
+		if(login == null) {
+			throw new ServiceException("login ne doit pas être null");
+		}
+		
+		if(mdp == null) {
+			throw new ServiceException("mdp ne doit pas être null");
+		}
+				
+		Utilisateur utilisateur = getById(idUtilisateur);
+		Compte compte = null;
+		
+		if(utilisateur.getCompte()!=null) {
+			compte = compteRepository.findByLogin(utilisateur.getCompte().getLogin()).get();
+		} else {
+			compte = new Compte();
+			compte.setRole(new Role(2L));
+		}
+		
+		if(!login.equals(compte.getLogin())){
+			if(compteRepository.findByLogin(login).isPresent()){
+				throw new FieldException("Le login existe déjà.");
+			}
+		}
+		
+		Sha256PasswordEncoder passwordEncoder = new Sha256PasswordEncoder();
+		compte.setLogin(login);
+		compte.setMdp(passwordEncoder.encode(mdp));
+		compte.setDeleted(false);
+		
+		Compte compteBdd = compteRepository.save(compte);
+		
+		utilisateur.setNom(nom);
+		utilisateur.setPrenom(prenom);
+		utilisateur.setRue(rue);
+		utilisateur.setCopos(copos);
+		utilisateur.setVille(ville);
+		utilisateur.setMail(mail);
+		utilisateur.setDeleted(false);
+		Pays pays = new Pays();
+		pays.setId(idPays);
+		utilisateur.setPays(pays);
+		utilisateur.setDeleted(false);
+		
+		utilisateur.setCompte(compteBdd);
+		
+		return save(utilisateur);
+	}
+	
 	public Utilisateur create(String nom, String prenom, String rue, String copos, String ville, Long idPays, String mail, String login, String mdp, Long idRole) throws FieldException {
 		if(nom == null) {
 			throw new ServiceException("nom ne doit pas être null");

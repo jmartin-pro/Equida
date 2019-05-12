@@ -1,7 +1,5 @@
 package com.equida.webapp.web.form.utilisateurs;
 
-import com.equida.webapp.web.form.utilisateurs.*;
-import com.equida.common.bdd.entity.Compte;
 import com.equida.common.bdd.entity.Utilisateur;
 import com.equida.webapp.web.form.IForm;
 import javax.validation.constraints.NotNull;
@@ -33,8 +31,6 @@ public abstract class UtilisateursForm extends IForm<Utilisateur> {
 	
 	private static final String ERROR_MDP_NULL = "Le champ mdp est obligatoire.";
 	private static final String ERROR_MDP_MAX = "Le champ mdp doit faire entre 2 et 64 caractères.";
-	
-	private static final String ERROR_ROLE_NULL = "Le rôle est obligatoire.";
 	
 	//Gestion Utilisateur
 	@NotNull(message = ERROR_NOM_NULL)
@@ -73,7 +69,6 @@ public abstract class UtilisateursForm extends IForm<Utilisateur> {
 	@Length(min = 2, max = 64, message = ERROR_MDP_MAX)
 	private String mdp;
 		
-	@NotNull(message = ERROR_ROLE_NULL)
 	private Long idRole;
 	
 	public UtilisateursForm(boolean isCreation) {
@@ -93,10 +88,12 @@ public abstract class UtilisateursForm extends IForm<Utilisateur> {
 			this.idPays = userEntity.getPays().getId();
 		
 		//Gestion Compte
-		this.login = userEntity.getCompte().getLogin();
-		this.mdp = userEntity.getCompte().getMdp();
-		if(userEntity.getCompte().getRole()!= null)
-			this.idRole = userEntity.getCompte().getRole().getId();
+		if(userEntity.getCompte()!= null){
+			this.login = userEntity.getCompte().getLogin();
+			this.mdp = userEntity.getCompte().getMdp();
+			if(userEntity.getCompte().getRole()!= null)
+				this.idRole = userEntity.getCompte().getRole().getId();
+		}
 	}
 
 	public String getNom() {

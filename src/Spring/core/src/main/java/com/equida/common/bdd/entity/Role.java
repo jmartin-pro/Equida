@@ -30,6 +30,13 @@ public class Role {
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
 	private List<Compte> compte;
 
+	public Role(Long i) {
+		this.id = i;
+	}
+	
+	public Role() {
+	}
+
 	public Long getId() {
 		return id;
 	}

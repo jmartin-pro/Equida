@@ -45,6 +45,7 @@
 				<input class="validate" type="password" id="mdp" name="mdp"/>
 				<label for="mdp">Mot de passe</label>
 			</div>
+			<#if form.isCreation>
 			<div class="input-field">
 				<select name="idRole">
 					<#list roles as r>
@@ -53,6 +54,7 @@
 				</select>
 				<label for="idRole">Role</label>
 			</div>
+			</#if>
 		</div>
 		
 		<div class="col l2 s12 center-align">
