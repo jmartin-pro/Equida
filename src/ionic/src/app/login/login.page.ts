@@ -26,8 +26,8 @@ export class LoginPage implements OnInit {
 		await loading.present();
 
 		try {
-			await this.api.checkLogin(this.username, this.passwd).then(res => {
-				this.api.saveCredentials(this.username, this.passwd);
+			await this.api.checkLogin(this.username, this.passwd).then(role => {
+				this.api.saveCredentials(this.username, this.passwd, role.libelle);
 				this.navCtrl.navigateForward('/home');
 			});
 		} catch(ex) {

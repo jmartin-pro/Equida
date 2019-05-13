@@ -28,8 +28,6 @@ export class RestApiService {
 			);
 		}
 
-		this.removeCredentials();
-
 		return throwError('Something bad happened; please try again later.');
 	}
 
@@ -38,10 +36,10 @@ export class RestApiService {
 		return body || { };
 	}
 
-	public saveCredentials(username : string, passwd : string) {
+	public saveCredentials(username : string, passwd : string, role: string) {
 		localStorage.setItem("username", username);
 		localStorage.setItem("passwd", passwd);
-		localStorage.setItem("role", "ADMIN");
+		localStorage.setItem("role", role);
 	}
 
 	public removeCredentials() {
@@ -70,8 +68,7 @@ export class RestApiService {
 	}
 
 	checkLogin(username : string, passwd : string): Promise<any> {
-		const url = `${apiUrl}/lots`;
-		console.log('url ' + url);
+		const url = `${apiUrl}/login`;
 
 		let base64Auth = btoa(username+":"+passwd);
 		const httpOptions = {
