@@ -32,6 +32,32 @@ export class AppComponent {
 	    }
 	];
 
+	public userAppPages = [
+		{
+			title: 'User',
+			url: '/home',
+			icon: 'home'
+		},
+		{
+			title: 'Déconnexion',
+			url: '/logout',
+			icon: 'home'
+		}
+	];
+
+	public adminAppPages = [
+		{
+			title: 'Admin',
+			url: '/home',
+			icon: 'home'
+		},
+		{
+			title: 'Déconnexion',
+			url: '/logout',
+			icon: 'home'
+		}
+	];
+
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
@@ -45,5 +71,15 @@ export class AppComponent {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
 		});
+	}
+
+	getAuthentifiedUserAppPages() {
+		if(localStorage.getItem("role") == "ADMIN") {
+			return this.adminAppPages;
+		} else if(localStorage.getItem("role") == "USER") {
+			return this.userAppPages;
+		} else {
+			return [];
+		}
 	}
 }

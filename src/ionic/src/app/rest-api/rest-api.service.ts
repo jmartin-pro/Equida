@@ -28,8 +28,7 @@ export class RestApiService {
 			);
 		}
 
-		localStorage.removeItem("username");
-		localStorage.removeItem("passwd");
+		this.removeCredentials();
 
 		return throwError('Something bad happened; please try again later.');
 	}
@@ -42,6 +41,12 @@ export class RestApiService {
 	public saveCredentials(username : string, passwd : string) {
 		localStorage.setItem("username", username);
 		localStorage.setItem("passwd", passwd);
+		localStorage.setItem("role", "ADMIN");
+	}
+
+	public removeCredentials() {
+		localStorage.removeItem("username");
+		localStorage.removeItem("passwd");
 	}
 
 	private getHttpOptions() {
