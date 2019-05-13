@@ -20,6 +20,8 @@ export class LoginPage implements OnInit {
 	}
 
 	async checkCredentials() {
+		this.api.saveCredentials(this.username, this.passwd, "");
+
 		const loading = await this.loadingController.create({
 			message: 'Connexion en cours...'
 		});

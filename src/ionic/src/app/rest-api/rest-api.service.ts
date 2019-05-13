@@ -29,18 +29,7 @@ export class RestApiService {
 
 	checkLogin(username : string, passwd : string): Promise<any> {
 		const url = `${apiUrl}/login`;
-
-		let base64Auth = btoa(username+":"+passwd);
-		const httpOptions = {
-			headers: new HttpHeaders({'Content-Type': 'application/json',
-				'Authorization' : 'Basic '+base64Auth
-			})
-		};
-
-		//Ne pas utiliser this.execGetMethod(url) car on change le httpOptions!!
-		return this.http.get(url, httpOptions).pipe(
-			map(this.extractData),
-			catchError(this.handleError)).toPromise();
+		return this.execGetMethod(url);
 	}
 
 	addPays(libelle: string): Promise<any> {
