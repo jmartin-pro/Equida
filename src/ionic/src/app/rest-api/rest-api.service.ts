@@ -47,6 +47,7 @@ export class RestApiService {
 	public removeCredentials() {
 		localStorage.removeItem("username");
 		localStorage.removeItem("passwd");
+		localStorage.removeItem("role");
 	}
 
 	private getHttpOptions() {

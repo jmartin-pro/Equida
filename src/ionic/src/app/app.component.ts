@@ -41,7 +41,7 @@ export class AppComponent {
 		{
 			title: 'Déconnexion',
 			url: '/logout',
-			icon: 'home'
+			icon: 'exit'
 		}
 	];
 
@@ -54,7 +54,7 @@ export class AppComponent {
 		{
 			title: 'Déconnexion',
 			url: '/logout',
-			icon: 'home'
+			icon: 'exit'
 		}
 	];
 
