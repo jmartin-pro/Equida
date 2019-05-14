@@ -4,11 +4,11 @@ import { LoadingController } from '@ionic/angular';
 import { RestApiService } from '../../rest-api/rest-api.service';
 
 @Component({
-  selector: 'app-liste',
-  templateUrl: './liste.page.html',
-  styleUrls: ['./liste.page.scss'],
+  selector: 'app-lister',
+  templateUrl: './lister.page.html',
+  styleUrls: ['./lister.page.scss'],
 })
-export class ListePage implements OnInit {
+export class ListerPage implements OnInit {
 
 	private ventes: any;
 	private currentOffset: number;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { RestApiService } from '../../rest-api/rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-consulter',
@@ -15,7 +16,8 @@ export class ConsulterPage implements OnInit {
 	constructor(public api: RestApiService,
 		public loadingController: LoadingController,
 		public route: ActivatedRoute,
-		public router: Router) { }
+		public router: Router,
+		public navCtrl: NavController) { }
 
 	async ngOnInit() {
 		await this.getVenteById();
@@ -49,6 +51,7 @@ export class ConsulterPage implements OnInit {
 		.then(res => {
 			console.log(res);
 			loading.dismiss();
+			this.navCtrl.navigateForward('/ventes');
 		}, err => {
 			console.log(err);
 			loading.dismiss();

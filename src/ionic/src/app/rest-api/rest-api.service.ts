@@ -32,6 +32,21 @@ export class RestApiService {
 		return this.http.get(url, this.getHttpOptions()).pipe(map(this.extractData)).toPromise();
 	}
 
+	addVente(nom: string, dateDebut:string, dateFin:string, dateVente:string, idLieu:number, idCategVente:number): any {
+		let data = {
+			nom : nom,
+			dateDebut : this.formatDate(dateDebut),
+			dateFin : this.formatDate(dateFin),
+			dateVente : this.formatDate(dateVente),
+			idLieu : idLieu,
+			idCategVente : idCategVente
+			
+		};
+
+		const url = `${apiUrl}/ventes`;
+		return this.execPostMethod(url, data);
+	}
+	
 	addPays(libelle: string): Promise<any> {
 		let data = {
 			libelle : libelle
@@ -51,6 +66,11 @@ export class RestApiService {
 		return this.execDeleteMethod(url);
 	}
 	
+	getCategVente(offset : number): Promise<any> {
+		const url = `${apiUrl}/categoriesVente?offset=${offset}`;
+		return this.execGetMethod(url);
+	}
+	
 	getCategVenteById(id: string): Promise<any> {
 		const url = `${apiUrl}/categoriesVente/${id}`;
 		return this.execGetMethod(url);
@@ -63,6 +83,11 @@ export class RestApiService {
 
 	getLotsAValider(offset : number): Promise<any> {
 		const url = this.apiUrl+'/lotsAValider?offset='+offset;
+		return this.execGetMethod(url);
+	}
+	
+	getLieux(offset : number): Promise<any> {
+		const url = `${apiUrl}/lieux?offset=${offset}`;
 		return this.execGetMethod(url);
 	}
 	
@@ -203,5 +228,9 @@ export class RestApiService {
 		let body = res;
 		return body || { };
 	}
-
+	
+	public formatDate(dateStr : string):string{
+		let dateArray = dateStr.split("-");
+		return dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+	}
 }
