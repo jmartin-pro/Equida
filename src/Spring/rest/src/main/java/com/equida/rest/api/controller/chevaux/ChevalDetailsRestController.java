@@ -6,6 +6,7 @@ import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.ChevalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,11 +26,13 @@ public class ChevalDetailsRestController {
 		return ChevalDto.convertToDto(cheval);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@PatchMapping(ChevalDetailsApiRoute.RAW_URI)
 	public void updateCheval(@PathVariable(value = ChevalDetailsApiRoute.PARAM_ID_CHEVAL) Long idCheval, @RequestBody ChevalDto chevalDto) throws NotFoundException {
 		chevalService.update(1L, idCheval, chevalDto.getNom(), chevalDto.getSexe(), chevalDto.getSire(), chevalDto.getIdRaceCheval(), null, null, null, null);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@DeleteMapping(ChevalDetailsApiRoute.RAW_URI)
 	public void deleteCheval(@PathVariable(value = ChevalDetailsApiRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
 		chevalService.delete(1L, idCheval);

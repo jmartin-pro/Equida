@@ -6,6 +6,7 @@ import com.equida.common.service.ClientService;
 import com.equida.rest.api.dto.ClientDto;
 import com.equida.rest.api.route.clients.ClientDetailsApiRoute;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,11 +27,13 @@ public class ClientDetailsRestController {
 		return ClientDto.convertToDto(client);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PatchMapping(ClientDetailsApiRoute.RAW_URI)
 	public void updateClient(@PathVariable(value = ClientDetailsApiRoute.PARAM_ID_CLIENT) Long idClient, @RequestBody ClientDto clientDto) throws NotFoundException {
 		clientService.update(idClient, clientDto.getNom(), clientDto.getPrenom(), clientDto.getRue(), clientDto.getCopos(), clientDto.getVille(), clientDto.getMail());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(ClientDetailsApiRoute.RAW_URI)
 	public void deleteClient(@PathVariable(value = ClientDetailsApiRoute.PARAM_ID_CLIENT) Long idClient) throws NotFoundException {
 		clientService.delete(idClient);

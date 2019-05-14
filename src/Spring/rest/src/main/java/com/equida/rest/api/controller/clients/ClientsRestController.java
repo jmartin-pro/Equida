@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,7 @@ public class ClientsRestController {
 		return clientsDto;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(ClientsApiRoute.RAW_URI)
 	public ClientDto addClient(@RequestBody ClientDto clientDto) {
 		Client client = clientService.create(clientDto.getNom(), clientDto.getPrenom(), clientDto.getRue(), clientDto.getCopos(), clientDto.getVille(), clientDto.getMail());

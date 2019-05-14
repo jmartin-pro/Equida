@@ -6,6 +6,7 @@ import com.equida.common.bdd.entity.Pays;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.service.PaysService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,11 +27,13 @@ public class PaysDetailsRestController {
 		return PaysDto.convertToDto(pays);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PatchMapping(PaysDetailsApiRoute.RAW_URI)
 	public void updatePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays, @RequestBody PaysDto paysDto) throws NotFoundException {
 		paysService.updatePays(idPays, paysDto.getLibelle());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(PaysDetailsApiRoute.RAW_URI)
 	public void deletePays(@PathVariable(value = PaysDetailsApiRoute.PARAM_ID_PAYS) Long idPays) throws NotFoundException {
 		paysService.deletePays(idPays);
