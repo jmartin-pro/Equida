@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
-import {NavController} from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 const apiUrl = "http://127.0.0.1:1515/api";
 
@@ -12,7 +12,7 @@ const apiUrl = "http://127.0.0.1:1515/api";
 
 export class RestApiService {
 
-	constructor(public navCtrl: NavController, private http: HttpClient) {
+	constructor(public navCtrl: NavController, private http: HttpClient, public alertController: AlertController) {
 	}
 
 	public saveCredentials(username : string, passwd : string, role: string) {
@@ -29,7 +29,7 @@ export class RestApiService {
 
 	checkLogin(username : string, passwd : string): Promise<any> {
 		const url = `${apiUrl}/login`;
-		return this.execGetMethod(url);
+		return this.http.get(url, this.getHttpOptions()).pipe(map(this.extractData)).toPromise();
 	}
 
 	addPays(libelle: string): Promise<any> {
@@ -79,8 +79,12 @@ export class RestApiService {
 	public execGetMethod(url: string): Promise<any> {
 		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
-		catchError(err => {
-			this.removeCredentials();
+		catchError(async err => {
+			if(err.status == 401) {
+				this.removeCredentials();
+				this.navCtrl.navigateForward('/login');
+				return;
+			}
 			return this.handleError(err);
 		})).toPromise();
 	}
@@ -88,8 +92,12 @@ export class RestApiService {
 	public execPostMethod(url: string, data: any): Promise<any> {
 		return this.http.post(url, data, this.getHttpOptions()).pipe(
 			map(this.extractData),
-			catchError(err => {
-				this.removeCredentials();
+			catchError(async err => {
+				if(err.status == 401) {
+					this.removeCredentials();
+					this.navCtrl.navigateForward('/login');
+					return;
+				}
 				return this.handleError(err);
 			})).toPromise();
 	}
@@ -97,8 +105,12 @@ export class RestApiService {
 	public execDeleteMethod(url: string): Promise<any> {
 		return this.http.delete(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
-		catchError(err => {
-			this.removeCredentials();
+		catchError(async err => {
+			if(err.status == 401) {
+				this.removeCredentials();
+				this.navCtrl.navigateForward('/login');
+				return;
+			}
 			return this.handleError(err);
 		})).toPromise();
 	}
@@ -122,7 +134,7 @@ export class RestApiService {
 		return httpOptions;
 	}
 
-	private handleError(error: HttpErrorResponse) {
+	private async handleError(error: HttpErrorResponse) {
 		if (error.error instanceof ErrorEvent) {
 			// A client-side or network error occurred. Handle it accordingly.
 			console.error('An error occurred:', error.error.message);
@@ -133,9 +145,18 @@ export class RestApiService {
 				`Backend returned code ${error.status}, ` +
 				`body was: ${error.error}`
 			);
+
+			const alert = await this.alertController.create({
+		      header: 'Oups...',
+		      subHeader: '',
+		      message: 'Une erreur s\'est produite. Merci de réessayer plus tard.',
+		      buttons: ['Valider']
+		    });
+
+		    await alert.present();
 		}
 
-		return throwError('Something bad happened; please try again later.');
+		throw new Error('Something bad happened; please try again later.');
 	}
 
 	private extractData(res: Response) {
