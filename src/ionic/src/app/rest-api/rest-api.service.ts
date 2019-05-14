@@ -46,6 +46,11 @@ export class RestApiService {
 		return this.execDeleteMethod(url);
 	}
 	
+	deleteVente(id: string): Promise<any> {
+		const url = `${apiUrl}/ventes/${id}`;
+		return this.execDeleteMethod(url);
+	}
+	
 	getCategVenteById(id: string): Promise<any> {
 		const url = `${apiUrl}/categoriesVente/${id}`;
 		return this.execGetMethod(url);

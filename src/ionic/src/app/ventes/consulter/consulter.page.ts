@@ -39,5 +39,20 @@ export class ConsulterPage implements OnInit {
 				console.log(err);
 			});
 	}
+	
+	async deleteVente() {
+		const loading = await this.loadingController.create({
+			message: 'Envoi des informations'
+		});
+		await loading.present();
+		await this.api.deleteVente(this.route.snapshot.paramMap.get('id'))
+		.then(res => {
+			console.log(res);
+			loading.dismiss();
+		}, err => {
+			console.log(err);
+			loading.dismiss();
+		});
+	}
 
 }
