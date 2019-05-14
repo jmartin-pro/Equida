@@ -1,0 +1,34 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Consultation vente</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<div *ngIf="vente">
+
+		<ion-card>
+			<ion-card-header>
+				<ion-card-title>{{vente.nom}}</ion-card-title>
+			</ion-card-header>
+
+			<ion-card-content>
+				<ion-item>
+					<p>Dates des inscriptions : {{vente.dateDebut}} - {{vente.dateFin}}</p>
+				</ion-item>
+
+				<ion-item>
+					<p>Date de la vente : {{vente.dateVente}}</p>
+				</ion-item>
+
+				<ion-item>
+					<p>Lieu : {{vente.lieu.ville}} - {{vente.lieu.commentaire}}</p>
+				</ion-item>
+				
+				<ion-item>
+					<p>Catégorie de vente : {{vente.categVente.libelle}}</p>
+				</ion-item>
+			</ion-card-content>
+		</ion-card>
+	</div>
+</ion-content>

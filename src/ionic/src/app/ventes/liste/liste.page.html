@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Liste des ventes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item *ngFor="let v of ventes" routerLink="/ventes/{{v.id}}">
+		 	<ion-label>
+				<p>{{v.nom}}</p>
+				<p>{{v.dateDebut}} - {{v.dateFin}}</p>
+				<p>{{v.dateVente}}</p>
+				<p>{{v.lieu.ville}} - {{v.lieu.commentaire}}</p>
+				<p>{{v.categVente.libelle}}</p>
+			</ion-label>
+		</ion-item>
+	</ion-list>
+</ion-content>

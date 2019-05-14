@@ -12,12 +12,12 @@ const routes: Routes = [
 		loadChildren: './home/home.module#HomePageModule'
 	},
 	{
-		path: 'pays/:id',
-		loadChildren: './pays/consulter/pays.module#PaysPageModule'
-	},
-	{
 		path: 'ajout/pays',
 		loadChildren: './pays/ajout/ajout.module#AjoutPageModule'
+	},
+	{
+		path: 'consulter',
+		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	},
 	{
 		path: 'lots',
@@ -38,6 +38,19 @@ const routes: Routes = [
 	{
 		path: 'validerLots',
 		loadChildren: './valider_lots/lister/lister.module#ListerPageModule'
+
+	},
+	{
+		path: 'pays/:id',
+		loadChildren: './pays/consulter/pays.module#PaysPageModule'
+	},
+	{
+		path: 'ventes',
+		loadChildren: './ventes/liste/liste.module#ListePageModule'
+	},
+	{
+		path: 'ventes/:id',
+		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	}
 ];
 

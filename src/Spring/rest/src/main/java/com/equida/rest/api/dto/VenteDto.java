@@ -1,16 +1,20 @@
 package com.equida.rest.api.dto;
 
 import com.equida.common.bdd.entity.Vente;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class VenteDto implements IDto<Vente, VenteDto> {
 
 	private Long id;
 	private String nom;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateDebut;
-	private String categVente;
-	private LieuDto lieu;
+	private Long idCategVente;
+	private Long idLieu;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateFin;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateVente;
 	private Boolean deleted;
 	
@@ -23,9 +27,13 @@ public class VenteDto implements IDto<Vente, VenteDto> {
 		venteDto.setDateFin(entity.getDateFin());
 		venteDto.setDateVente(entity.getDateVente());
 		venteDto.setDeleted(entity.getDeleted());
-		venteDto.setCategVente(entity.getCategVente().getLibelle());
-		
-		venteDto.setLieu(LieuDto.convertToDto(entity.getLieu()));
+		if(entity.getCategVente() != null){
+			venteDto.setIdCategVente(entity.getCategVente().getId());
+		}
+		if(entity.getLieu() != null){
+			venteDto.setIdLieu(entity.getLieu().getId());
+		}
+		venteDto.setDeleted(entity.getDeleted());
 		
 		return venteDto;
 	} 
@@ -59,20 +67,20 @@ public class VenteDto implements IDto<Vente, VenteDto> {
 		this.dateDebut = dateDebut;
 	}
 
-	public String getCategVente() {
-		return categVente;
+	public Long getIdCategVente() {
+		return idCategVente;
 	}
 
-	public void setCategVente(String categVente) {
-		this.categVente = categVente;
+	public void setIdCategVente(Long idCategVente) {
+		this.idCategVente = idCategVente;
 	}
 
-	public LieuDto getLieu() {
-		return lieu;
+	public Long getIdLieu() {
+		return idLieu;
 	}
 
-	public void setLieu(LieuDto lieu) {
-		this.lieu = lieu;
+	public void setIdLieu(Long idLieu) {
+		this.idLieu = idLieu;
 	}
 
 	public Date getDateFin() {

@@ -45,6 +45,11 @@ export class RestApiService {
 		const url = this.apiUrl+'/pays/'+id;
 		return this.execDeleteMethod(url);
 	}
+	
+	getCategVenteById(id: string): Promise<any> {
+		const url = `${apiUrl}/categoriesVente/${id}`;
+		return this.execGetMethod(url);
+	}
 
 	getChevalById(id: string): Promise<any> {
 		const url = this.apiUrl+'/chevaux/'+id;
@@ -53,6 +58,11 @@ export class RestApiService {
 
 	getLotsAValider(offset : number): Promise<any> {
 		const url = this.apiUrl+'/lotsAValider?offset='+offset;
+		return this.execGetMethod(url);
+	}
+	
+	getLieuById(id: string): Promise<any> {
+		const url = `${apiUrl}/lieux/${id}`;
 		return this.execGetMethod(url);
 	}
 
@@ -75,7 +85,7 @@ export class RestApiService {
 		const url = this.apiUrl+'/lots/'+id;
 		return this.execGetMethod(url);
 	}
-
+	
 	getPays(): Promise<any> {
 		const url = this.apiUrl+'/pays';
 		return this.execGetMethod(url);
@@ -88,6 +98,16 @@ export class RestApiService {
 
 	getRaceChevalById(id: string): Promise<any> {
 		const url = this.apiUrl+'/racesChevaux/'+id;
+		return this.execGetMethod(url);
+	}
+	
+	getVentes(offset : number): Promise<any> {
+		const url = `${apiUrl}/ventes?offset=${offset}`;
+		return this.execGetMethod(url);
+	}
+
+	getVenteById(id: string): Promise<any> {
+		const url = `${apiUrl}/ventes/${id}`;
 		return this.execGetMethod(url);
 	}
 
@@ -178,4 +198,5 @@ export class RestApiService {
 		let body = res;
 		return body || { };
 	}
+
 }

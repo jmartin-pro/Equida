@@ -10,6 +10,8 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,6 +31,13 @@ public class VentesRestController {
 		}
 		
 		return ventesDto;
+	}
+	
+	@PostMapping(VentesApiRoute.RAW_URI)
+	public VenteDto addVente(@RequestBody VenteDto venteDto) {
+		Vente vente = venteService.create(venteDto.getNom(), venteDto.getIdCategVente(), venteDto.getIdLieu(), venteDto.getDateDebut(), venteDto.getDateFin(), venteDto.getDateVente());
+		
+		return VenteDto.convertToDto(vente);
 	}
 
 }
