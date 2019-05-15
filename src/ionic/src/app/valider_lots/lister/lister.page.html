@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lots à valider</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item *ngFor="let l of lots" routerLink="/lots/{{l.id}}">
+		 	<ion-label>
+				<p>{{l.cheval.nom}} - {{l.cheval.sire}}</p>
+				<p>{{l.cheval.raceCheval.libelle}}</p>
+				<p>{{l.cheval.sexe}}</p>
+				<p>{{l.prixDepart}}€</p>
+			</ion-label>
+		</ion-item>
+	</ion-list>
+
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+			loadingSpinner="bubbles"
+			loadingText="Chargement...">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

@@ -34,6 +34,10 @@ const routes: Routes = [
 	{
 		path: 'logout',
 		loadChildren: './logout/logout.module#LogoutPageModule'
+	},
+	{
+		path: 'validerLots',
+		loadChildren: './valider_lots/lister/lister.module#ListerPageModule'
 	}
 ];
 

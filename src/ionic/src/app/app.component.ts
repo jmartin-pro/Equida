@@ -47,8 +47,8 @@ export class AppComponent {
 
 	public adminAppPages = [
 		{
-			title: 'Admin',
-			url: '/home',
+			title: 'Lots à valider',
+			url: '/validerLots',
 			icon: 'home'
 		},
 		{

@@ -47,7 +47,7 @@ public class LotService {
 		return lot.get();
 	}
 	
-	public void deleteLot(Long idLot) throws NotFoundException {
+	public Lot deleteLot(Long idLot) throws NotFoundException {
 		if(idLot == null) {
 			throw new ServiceException("idLot ne doit pas être null.");
 		}
@@ -55,10 +55,10 @@ public class LotService {
 		Lot lot = getById(idLot);
 		
 		lot.setDeleted(true);
-		save(lot);
+		return save(lot);
 	}
 	
-	public void validerLot(Long idLot) throws NotFoundException {
+	public Lot validerLot(Long idLot) throws NotFoundException {
 		if(idLot == null) {
 			throw new ServiceException("idLot ne doit pas être null.");
 		}
@@ -66,7 +66,7 @@ public class LotService {
 		Lot lot = getById(idLot);
 		
 		lot.setValidation(new Date());
-		save(lot);
+		return save(lot);
 	}
 
 	public List<Lot> getAllEnVente() {

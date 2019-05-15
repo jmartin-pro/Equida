@@ -4,13 +4,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, tap, map } from 'rxjs/operators';
 import { AlertController, NavController } from '@ionic/angular';
 
-const apiUrl = "http://127.0.0.1:1515/api";
-
 @Injectable({
 	providedIn: 'root'
 })
 
 export class RestApiService {
+
+	apiUrl = "http://127.0.0.1:1515/api";
 
 	constructor(public navCtrl: NavController, private http: HttpClient, public alertController: AlertController) {
 	}
@@ -28,7 +28,7 @@ export class RestApiService {
 	}
 
 	checkLogin(username : string, passwd : string): Promise<any> {
-		const url = `${apiUrl}/login`;
+		const url = this.apiUrl+'/login';
 		return this.http.get(url, this.getHttpOptions()).pipe(map(this.extractData)).toPromise();
 	}
 
@@ -37,42 +37,57 @@ export class RestApiService {
 			libelle : libelle
 		};
 
-		const url = `${apiUrl}/pays`;
+		const url = this.apiUrl+'/pays';
 		return this.execPostMethod(url, data);
 	}
 
 	deletePays(id: string): Promise<any> {
-		const url = `${apiUrl}/pays/${id}`;
+		const url = this.apiUrl+'/pays/'+id;
 		return this.execDeleteMethod(url);
 	}
 
 	getChevalById(id: string): Promise<any> {
-		const url = `${apiUrl}/chevaux/${id}`;
+		const url = this.apiUrl+'/chevaux/'+id;
 		return this.execGetMethod(url);
 	}
 
+	getLotsAValider(offset : number): Promise<any> {
+		const url = this.apiUrl+'/lotsAValider?offset='+offset;
+		return this.execGetMethod(url);
+	}
+
+	refuserLot(id: number) : Promise<any> {
+		const url = this.apiUrl+'/lotsAValider/'+id+'/deny';
+		return this.execPostMethod(url, {});
+	}
+
+	validerLot(id: number) : Promise<any> {
+		const url = this.apiUrl+'/lotsAValider/'+id+'/accept';
+		return this.execPostMethod(url, {});
+	}
+
 	getLots(offset : number): Promise<any> {
-		const url = `${apiUrl}/lots?offset=${offset}`;
+		const url = this.apiUrl+'/lots?offset='+offset;
 		return this.execGetMethod(url);
 	}
 
 	getLotById(id: string): Promise<any> {
-		const url = `${apiUrl}/lots/${id}`;
+		const url = this.apiUrl+'/lots/'+id;
 		return this.execGetMethod(url);
 	}
 
 	getPays(): Promise<any> {
-		const url = `${apiUrl}/pays`;
+		const url = this.apiUrl+'/pays';
 		return this.execGetMethod(url);
 	}
 
 	getPaysById(id: string): Promise<any> {
-		const url = `${apiUrl}/pays/${id}`;
+		const url = this.apiUrl+'/pays/'+id;
 		return this.execGetMethod(url);
 	}
 
 	getRaceChevalById(id: string): Promise<any> {
-		const url = `${apiUrl}/racesChevaux/${id}`;
+		const url = this.apiUrl+'/racesChevaux/'+id;
 		return this.execGetMethod(url);
 	}
 
@@ -142,8 +157,8 @@ export class RestApiService {
 			// The backend returned an unsuccessful response code.
 			// The response body may contain clues as to what went wrong,
 			console.error(
-				`Backend returned code ${error.status}, ` +
-				`body was: ${error.error}`
+				'Backend returned code '+error.status+', ' +
+				'body was: '+error.error
 			);
 
 			const alert = await this.alertController.create({
