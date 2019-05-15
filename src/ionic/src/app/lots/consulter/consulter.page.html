@@ -19,7 +19,7 @@
 			</ion-card-header>
 
 			<ion-card-content>
-				<div *ngIf="role == 'ADMIN'">
+				<div *ngIf="role == 'ADMIN' && lot.deleted == 0 && lot.validation == null">
 					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
 					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
 				</div>
