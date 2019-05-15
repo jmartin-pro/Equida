@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 	templateUrl: 'app.component.html'
 })
 export class AppComponent {
+	menuAlt = [];
+
 	public appPages = [
 		{
 			title: 'Accueil',
@@ -64,6 +66,10 @@ export class AppComponent {
 		private statusBar: StatusBar
 		) {
 		this.initializeApp();
+	}
+
+	ngDoCheck() {
+		this.menuAlt = this.getAuthentifiedUserAppPages();
 	}
 
 	initializeApp() {

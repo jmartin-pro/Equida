@@ -16,7 +16,7 @@
                 </ion-label>
               </ion-item>
             </ion-menu-toggle>
-			<ion-menu-toggle auto-hide="false" *ngFor="let p of getAuthentifiedUserAppPages()">
+			<ion-menu-toggle auto-hide="false" *ngFor="let p of menuAlt">
               <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
                 <ion-icon slot="start" [name]="p.icon"></ion-icon>
                 <ion-label>
