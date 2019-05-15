@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ConsulterPage implements OnInit {
 
 	lot: any = null;
+	message: string;
+	role: string;
 
 	constructor(public api: RestApiService,
 		public loadingController: LoadingController,
@@ -18,6 +20,7 @@ export class ConsulterPage implements OnInit {
 		public router: Router) { }
 
 	async ngOnInit() {
+		this.role = localStorage.getItem("role");
 		await this.getLotById();
 	}
 
@@ -41,6 +44,26 @@ export class ConsulterPage implements OnInit {
 			}, err => {
 				console.log(err);
 			});
+	}
+
+	async acceptLot() {
+		let idLot = this.route.snapshot.paramMap.get('id');
+		await this.api.acceptLot(idLot).then(res => {
+				this.message = "Le lot à été ajouté à la vente";
+			}, err => {
+				console.log(err);
+			}
+		);
+	}
+
+	async denyLot() {
+		let idLot = this.route.snapshot.paramMap.get('id');
+		await this.api.denyLot(idLot).then(res => {
+				this.message = "Le lot à été refusé à la vente";
+			}, err => {
+				console.log(err);
+			}
+		);
 	}
 
 }

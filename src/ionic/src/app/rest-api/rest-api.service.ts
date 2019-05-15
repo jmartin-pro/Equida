@@ -56,12 +56,12 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
-	refuserLot(id: number) : Promise<any> {
+	denyLot(id: string) : Promise<any> {
 		const url = this.apiUrl+'/lotsAValider/'+id+'/deny';
 		return this.execPostMethod(url, {});
 	}
 
-	validerLot(id: number) : Promise<any> {
+	acceptLot(id: string) : Promise<any> {
 		const url = this.apiUrl+'/lotsAValider/'+id+'/accept';
 		return this.execPostMethod(url, {});
 	}

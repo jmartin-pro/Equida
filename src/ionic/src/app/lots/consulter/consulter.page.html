@@ -7,12 +7,23 @@
 <ion-content padding>
 	<div *ngIf="lot">
 
+		<div *ngIf="message">
+			<ion-item color="success">
+				{{message}}
+		     </ion-item>
+		 </div>
+
 		<ion-card>
 			<ion-card-header>
 				<ion-card-title>{{lot.cheval.nom}} - {{lot.cheval.sire}}</ion-card-title>
 			</ion-card-header>
 
 			<ion-card-content>
+				<div *ngIf="role == 'ADMIN'">
+					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
+					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
+				</div>
+
 				<ion-item>
 					{{lot.cheval.raceCheval.libelle}}
 				</ion-item>
