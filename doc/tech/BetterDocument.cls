@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{BetterDocument}[2019/04/22 BetterDocument, V0.10.0]
+\ProvidesClass{BetterDocument}[2019/05/16 BetterDocument, V0.11.0]
 
 % Load defautl class style
 \DeclareOption*{\let\classname\CurrentOption}
@@ -39,6 +39,9 @@
 	linkcolor = {links}
 }
 
+\frenchsetup{ItemLabeli=\textbullet}
+\frenchsetup{ItemLabelii=$\circ$}
+
 \urlstyle{same}
 
 % style des sections
@@ -50,9 +53,6 @@
 \subsectionfont{\color{thirdcolor}\fontsize{14}{17}\selectfont}
 
 \setlength{\parskip}{1em}
-
-% commandes
-\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 % numerotation
 \renewcommand\thesection{\Alph{section}}
