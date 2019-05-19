@@ -25,7 +25,6 @@ public class LieuService {
 	}
 
 	public Lieu getById(Long idLieu) throws NotFoundException {
-		System.err.println(""+idLieu);
 		Optional<Lieu> lieu = lieuRepository.findById(idLieu);
 	
 		if(!lieu.isPresent()) {
