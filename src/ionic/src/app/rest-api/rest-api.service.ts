@@ -116,6 +116,11 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 	
+	getLotsByIdVente(id: string, offset: number): Promise<any> {
+		const url = `${apiUrl}/ventes/${id}/lots?offset=${offset}`;
+		return this.execGetMethod(url);
+	}
+	
 	getPays(): Promise<any> {
 		const url = this.apiUrl+'/pays';
 		return this.execGetMethod(url);
@@ -232,5 +237,29 @@ export class RestApiService {
 	public formatDate(dateStr : string):string{
 		let dateArray = dateStr.split("-");
 		return dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+	}
+	
+	public async getAll(callback: any, p: string){
+		let datas = [];
+		let offset = 0;
+		let shouldBreak = false;
+		while(true){
+			await callback(p, offset)
+				.then(async res => {
+					console.log(res);
+					if(res.length == 0){
+						shouldBreak = true;
+					} else {
+						for(let i = 0 ; i < res.length ; i++) {
+							datas.push(res[i]);
+						}
+					}
+				});
+				offset ++;
+				if (shouldBreak) { 
+					break ;
+				}
+		}
+		return datas;
 	}
 }

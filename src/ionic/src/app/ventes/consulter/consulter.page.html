@@ -34,6 +34,17 @@
 				  Supprimer
 				</ion-button>
 			</ion-card-content>
+			
 		</ion-card>
 	</div>
+	<ion-card *ngFor="let l of lots" routerLink="/lots/{{l.id}}">
+		<ion-card-header>
+			<ion-card-title>{{l.cheval.nom}}</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-item>
+				Race : {{l.cheval.race.libelle}}
+			</ion-item>
+		</ion-card-content>
+	</ion-card>
 </ion-content>

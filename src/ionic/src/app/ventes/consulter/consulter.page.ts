@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 export class ConsulterPage implements OnInit {
 
 	vente: any = null;
+	lots: any = null;
 
 	constructor(public api: RestApiService,
 		public loadingController: LoadingController,
@@ -21,6 +22,7 @@ export class ConsulterPage implements OnInit {
 
 	async ngOnInit() {
 		await this.getVenteById();
+		await this.getLotsByIdVente();
 	}
 
 	async getVenteById() {
@@ -37,6 +39,25 @@ export class ConsulterPage implements OnInit {
 						console.log(err);
 					});
 				this.vente = res;
+			}, err => {
+				console.log(err);
+			});
+	}
+	
+	async getLotsByIdVente() {
+		await this.api.getAll(this.api.getLotsByIdVente, this.route.snapshot.paramMap.get('id'))
+			.then(async res => {	
+				for(let i = 0; i<res.length; i++){
+					await this.api.getChevalById(res[i].idCheval)
+						.then(async c => {
+							res[i].cheval = c;
+						});
+					await this.api.getRaceChevalById(res[i].cheval.idRaceCheval)
+						.then(async r => {
+							res[i].cheval.race = r;
+						});
+				}
+				this.lots = res;
 			}, err => {
 				console.log(err);
 			});
