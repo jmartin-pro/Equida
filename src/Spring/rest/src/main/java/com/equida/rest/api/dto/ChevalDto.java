@@ -10,6 +10,10 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
     private Character sexe;
     private String sire;
     private Long idRaceCheval;
+    private Long idMere;
+    private Long idPere;
+    private String sireMere;
+    private String sirePere;
 	private Boolean deleted;
 
 	public static ChevalDto convertToDto(Cheval entity) {
@@ -21,6 +25,15 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		chevalDto.setSire(entity.getSire());
 		chevalDto.setDeleted(entity.getDeleted());
 		chevalDto.setIdRaceCheval(entity.getRaceCheval().getId());
+		
+		if(entity.getMere() != null) {
+			chevalDto.setIdMere(entity.getMere().getId());
+			chevalDto.setSireMere(entity.getMere().getSire());
+		}
+		if(entity.getPere() != null) {
+			chevalDto.setIdPere(entity.getPere().getId());
+			chevalDto.setSirePere(entity.getPere().getSire());
+		}
 		
 		return chevalDto;
 	}
@@ -81,6 +94,38 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 
 	public void setIdRaceCheval(Long idRaceCheval) {
 		this.idRaceCheval = idRaceCheval;
+	}
+
+	public Long getIdMere() {
+		return idMere;
+	}
+
+	public void setIdMere(Long idMere) {
+		this.idMere = idMere;
+	}
+
+	public Long getIdPere() {
+		return idPere;
+	}
+
+	public void setIdPere(Long idPere) {
+		this.idPere = idPere;
+	}
+
+	public String getSireMere() {
+		return sireMere;
+	}
+
+	public void setSireMere(String sireMere) {
+		this.sireMere = sireMere;
+	}
+
+	public String getSirePere() {
+		return sirePere;
+	}
+
+	public void setSirePere(String sirePere) {
+		this.sirePere = sirePere;
 	}
 	
 	public Boolean getDeleted() {
