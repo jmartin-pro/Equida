@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { RestApiService } from '../../rest-api/rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-consulter',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ConsulterPage implements OnInit {
 
+	idClient: string;
 	cheval: any = null;
 	lot: any = null;
 	message: string;
@@ -18,10 +20,12 @@ export class ConsulterPage implements OnInit {
 	constructor(public api: RestApiService,
 		public loadingController: LoadingController,
 		public route: ActivatedRoute,
-		public router: Router) { }
+		public router: Router,
+		public navCtrl: NavController) { }
 
 	async ngOnInit() {
 		this.role = localStorage.getItem("role");
+		this.idClient = localStorage.getItem("user-id");
 
 		await this.getLotById();
 		await this.getCheval();
@@ -82,6 +86,11 @@ export class ConsulterPage implements OnInit {
 				console.log(err);
 			}
 		);
+	}
+
+	async deleteCheval() {
+		await this.api.deleteCheval(this.route.snapshot.paramMap.get('id'));
+		this.navCtrl.navigateForward('/mesChevaux');
 	}
 
 }

@@ -58,6 +58,11 @@ export class RestApiService {
 		return this.execPostMethod(url, data);
 	}
 
+	deleteCheval(id: string): Promise<any> {
+		const url = this.apiUrl+'/chevaux/'+id;
+		return this.execDeleteMethod(url);
+	}
+
 	deletePays(id: string): Promise<any> {
 		const url = this.apiUrl+'/pays/'+id;
 		return this.execDeleteMethod(url);
