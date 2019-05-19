@@ -31,7 +31,7 @@ public class ChevauxRestController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();			
 		AuthentificatedUser user = (AuthentificatedUser) authentication.getPrincipal();
 		
-		List<Cheval> chevaux = chevalService.getChevauxByClientId(user.getCompte().getUtilisateur().getId());
+		List<Cheval> chevaux = chevalService.getChevauxByClientId(user.getCompte().getUtilisateur().getId(), filterDto.getPageRequest());
 		
 		List<ChevalDto> chevauxDto = new ArrayList<>();
 		

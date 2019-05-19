@@ -26,18 +26,13 @@ export class AppComponent {
 			title: 'Ventes',
 			url: '/ventes',
 			icon: 'paper'
-		},
-		{
-	      title: 'Mes chevaux',
-	      url: '/chevaux',
-	      icon: 'body'
-	    }
+		}
 	];
 
 	public userAppPages = [
 		{
-			title: 'User',
-			url: '/home',
+			title: 'Mes chevaux',
+			url: '/mesChevaux',
 			icon: 'home'
 		},
 		{

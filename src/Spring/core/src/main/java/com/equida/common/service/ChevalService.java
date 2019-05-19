@@ -40,6 +40,20 @@ public class ChevalService {
 		return chevalRepository.findAll(idClient);
 	}
 	
+	public List<Cheval> getChevauxByClientId(Long idClient, PageRequest pageRequest) throws NotFoundException {
+		if(idClient == null) {
+			throw new ServiceException("L'id ne doit pas être null.");
+		}
+		
+		Optional<Client> client = clientRepository.findById(idClient);
+	
+		if(!client.isPresent()) {
+			throw new NotFoundException("L'id du client spécifié n'existe pas.");
+		}
+		
+		return chevalRepository.findAll(idClient, pageRequest);
+	}
+	
 	public List<Cheval> getAll(PageRequest pageRequest) {
 		return chevalRepository.findAll(pageRequest);
 	}

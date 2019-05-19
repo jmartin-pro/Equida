@@ -78,6 +78,11 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
+	getMesChevaux(offset: number): Promise<any> {
+		const url = this.apiUrl+'/chevaux/?offset='+offset;
+		return this.execGetMethod(url);
+	}
+
 	getChevalById(id: string): Promise<any> {
 		const url = this.apiUrl+'/chevaux/'+id;
 		return this.execGetMethod(url);

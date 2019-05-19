@@ -19,6 +19,9 @@ public interface ChevalRepository extends CrudRepository<Cheval, Long> {
 	
 	@Query(value = "SELECT c FROM Cheval c WHERE c.client.id = ?1 AND c.deleted=0")
 	public List<Cheval> findAll(Long idClient);
+	
+	@Query(value = "SELECT c FROM Cheval c WHERE c.client.id = ?1 AND c.deleted=0")
+	public List<Cheval> findAll(Long idClient, PageRequest pageRequest);
 
 	@Query(value = "SELECT c FROM Cheval c WHERE c.sire = ?1 AND c.deleted=0")
 	public Optional<Cheval> findBySire(String sireCheval);

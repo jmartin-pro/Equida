@@ -54,7 +54,12 @@ const routes: Routes = [
 	{
 		path: 'ventes/:id',
 		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
+	},
+	{
+		path: 'mesChevaux', 
+		loadChildren: './mesChevaux/lister/lister.module#ListerPageModule'
 	}
+
 ];
 
 @NgModule({
