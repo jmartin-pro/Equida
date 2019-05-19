@@ -81,6 +81,10 @@ public class LotService {
 		return lotRepository.findByIdVente(idVente);
 	}
 	
+	public List<Lot> getLotsByIdVente(long idVente, PageRequest pageRequest) {
+		return lotRepository.findByIdVente(idVente, pageRequest);
+	}
+	
 	public List<Lot> getChevauxDispoVenteClient(long idClient) {
 		return lotRepository.findChevauxDispoVenteClient(idClient);
 	}

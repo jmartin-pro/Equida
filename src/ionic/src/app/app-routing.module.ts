@@ -15,15 +15,11 @@ const routes: Routes = [
 		path: 'ajout/pays',
 		loadChildren: './pays/ajout/ajout.module#AjoutPageModule'
 	},
-<<<<<<< HEAD
 	{
-=======
-	{ 
 		path: 'ajouter/ventes',
-		loadChildren: './ventes/ajouter/ajouter.module#AjouterPageModule' 
+		loadChildren: './ventes/ajouter/ajouter.module#AjouterPageModule'
 	},
-	{ 	
->>>>>>> feat : Ajouter une vente
+	{
 		path: 'consulter',
 		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	},
@@ -46,30 +42,19 @@ const routes: Routes = [
 	{
 		path: 'validerLots',
 		loadChildren: './valider_lots/lister/lister.module#ListerPageModule'
-
 	},
 	{
 		path: 'pays/:id',
 		loadChildren: './pays/consulter/pays.module#PaysPageModule'
 	},
-<<<<<<< HEAD
 	{
 		path: 'ventes',
-		loadChildren: './ventes/liste/liste.module#ListePageModule'
-=======
-	{	
-		path: 'ventes', 
 		loadChildren: './ventes/lister/lister.module#ListerPageModule'
->>>>>>> feat : Ajouter une vente
 	},
 	{
 		path: 'ventes/:id',
 		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> feat : Ajouter une vente
 ];
 
 @NgModule({

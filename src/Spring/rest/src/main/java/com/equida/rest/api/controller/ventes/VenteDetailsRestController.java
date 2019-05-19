@@ -9,10 +9,12 @@ import com.equida.common.service.LotService;
 import com.equida.common.service.VenteService;
 import com.equida.rest.api.dto.ClientDto;
 import com.equida.rest.api.dto.LotDto;
+import com.equida.rest.api.dto.filter.BasicFilterDto;
 import com.equida.rest.api.route.clients.ClientDetailsApiRoute;
 import com.equida.rest.api.route.ventes.VenteLotsApiRoute;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,8 +50,8 @@ public class VenteDetailsRestController {
 	}
 	
 	@GetMapping(VenteLotsApiRoute.RAW_URI)
-	public List <LotDto> getLotsByIdVente(@PathVariable(value = VenteLotsApiRoute.PARAM_ID_VENTE) Long idVente) throws NotFoundException {
-		List<Lot> lotsVente = lotService.getLotsByIdVente(idVente);
+	public List <LotDto> getLotsByIdVente(@PathVariable(value = VenteLotsApiRoute.PARAM_ID_VENTE) Long idVente, @Valid BasicFilterDto filterDto) throws NotFoundException {
+		List<Lot> lotsVente = lotService.getLotsByIdVente(idVente, filterDto.getPageRequest());
 		
 		List<LotDto> lotsDto = new ArrayList<>();
 		
