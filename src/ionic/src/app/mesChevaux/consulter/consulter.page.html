@@ -25,15 +25,27 @@
 				</div>
 
 				<ion-item *ngIf="cheval.raceCheval">
-					{{cheval.raceCheval.libelle}}
+					Race : {{cheval.raceCheval.libelle}}
 				</ion-item>
 
 				<ion-item>
-					{{cheval.sexe}}
+					Sexe : {{cheval.sexe}}
 				</ion-item>
-					
+
+				<ion-item *ngIf="cheval.pere" routerLink="/chevaux/{{cheval.pere.id}}">
+					Père : {{cheval.pere.nom}} - {{cheval.pere.sire}}
+				</ion-item>
+
+				<ion-item *ngIf="cheval.mere"  routerLink="/chevaux/{{cheval.mere.id}}">
+					Mère : {{cheval.mere.nom}} - {{cheval.mere.sire}}
+				</ion-item>
+
+				<ion-item>
+					Propriétaire : {{cheval.client.nom}} {{cheval.client.prenom}}
+				</ion-item>
+
 				<ion-item *ngIf="lot">
-					{{lot.prixDepart}}€
+					Prix : {{lot.prixDepart}}€
 				</ion-item>
 			</ion-card-content>
 		</ion-card>

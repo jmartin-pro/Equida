@@ -6,7 +6,7 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let l of lots" routerLink="/mesChevaux/{{l.cheval.id}}">
+		<ion-item *ngFor="let l of lots" routerLink="/chevaux/{{l.cheval.id}}">
 		 	<ion-label>
 				<p>{{l.cheval.nom}} - {{l.cheval.sire}}</p>
 				<p>{{l.cheval.raceCheval.libelle}}</p>

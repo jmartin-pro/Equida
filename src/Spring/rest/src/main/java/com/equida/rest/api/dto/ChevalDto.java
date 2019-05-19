@@ -12,6 +12,7 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
     private Long idRaceCheval;
     private Long idMere;
     private Long idPere;
+    private Long idClient;
     private String sireMere;
     private String sirePere;
 	private Boolean deleted;
@@ -25,6 +26,7 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 		chevalDto.setSire(entity.getSire());
 		chevalDto.setDeleted(entity.getDeleted());
 		chevalDto.setIdRaceCheval(entity.getRaceCheval().getId());
+		chevalDto.setIdClient(entity.getClient().getId());
 		
 		if(entity.getMere() != null) {
 			chevalDto.setIdMere(entity.getMere().getId());
@@ -126,6 +128,14 @@ public class ChevalDto implements IDto<Cheval, ChevalDto>{
 
 	public void setSirePere(String sirePere) {
 		this.sirePere = sirePere;
+	}
+
+	public Long getIdClient() {
+		return idClient;
+	}
+
+	public void setIdClient(Long idClient) {
+		this.idClient = idClient;
 	}
 	
 	public Boolean getDeleted() {

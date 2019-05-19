@@ -56,7 +56,7 @@ const routes: Routes = [
 		loadChildren: './mesChevaux/lister/lister.module#ListerPageModule'
 	},
 	{
-		path: 'mesChevaux/:id',
+		path: 'chevaux/:id',
 		loadChildren: './mesChevaux/consulter/consulter.module#ConsulterPageModule'
 	}
 

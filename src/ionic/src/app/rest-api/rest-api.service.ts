@@ -78,13 +78,13 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
-	getMesChevaux(offset: number): Promise<any> {
-		const url = this.apiUrl+'/chevaux/?offset='+offset;
+	getChevalById(id: string): Promise<any> {
+		const url = this.apiUrl+'/chevaux/'+id;
 		return this.execGetMethod(url);
 	}
 
-	getChevalById(id: string): Promise<any> {
-		const url = this.apiUrl+'/chevaux/'+id;
+	getClientById(id: string): Promise<any> {
+		const url = this.apiUrl+'/clients/'+id;
 		return this.execGetMethod(url);
 	}
 
@@ -130,6 +130,11 @@ export class RestApiService {
 
 	getLotsByIdVente(id: string, offset: number): Promise<any> {
 		const url = this.apiUrl+'/ventes/'+id+'/lots?offset='+offset;
+		return this.execGetMethod(url);
+	}
+
+	getMesChevaux(offset: number): Promise<any> {
+		const url = this.apiUrl+'/chevaux/?offset='+offset;
 		return this.execGetMethod(url);
 	}
 

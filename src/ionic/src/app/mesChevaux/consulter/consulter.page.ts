@@ -35,9 +35,23 @@ export class ConsulterPage implements OnInit {
 				}, err => {
 					console.log(err);
 				});
-			}, err => {
-				console.log(err);
+
+			if(c.idMere != null)
+				await this.api.getChevalById(c.idMere).then(m => {
+					this.cheval.mere = m;
+				});
+
+			if(c.idPere != null)
+				await this.api.getChevalById(c.idPere).then(p => {
+					this.cheval.pere = p;
+				});
+
+			await this.api.getClientById(c.idClient).then(c => {
+				this.cheval.client = c;
 			});
+		}, err => {
+			console.log(err);
+		});
 	}
 
 	async getLotById() {
