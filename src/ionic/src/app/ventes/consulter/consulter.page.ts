@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 })
 export class ConsulterPage implements OnInit {
 
+	role;
 	vente: any = null;
 	lots: any = null;
 
@@ -21,13 +22,14 @@ export class ConsulterPage implements OnInit {
 		public navCtrl: NavController) { }
 
 	async ngOnInit() {
+		this.role = localStorage.getItem("role");
 		await this.getVenteById();
 		await this.getLotsByIdVente();
 	}
 
 	async getVenteById() {
 		await this.api.getVenteById(this.route.snapshot.paramMap.get('id'))
-			.then(async res => {	
+			.then(async res => {
 				await this.api.getLieuById(res.idLieu).then(async l => {
 					res.lieu = l;
 					}, err => {
@@ -43,10 +45,10 @@ export class ConsulterPage implements OnInit {
 				console.log(err);
 			});
 	}
-	
+
 	async getLotsByIdVente() {
 		await this.api.getAll(this.api.getLotsByIdVente, this.route.snapshot.paramMap.get('id'))
-			.then(async res => {	
+			.then(async res => {
 				for(let i = 0; i<res.length; i++){
 					await this.api.getChevalById(res[i].idCheval)
 						.then(async c => {
@@ -62,7 +64,7 @@ export class ConsulterPage implements OnInit {
 				console.log(err);
 			});
 	}
-	
+
 	async deleteVente() {
 		const loading = await this.loadingController.create({
 			message: 'Envoi des informations'
