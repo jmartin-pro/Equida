@@ -2,7 +2,7 @@ package com.equida.rest.api.dto;
 
 import com.equida.common.bdd.entity.Role;
 
-public class RoleDto implements IDto<Role, RoleDto>{
+public class RoleDto implements IDto<Role, RoleDto> {
 
 	private Long id;
 	private String libelle;

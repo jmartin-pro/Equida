@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
 	}
 
 	async checkCredentials() {
-		this.api.saveCredentials(this.username, this.passwd, "");
+		this.api.saveCredentials(this.username, this.passwd, "", "");
 
 		const loading = await this.loadingController.create({
 			message: 'Connexion en cours...'
@@ -28,8 +28,8 @@ export class LoginPage implements OnInit {
 		await loading.present();
 
 		try {
-			await this.api.checkLogin(this.username, this.passwd).then(role => {
-				this.api.saveCredentials(this.username, this.passwd, role.libelle);
+			await this.api.checkLogin(this.username, this.passwd).then(user => {
+				this.api.saveCredentials(this.username, this.passwd, user.role.libelle, user.id);
 				this.navCtrl.navigateForward('/home');
 			});
 		} catch(ex) {

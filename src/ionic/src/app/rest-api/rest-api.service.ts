@@ -15,16 +15,18 @@ export class RestApiService {
 	constructor(public navCtrl: NavController, private http: HttpClient, public alertController: AlertController) {
 	}
 
-	public saveCredentials(username : string, passwd : string, role: string) {
+	public saveCredentials(username : string, passwd : string, role: string, userId: string) {
 		localStorage.setItem("username", username);
 		localStorage.setItem("passwd", passwd);
 		localStorage.setItem("role", role);
+		localStorage.setItem("user-id", userId);
 	}
 
 	public removeCredentials() {
 		localStorage.removeItem("username");
 		localStorage.removeItem("passwd");
 		localStorage.removeItem("role");
+		localStorage.removeItem("user-id");
 	}
 
 	checkLogin(username : string, passwd : string): Promise<any> {
