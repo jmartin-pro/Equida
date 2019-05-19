@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ConsulterPage implements OnInit {
 
+	cheval: any = null;
 	lot: any = null;
 	message: string;
 	role: string;
@@ -21,33 +22,36 @@ export class ConsulterPage implements OnInit {
 
 	async ngOnInit() {
 		this.role = localStorage.getItem("role");
+
 		await this.getLotById();
+		await this.getCheval();
+	}
+
+	async getCheval() {
+		await this.api.getChevalById(this.route.snapshot.paramMap.get('id')).then(async c => {
+			this.cheval = c;
+			await this.api.getRaceChevalById(this.cheval.idRaceCheval).then(async rc => {
+					this.cheval.raceCheval = rc;
+				}, err => {
+					console.log(err);
+				});
+			}, err => {
+				console.log(err);
+			});
 	}
 
 	async getLotById() {
-		await this.api.getLotById(this.route.snapshot.paramMap.get('id'))
+		await this.api.getLotByChevalId(this.route.snapshot.paramMap.get('id'))
 			.then(async res => {
-				await this.api.getChevalById(res.idCheval).then(async c => {
-						res.cheval = c;
-						await this.api.getRaceChevalById(res.cheval.idRaceCheval).then(async rc => {
-							res.cheval.raceCheval = rc;
-						}, err => {
-							console.log(err);
-						});
-
-					}, err => {
-						console.log(err);
-					});
-
-
-				this.lot = res;
+				if(res != null)
+					this.lot = res;
 			}, err => {
 				console.log(err);
 			});
 	}
 
 	async acceptLot() {
-		let idLot = this.route.snapshot.paramMap.get('id');
+		let idLot = this.lot.id;
 		await this.api.acceptLot(idLot).then(res => {
 				this.message = "Le lot à été ajouté à la vente";
 			}, err => {
@@ -57,7 +61,7 @@ export class ConsulterPage implements OnInit {
 	}
 
 	async denyLot() {
-		let idLot = this.route.snapshot.paramMap.get('id');
+		let idLot = this.lot.id;
 		await this.api.denyLot(idLot).then(res => {
 				this.message = "Le lot à été refusé à la vente";
 			}, err => {

@@ -123,6 +123,11 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
+	getLotByChevalId(id: string): Promise<any> {
+		const url = this.apiUrl+'/chevaux/'+id+"/lot";
+		return this.execGetMethod(url);
+	}
+
 	getLotsByIdVente(id: string, offset: number): Promise<any> {
 		const url = this.apiUrl+'/ventes/'+id+'/lots?offset='+offset;
 		return this.execGetMethod(url);
@@ -238,7 +243,7 @@ export class RestApiService {
 
 	private extractData(res: Response) {
 		let body = res;
-		return body || { };
+		return body || null;
 	}
 
 	public formatDate(dateStr : string):string{

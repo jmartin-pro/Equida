@@ -28,10 +28,6 @@ const routes: Routes = [
 		loadChildren: './lots/lister/lister.module#ListerPageModule'
 	},
 	{
-		path: 'lots/:id',
-		loadChildren: './lots/consulter/consulter.module#ConsulterPageModule'
-	},
-	{
 		path: 'login',
 		loadChildren: './login/login.module#LoginPageModule'
 	},
@@ -56,8 +52,12 @@ const routes: Routes = [
 		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	},
 	{
-		path: 'mesChevaux', 
+		path: 'mesChevaux',
 		loadChildren: './mesChevaux/lister/lister.module#ListerPageModule'
+	},
+	{
+		path: 'mesChevaux/:id',
+		loadChildren: './mesChevaux/consulter/consulter.module#ConsulterPageModule'
 	}
 
 ];

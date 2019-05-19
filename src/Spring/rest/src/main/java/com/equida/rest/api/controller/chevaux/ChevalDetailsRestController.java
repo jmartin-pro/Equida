@@ -7,6 +7,9 @@ import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
+import com.equida.common.service.LotService;
+import com.equida.rest.api.dto.LotDto;
+import com.equida.rest.api.route.chevaux.ChevalDetailsLotApiRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -20,8 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ChevalDetailsRestController {
+	
 	@Autowired
 	private ChevalService chevalService;
+	
+	@Autowired
+	private LotService lotService;
 	
 	@GetMapping(ChevalDetailsApiRoute.RAW_URI)
 	public ChevalDto getCheval(@PathVariable(value = ChevalDetailsApiRoute.PARAM_ID_CHEVAL) Long idCheval) throws NotFoundException {
@@ -62,6 +69,15 @@ public class ChevalDetailsRestController {
 		AuthentificatedUser user = (AuthentificatedUser) authentication.getPrincipal();
 		
 		chevalService.delete(user.getCompte().getUtilisateur().getId(), idCheval);
+	}
+	
+	@GetMapping(ChevalDetailsLotApiRoute.RAW_URI)
+	public LotDto getLot(@PathVariable(value = ChevalDetailsLotApiRoute.PARAM_ID_CHEVAL) Long idCheval) {
+		try {
+			return LotDto.convertToDto(lotService.getLotByIdCheval(idCheval));
+		} catch(NotFoundException ex) {
+			return null;
+		}
 	}
 
 }

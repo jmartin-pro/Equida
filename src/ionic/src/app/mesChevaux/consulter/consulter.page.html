@@ -1,11 +1,11 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>Consultation lot</ion-title>
+		<ion-title>Consultation cheval</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	<div *ngIf="lot">
+	<div *ngIf="cheval">
 
 		<div *ngIf="message">
 			<ion-item color="success">
@@ -15,24 +15,24 @@
 
 		<ion-card>
 			<ion-card-header>
-				<ion-card-title>{{lot.cheval.nom}} - {{lot.cheval.sire}}</ion-card-title>
+				<ion-card-title>{{cheval.nom}} - {{cheval.sire}}</ion-card-title>
 			</ion-card-header>
 
 			<ion-card-content>
-				<div *ngIf="role == 'ADMIN' && lot.deleted == 0 && lot.validation == null">
+				<div *ngIf="role == 'ADMIN' && lot != null && lot.deleted == 0 && lot.validation == null">
 					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
 					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
 				</div>
 
-				<ion-item>
-					{{lot.cheval.raceCheval.libelle}}
+				<ion-item *ngIf="cheval.raceCheval">
+					{{cheval.raceCheval.libelle}}
 				</ion-item>
 
 				<ion-item>
-					{{lot.cheval.sexe}}
+					{{cheval.sexe}}
 				</ion-item>
-
-				<ion-item>
+					
+				<ion-item *ngIf="lot">
 					{{lot.prixDepart}}€
 				</ion-item>
 			</ion-card-content>

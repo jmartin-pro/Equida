@@ -12,13 +12,13 @@ export class AjouterPage implements OnInit {
 	categVente : any;
 	lieu : any;
 	nom : string;
-	dateDebut : Date;
-	dateFin : Date;
-	dateVente : Date;
+	dateDebut : string;
+	dateFin : string;
+	dateVente : string;
 	idLieu : number;
 	idCategVente : number;
-	
-	
+
+
 	constructor(private api: RestApiService,
 	private loadingController: LoadingController,
 	private navCtrl: NavController) { }
@@ -41,11 +41,11 @@ export class AjouterPage implements OnInit {
 					}
 				});
 				offset ++;
-				if (shouldBreak) { 
+				if (shouldBreak) {
 					break ;
 				}
 		}
-		
+
 		offset = 0;
 		shouldBreak = false;
 		while(true){
@@ -61,7 +61,7 @@ export class AjouterPage implements OnInit {
 					}
 				});
 				offset ++;
-				if (shouldBreak) { 
+				if (shouldBreak) {
 					break ;
 				}
 		}
