@@ -34,6 +34,20 @@ export class RestApiService {
 		return this.http.get(url, this.getHttpOptions()).pipe(map(this.extractData)).toPromise();
 	}
 
+	addCheval(nom: string, sexe:string, sire:string, idRaceCheval:string, sireMere:string, sirePere:string): any {
+		let data = {
+			nom : nom,
+			sexe : sexe,
+			sire : sire,
+			idRaceCheval : idRaceCheval,
+			sireMere : sireMere,
+			sirePere : sirePere
+		};
+
+		const url = this.apiUrl+'/chevaux';
+		return this.execPostMethod(url, data);
+	}
+
 	addVente(nom: string, dateDebut:string, dateFin:string, dateVente:string, idLieu:number, idCategVente:number): any {
 		let data = {
 			nom : nom,
@@ -48,7 +62,7 @@ export class RestApiService {
 		const url = this.apiUrl+'/ventes';
 		return this.execPostMethod(url, data);
 	}
-	
+
 	addLotClient(idVente: string, idCheval:number, prixDepart : number): any {
 		let data = {
 			idVente : idVente,
@@ -99,7 +113,7 @@ export class RestApiService {
 		const url = this.apiUrl+'/chevaux/'+id;
 		return this.execGetMethod(url);
 	}
-	
+
 	getChevauxDispoVente(offset : number): Promise<any> {
 		const url = this.apiUrl+'/lots/dispoVente?offset='+offset;
 		return this.execGetMethod(url);
@@ -185,6 +199,11 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
+	getRacesCheval(offset: number): Promise<any> {
+		const url = this.apiUrl+'/racesChevaux?offset='+offset;
+		return this.execGetMethod(url);
+	}
+
 	getRaceChevalById(id: string): Promise<any> {
 		const url = this.apiUrl+'/racesChevaux/'+id;
 		return this.execGetMethod(url);
@@ -216,6 +235,20 @@ export class RestApiService {
 		return this.execPatchMethod(url, data);
 	}
 
+	updateCheval(id: string, nom: string, sexe:string, sire:string, idRaceCheval:string, sireMere:string, sirePere:string): Promise<any> {
+		let data = {
+			nom : nom,
+			sexe : sexe,
+			sire : sire,
+			idRaceCheval : idRaceCheval,
+			sireMere : sireMere,
+			sirePere : sirePere
+		};
+
+		const url = this.apiUrl+'/chevaux/'+id;
+		return this.execPatchMethod(url, data);
+	}
+
 	public execGetMethod(url: string): Promise<any> {
 		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
@@ -242,6 +275,19 @@ export class RestApiService {
 			})).toPromise();
 	}	
 	
+	public execPatchMethod(url: string, data: any): Promise<any> {
+		return this.http.patch(url, data, this.getHttpOptions()).pipe(
+			map(this.extractData),
+			catchError(async err => {
+				if(err.status == 401) {
+					this.removeCredentials();
+					this.navCtrl.navigateForward('/login');
+					return;
+				}
+				return this.handleError(err);
+			})).toPromise();
+	}
+
 	public execPatchMethod(url: string, data: any): Promise<any> {
 		return this.http.patch(url, data, this.getHttpOptions()).pipe(
 			map(this.extractData),
@@ -309,7 +355,7 @@ export class RestApiService {
 		    await alert.present();
 		}
 
-		throw new Error('Something bad happened; please try again later.');
+		throw new Error(error.error.message);
 	}
 
 	private extractData(res: Response) {

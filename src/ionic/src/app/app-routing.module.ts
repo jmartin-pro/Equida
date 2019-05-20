@@ -19,13 +19,9 @@ const routes: Routes = [
 		path: 'ajouter/ventes',
 		loadChildren: './ventes/ajouter/ajouter.module#AjouterPageModule'
 	},
-	{ 	
+	{
 		path: 'ajouterLot/ventes/:id',
 		loadChildren: './ventes/ajouterLot/ajouterLot.module#AjouterLotPageModule'
-	},
-	{
-		path: 'consulter',
-		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
 	},
 	{
 		path: 'lots',
@@ -62,10 +58,19 @@ const routes: Routes = [
 	{
 		path: 'chevaux/:id',
 		loadChildren: './mesChevaux/consulter/consulter.module#ConsulterPageModule'
-	},	{	path: 'modifier/ventes/:id', 
+	},
+	{
+		path: 'mesChevaux/ajouter',
+		loadChildren: './mesChevaux/ajouter/ajouter.module#AjouterPageModule'
+	},
+	{
+		path: 'modifier/chevaux/:id',
+		loadChildren: './mesChevaux/modifier/modifier.module#ModifierPageModule'
+	},
+	{
+		path: 'modifier/ventes/:id',
 		loadChildren: './ventes/modifier/modifier.module#ModifierPageModule'
 	}
-
 ];
 
 @NgModule({

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un cheval</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+		<ion-label>Nom : </ion-label>
+		<ion-input [(ngModel)]="nom"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Sexe :</ion-label>
+		<ion-select [(ngModel)]="sexe" placeholder="Sélectionner un sexe">
+			<ion-select-option value="M">Mâle</ion-select-option>
+			<ion-select-option value="F">Femelle</ion-select-option>
+		</ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Sire : </ion-label>
+		<ion-input [(ngModel)]="sire"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Race : </ion-label>
+		<ion-select [(ngModel)]="race" placeholder="Sélectionner une race">
+			<ion-select-option *ngFor="let r of races" value="{{r.id}}">{{r.libelle}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Sire mère : </ion-label>
+		<ion-input [(ngModel)]="sireMere"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Sire père : </ion-label>
+		<ion-input [(ngModel)]="sirePere"></ion-input>
+	</ion-item>
+
+	<ion-button (click)="addCheval()">Enregistrer</ion-button>
+</ion-content>
