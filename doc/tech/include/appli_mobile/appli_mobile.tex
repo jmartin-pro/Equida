@@ -42,11 +42,19 @@
 		\subsection{Les pages}
 
 			%TODO Léa : Parler de la nommenclature
+				Les différentes pages créées (via la commande "ionic g") suivent la même nomenclature : elles sont nommées par un verbe (souvent : lister, ajouter, consulter, modifier). Ces pages sont donc générées dans un dossier du nom de l'entité concernée (ex : pays, ventes).
+				Dans chaque sous-dossier créé par la commande ionic, on retrouvera les mêmes types de fichiers.
+				Un fichier x.module.ts qui contient
+				Un fichier x.page.html qui contient donc le code html de la page ainsi que les composants ionic.
+				Un fichier x.page.scss
+				Un fichier page.spec.ts
+				Un fichier x.page.ts qui contient toutes les méthodes à éxécuter ainsi que l'initialisation de la page.
+				On ne travaillerai que sur les fichiers x.page.ts, x.page.html.
 
 			\subsubsection{Lister}
 
 					%TODO Léa : Donner un exemple
-
+						
 			\subsubsection{Consulter}
 
 					%TODO Léa : Donner un exemple
@@ -70,4 +78,6 @@
 		\subsection{Problèmes connus}
 
 			%TODO Léa : Parler refresh si ajout ou modif
+			Cette application mobile comporte des erreurs sur lesquelles nous n'avons pas su intervenir. En effet, après un ajout ou une modification (quelque soit l'entité concernée), lorsque l'on redirige vers la page principale qui liste, les informations ne sont pas mises à jour car la page n'est pas actualisée.
+
 			%TODO Justine : Parler affichage message erreur sur le formulaire
