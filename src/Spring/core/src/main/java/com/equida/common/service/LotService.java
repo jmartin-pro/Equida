@@ -89,6 +89,10 @@ public class LotService {
 		return lotRepository.findChevauxDispoVenteClient(idClient);
 	}
 	
+	public List<Cheval> getChevauxDispoVente(long idClient, PageRequest pageRequest) {
+		return lotRepository.findChevauxDispoVente(idClient, pageRequest);
+	}
+	
 	public List<Lot> get5Recents() {
 		return lotRepository.find5Recents(PageRequest.of(0, 5));
 	}

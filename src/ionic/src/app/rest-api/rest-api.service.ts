@@ -48,6 +48,18 @@ export class RestApiService {
 		const url = this.apiUrl+'/ventes';
 		return this.execPostMethod(url, data);
 	}
+	
+	addLotClient(idVente: string, idCheval:number, prixDepart : number): any {
+		let data = {
+			idVente : idVente,
+			idCheval : idCheval,
+			prixDepart : prixDepart
+
+		};
+
+		const url = this.apiUrl+'/lots';
+		return this.execPostMethod(url, data);
+	}
 
 	addPays(libelle: string): Promise<any> {
 		let data = {
@@ -80,6 +92,11 @@ export class RestApiService {
 
 	getChevalById(id: string): Promise<any> {
 		const url = this.apiUrl+'/chevaux/'+id;
+		return this.execGetMethod(url);
+	}
+	
+	getChevauxDispoVente(offset : number): Promise<any> {
+		const url = this.apiUrl+'/lots/dispoVente?offset='+offset;
 		return this.execGetMethod(url);
 	}
 

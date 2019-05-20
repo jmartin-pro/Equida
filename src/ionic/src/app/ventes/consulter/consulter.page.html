@@ -29,6 +29,10 @@
 					Catégorie de vente : {{vente.categVente.libelle}}
 				</ion-item>
 
+				<ion-button *ngIf="role == 'USER'" routerLink="/ajouterLot/ventes/{{vente.id}}" >
+				  <ion-icon slot="start" name="add"></ion-icon>
+				  Proposer un cheval
+				</ion-button>
 
 				<ion-button *ngIf="role == 'ADMIN'" color="danger" (click)="deleteVente()">
 				  <ion-icon slot="start" name="trash"></ion-icon>

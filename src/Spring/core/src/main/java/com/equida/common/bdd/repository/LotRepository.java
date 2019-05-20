@@ -1,5 +1,6 @@
 package com.equida.common.bdd.repository;
 
+import com.equida.common.bdd.entity.Cheval;
 import com.equida.common.bdd.entity.Lot;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,9 @@ public interface LotRepository extends CrudRepository<Lot, Long> {
 	
 	@Query(value = "SELECT c FROM Cheval c WHERE c.client.id = ?1 AND c.id NOT IN (SELECT l.cheval.id FROM Lot l WHERE l.deleted=0) AND c.deleted=0")
 	public List<Lot> findChevauxDispoVenteClient(Long idClient);
+	
+	@Query(value = "SELECT c FROM Cheval c WHERE c.client.id = ?1 AND c.id NOT IN (SELECT l.cheval.id FROM Lot l WHERE l.deleted=0) AND c.deleted=0")
+	public List<Cheval> findChevauxDispoVente(Long idClient, PageRequest pageRequest);
 	
 	@Query(value = "SELECT l FROM Lot l WHERE l.validation IS NOT NULL AND l.deleted=0 ORDER BY l.validation DESC")
 	public List<Lot> find5Recents(PageRequest pageRequest);	
