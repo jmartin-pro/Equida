@@ -164,6 +164,11 @@ export class RestApiService {
 		const url = this.apiUrl+'/chevaux/?offset='+offset;
 		return this.execGetMethod(url);
 	}
+	
+	getNouveauxLots(): Promise<any> {
+		const url = this.apiUrl+'/nouveauxLots';
+		return this.execGetMethod(url);
+	}
 
 	getParticipationByIdCheval(id: string, offset: number): Promise<any> {
 		const url = this.apiUrl+'/chevaux/'+id+'/courses?offset='+offset;

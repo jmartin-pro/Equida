@@ -68,5 +68,18 @@ public class LotsRestController {
 		
 		return LotDto.convertToDto(lot);
 	}
+	
+	@GetMapping("/api/nouveauxLots")
+	public List<LotDto> getNouveauxLots() {
+		List<Lot> lots = lotService.get5Recents();
+		
+		List<LotDto> lotsDto = new ArrayList<>();
+		
+		for(Lot l : lots) {			
+			lotsDto.add(LotDto.convertToDto(l));
+		}
+		
+		return lotsDto;
+	}
 
 }
