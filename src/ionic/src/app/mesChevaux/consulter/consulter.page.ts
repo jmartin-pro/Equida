@@ -14,6 +14,7 @@ export class ConsulterPage implements OnInit {
 	idClient: string;
 	cheval: any = null;
 	lot: any = null;
+	participations: any = null;
 	message: string;
 	role: string;
 
@@ -29,6 +30,7 @@ export class ConsulterPage implements OnInit {
 
 		await this.getLotById();
 		await this.getCheval();
+		await this.getParticipations();
 	}
 
 	async getCheval() {
@@ -65,6 +67,19 @@ export class ConsulterPage implements OnInit {
 					this.lot = res;
 			}, err => {
 				console.log(err);
+			});
+	}
+
+	async getParticipations() {
+		await this.api.getAll(this.api.getParticipationByIdCheval, this.route.snapshot.paramMap.get('id'))
+			.then(async res => {
+				for(let i = 0 ; i < res.length ; i++) {
+					await this.api.getCourseById(res[i].idCourse).then(c => {
+						res[i].course = c;
+					});
+				}
+
+				this.participations = res;
 			});
 	}
 

@@ -13,45 +13,60 @@
 		     </ion-item>
 		 </div>
 
+		 <ion-card>
+ 			<ion-card-header>
+ 				<ion-card-title>{{cheval.nom}} - {{cheval.sire}}</ion-card-title>
+ 			</ion-card-header>
+
+ 			<ion-card-content>
+ 				<div *ngIf="role == 'ADMIN' && lot != null && lot.deleted == 0 && lot.validation == null">
+ 					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
+ 					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
+ 				</div>
+
+ 				<ion-item *ngIf="cheval.raceCheval">
+ 					Race : {{cheval.raceCheval.libelle}}
+ 				</ion-item>
+
+ 				<ion-item>
+ 					Sexe : {{cheval.sexe}}
+ 				</ion-item>
+
+ 				<ion-item *ngIf="cheval.pere" routerLink="/chevaux/{{cheval.pere.id}}">
+ 					Père : {{cheval.pere.nom}} - {{cheval.pere.sire}}
+ 				</ion-item>
+
+ 				<ion-item *ngIf="cheval.mere"  routerLink="/chevaux/{{cheval.mere.id}}">
+ 					Mère : {{cheval.mere.nom}} - {{cheval.mere.sire}}
+ 				</ion-item>
+
+ 				<ion-item *ngIf="cheval.client">
+ 					Propriétaire : {{cheval.client.nom}} {{cheval.client.prenom}}
+ 				</ion-item>
+
+ 				<ion-item *ngIf="lot">
+ 					Prix : {{lot.prixDepart}}€
+ 				</ion-item>
+
+ 				<ion-button *ngIf="cheval.idClient == idClient" color="danger" (click)="deleteCheval()">
+ 					<ion-icon slot="start" name="trash"></ion-icon>
+ 					Supprimer
+ 				</ion-button>
+ 			</ion-card-content>
+ 		</ion-card>
+
 		<ion-card>
 			<ion-card-header>
-				<ion-card-title>{{cheval.nom}} - {{cheval.sire}}</ion-card-title>
+				<ion-card-title>Les courses</ion-card-title>
 			</ion-card-header>
 
 			<ion-card-content>
-				<div *ngIf="role == 'ADMIN' && lot != null && lot.deleted == 0 && lot.validation == null">
-					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
-					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
-				</div>
-
-				<ion-item *ngIf="cheval.raceCheval">
-					Race : {{cheval.raceCheval.libelle}}
+				<ion-item *ngFor="let p of participations">
+					<ion-label>
+						<p>{{p.course.nom}} - {{p.course.dateCourse}}</p>
+						<p>Classement : {{p.classement}}</p>
+					</ion-label>
 				</ion-item>
-
-				<ion-item>
-					Sexe : {{cheval.sexe}}
-				</ion-item>
-
-				<ion-item *ngIf="cheval.pere" routerLink="/chevaux/{{cheval.pere.id}}">
-					Père : {{cheval.pere.nom}} - {{cheval.pere.sire}}
-				</ion-item>
-
-				<ion-item *ngIf="cheval.mere"  routerLink="/chevaux/{{cheval.mere.id}}">
-					Mère : {{cheval.mere.nom}} - {{cheval.mere.sire}}
-				</ion-item>
-
-				<ion-item>
-					Propriétaire : {{cheval.client.nom}} {{cheval.client.prenom}}
-				</ion-item>
-
-				<ion-item *ngIf="lot">
-					Prix : {{lot.prixDepart}}€
-				</ion-item>
-
-				<ion-button *ngIf="cheval.idClient == idClient" color="danger" (click)="deleteCheval()">
-					<ion-icon slot="start" name="trash"></ion-icon>
-					Supprimer
-				</ion-button>
 			</ion-card-content>
 		</ion-card>
 	</div>
