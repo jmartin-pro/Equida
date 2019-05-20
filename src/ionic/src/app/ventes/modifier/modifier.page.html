@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifier la vente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+	  <ion-label>Nom : </ion-label>
+	  <ion-input [(ngModel)]="nom"></ion-input>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Date début : </ion-label>
+	  <ion-datetime [(ngModel)]="dateDebut" display-format="D MM YYYY"></ion-datetime>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Date fin : </ion-label>
+	  <ion-datetime [(ngModel)]="dateFin" display-format="D MM YYYY"></ion-datetime>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Date vente : </ion-label>
+	  <ion-datetime [(ngModel)]="dateVente" display-format="D MM YYYY"></ion-datetime>
+	</ion-item>
+	<ion-item>
+		<ion-label>Catégorie de la vente :</ion-label>
+		<ion-select [(ngModel)]="idCategVente" placeholder="Select One">
+		  <ion-select-option *ngFor="let cv of categVente" [value]="cv.id" [selected]="cv.id == idCategVente">{{cv.libelle}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Lieu : </ion-label>
+	  <ion-select [(ngModel)]="idLieu" placeholder="Select One">
+		  <ion-select-option *ngFor="let l of lieu" [value]="l.id">{{l.ville}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-button (click)="updateVente()">Enregistrer</ion-button>
+</ion-content>

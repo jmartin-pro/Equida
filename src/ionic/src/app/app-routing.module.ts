@@ -70,6 +70,10 @@ const routes: Routes = [
 	{
 		path: 'modifier/chevaux/:id',
 		loadChildren: './mesChevaux/modifier/modifier.module#ModifierPageModule'
+	},
+	{
+		path: 'modifier/ventes/:id',
+		loadChildren: './ventes/modifier/modifier.module#ModifierPageModule'
 	}
 ];
 
