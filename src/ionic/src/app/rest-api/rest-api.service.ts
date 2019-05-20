@@ -288,19 +288,6 @@ export class RestApiService {
 			})).toPromise();
 	}
 
-	public execPatchMethod(url: string, data: any): Promise<any> {
-		return this.http.patch(url, data, this.getHttpOptions()).pipe(
-			map(this.extractData),
-			catchError(async err => {
-				if(err.status == 401) {
-					this.removeCredentials();
-					this.navCtrl.navigateForward('/login');
-					return;
-				}
-				return this.handleError(err);
-			})).toPromise();
-	}
-
 	public execDeleteMethod(url: string): Promise<any> {
 		return this.http.delete(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
