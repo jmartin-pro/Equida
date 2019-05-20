@@ -2,7 +2,7 @@ package com.equida.rest.api.dto;
 
 import com.equida.common.bdd.entity.Client;
 
-public class ClientDto implements IDto<Client, ClientDto>{
+public class ClientDto implements IDto<Client, ClientDto> {
 	private Long id;
 	private String nom;
 	private String prenom;

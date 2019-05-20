@@ -24,6 +24,9 @@ public interface ParticiperRepository extends CrudRepository<Participer, Long> {
 
 	@Query(value = "SELECT p FROM Participer p WHERE p.cheval.id=?1")
 	public List<Participer> findAllByIdCheval(Long idCheval);
+	
+	@Query(value = "SELECT p FROM Participer p WHERE p.cheval.id=?1")
+	public List<Participer> findAllByIdCheval(Long idCheval, PageRequest pageRequest);
   
 	@Transactional
 	@Modifying

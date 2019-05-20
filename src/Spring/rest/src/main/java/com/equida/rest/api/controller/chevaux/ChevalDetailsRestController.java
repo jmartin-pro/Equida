@@ -4,12 +4,20 @@ import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.rest.api.dto.ChevalDto;
 import com.equida.rest.api.route.chevaux.ChevalDetailsApiRoute;
 import com.equida.common.bdd.entity.Cheval;
+import com.equida.common.bdd.entity.Participer;
 import com.equida.common.exception.NotFoundException;
 import com.equida.common.exception.WebException;
 import com.equida.common.service.ChevalService;
 import com.equida.common.service.LotService;
+import com.equida.common.service.ParticiperService;
 import com.equida.rest.api.dto.LotDto;
+import com.equida.rest.api.dto.ParticiperDto;
+import com.equida.rest.api.dto.filter.BasicFilterDto;
+import com.equida.rest.api.route.chevaux.ChevalDetailsCourseApiRoute;
 import com.equida.rest.api.route.chevaux.ChevalDetailsLotApiRoute;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -26,6 +34,9 @@ public class ChevalDetailsRestController {
 	
 	@Autowired
 	private ChevalService chevalService;
+	
+	@Autowired
+	private ParticiperService participerService;
 	
 	@Autowired
 	private LotService lotService;
@@ -78,6 +89,19 @@ public class ChevalDetailsRestController {
 		} catch(NotFoundException ex) {
 			return null;
 		}
+	}
+	
+	@GetMapping(ChevalDetailsCourseApiRoute.RAW_URI)
+	public List<ParticiperDto> getCourses(@PathVariable(value = ChevalDetailsCourseApiRoute.PARAM_ID_CHEVAL) Long idCheval, @Valid BasicFilterDto filterDto) {
+		List<Participer> participers = participerService.getAllByChevalId(idCheval, filterDto.getPageRequest());
+		
+		List<ParticiperDto> participersDto = new ArrayList<>();
+		
+		for(Participer p : participers) {
+			participersDto.add(ParticiperDto.convertToDto(p));
+		}
+		
+		return participersDto;
 	}
 
 }

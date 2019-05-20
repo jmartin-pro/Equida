@@ -40,6 +40,10 @@ public class ParticiperService {
 		return participerRepository.findAllByIdCheval(idCheval);
 	}
 	
+	public List<Participer> getAllByChevalId(Long idCheval, PageRequest pageRequest) {
+		return participerRepository.findAllByIdCheval(idCheval, pageRequest);
+	}
+	
 	public Participer create(Long idCheval, Long idCourse, int classement) {
 		if(idCheval == null) {
 			throw new ServiceException("idCheval ne doit pas être null");
