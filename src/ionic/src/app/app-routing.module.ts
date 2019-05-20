@@ -19,7 +19,7 @@ const routes: Routes = [
 		path: 'ajouter/ventes',
 		loadChildren: './ventes/ajouter/ajouter.module#AjouterPageModule'
 	},
-	{ 	
+	{
 		path: 'ajouterLot/ventes/:id',
 		loadChildren: './ventes/ajouterLot/ajouterLot.module#AjouterLotPageModule'
 	},
@@ -64,11 +64,13 @@ const routes: Routes = [
 		loadChildren: './mesChevaux/consulter/consulter.module#ConsulterPageModule'
 	},
 	{
-		path: 'mesChevaux/ajouter', 
+		path: 'mesChevaux/ajouter',
 		loadChildren: './mesChevaux/ajouter/ajouter.module#AjouterPageModule'
+	},
+	{
+		path: 'modifier/chevaux/:id',
+		loadChildren: './mesChevaux/modifier/modifier.module#ModifierPageModule'
 	}
-
-
 ];
 
 @NgModule({

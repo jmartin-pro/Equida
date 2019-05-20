@@ -214,6 +214,20 @@ export class RestApiService {
 		return this.execGetMethod(url);
 	}
 
+	updateCheval(id: string, nom: string, sexe:string, sire:string, idRaceCheval:string, sireMere:string, sirePere:string): Promise<any> {
+		let data = {
+			nom : nom,
+			sexe : sexe,
+			sire : sire,
+			idRaceCheval : idRaceCheval,
+			sireMere : sireMere,
+			sirePere : sirePere
+		};
+
+		const url = this.apiUrl+'/chevaux/'+id;
+		return this.execPatchMethod(url, data);
+	}
+
 	public execGetMethod(url: string): Promise<any> {
 		return this.http.get(url, this.getHttpOptions()).pipe(
 		map(this.extractData),
@@ -229,6 +243,19 @@ export class RestApiService {
 
 	public execPostMethod(url: string, data: any): Promise<any> {
 		return this.http.post(url, data, this.getHttpOptions()).pipe(
+			map(this.extractData),
+			catchError(async err => {
+				if(err.status == 401) {
+					this.removeCredentials();
+					this.navCtrl.navigateForward('/login');
+					return;
+				}
+				return this.handleError(err);
+			})).toPromise();
+	}
+
+	public execPatchMethod(url: string, data: any): Promise<any> {
+		return this.http.patch(url, data, this.getHttpOptions()).pipe(
 			map(this.extractData),
 			catchError(async err => {
 				if(err.status == 401) {

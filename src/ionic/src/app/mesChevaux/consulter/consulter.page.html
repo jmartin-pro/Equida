@@ -48,6 +48,11 @@
  					Prix : {{lot.prixDepart}}€
  				</ion-item>
 
+				<ion-button *ngIf="cheval.idClient == idClient" routerLink="/modifier/chevaux/{{cheval.id}}">
+					<ion-icon slot="start" name="create"></ion-icon>
+					Modifier
+				</ion-button>
+
  				<ion-button *ngIf="cheval.idClient == idClient" color="danger" (click)="deleteCheval()">
  					<ion-icon slot="start" name="trash"></ion-icon>
  					Supprimer
