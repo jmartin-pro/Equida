@@ -60,7 +60,7 @@ public class ChevalDetailsRestController {
 			if(chevalDto.getSireMere() != null && !chevalDto.getSireMere().trim().isEmpty())
 				idMere = chevalService.getBySire(chevalDto.getSireMere()).getId();
 		} catch(NotFoundException e) {
-			throw new WebException("Le SIRE du père n'existe pas dans notre base de donnée");
+			throw new WebException("Le SIRE de la mère n'existe pas dans notre base de donnée");
 		}
 		
 		try {
