@@ -24,10 +24,6 @@ const routes: Routes = [
 		loadChildren: './ventes/ajouterLot/ajouterLot.module#AjouterLotPageModule'
 	},
 	{
-		path: 'consulter',
-		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'
-	},
-	{
 		path: 'lots',
 		loadChildren: './lots/lister/lister.module#ListerPageModule'
 	},
