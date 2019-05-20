@@ -19,6 +19,10 @@ const routes: Routes = [
 		path: 'ajouter/ventes',
 		loadChildren: './ventes/ajouter/ajouter.module#AjouterPageModule'
 	},
+	{ 	
+		path: 'ajouterLot/ventes/:id',
+		loadChildren: './ventes/ajouterLot/ajouterLot.module#AjouterLotPageModule'
+	},
 	{
 		path: 'consulter',
 		loadChildren: './ventes/consulter/consulter.module#ConsulterPageModule'

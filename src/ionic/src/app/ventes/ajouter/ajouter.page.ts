@@ -18,53 +18,20 @@ export class AjouterPage implements OnInit {
 	idLieu : number;
 	idCategVente : number;
 
-
 	constructor(private api: RestApiService,
 	private loadingController: LoadingController,
 	private navCtrl: NavController) { }
 
 	async ngOnInit() {
-		this.categVente = [];
-		this.lieu = [];
-		let offset = 0;
-		let shouldBreak = false;
-		while(true){
-			await this.api.getCategVente(offset)
-				.then(async res => {
-					console.log(res);
-					if(res.length == 0){
-						shouldBreak = true;
-					} else {
-						for(let i = 0 ; i < res.length ; i++) {
-							this.categVente.push(res[i]);
-						}
-					}
-				});
-				offset ++;
-				if (shouldBreak) {
-					break ;
-				}
-		}
+		await this.api.getAll(this.api.getCategVente)
+			.then(async res => {
+				this.categVente = res;
+			});
 
-		offset = 0;
-		shouldBreak = false;
-		while(true){
-			await this.api.getLieux(offset)
-				.then(async res => {
-					console.log(res);
-					if(res.length == 0){
-						shouldBreak = true;
-					} else {
-						for(let i = 0 ; i < res.length ; i++) {
-							this.lieu.push(res[i]);
-						}
-					}
-				});
-				offset ++;
-				if (shouldBreak) {
-					break ;
-				}
-		}
+		await this.api.getAll(this.api.getLieux)
+			.then(async res => {
+				this.lieu = res;
+			});
 	}
 
 	async addVente() {

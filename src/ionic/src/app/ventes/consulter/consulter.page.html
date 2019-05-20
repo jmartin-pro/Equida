@@ -28,23 +28,35 @@
 				<ion-item>
 					Catégorie de vente : {{vente.categVente.libelle}}
 				</ion-item>
+				
+				<ion-button *ngIf="role == 'USER'" routerLink="/ajouterLot/ventes/{{vente.id}}" >
+				  <ion-icon slot="start" name="add"></ion-icon>
+				  Proposer un cheval
+				</ion-button>
 
-				<ion-button color="danger" (click)="deleteVente()">
+				<ion-button *ngIf="role == 'ADMIN'" color="danger" (click)="deleteVente()">
 				  <ion-icon slot="start" name="trash"></ion-icon>
 				  Supprimer
 				</ion-button>
 			</ion-card-content>
-
+			
+			<ion-title>Les lots en vente :</ion-title>
+			<ion-card *ngFor="let l of lots" routerLink="/chevaux/{{l.cheval.id}}">
+				<ion-card-header>
+					<ion-card-title>{{l.cheval.nom}}</ion-card-title>
+				</ion-card-header>
+				<ion-card-content>
+					<ion-item>
+						Sire : {{l.cheval.sire}}
+					</ion-item>
+					<ion-item>
+						Race : {{l.cheval.race.libelle}}
+					</ion-item>
+					<ion-item>
+						Prix : {{l.prixDepart}}€
+					</ion-item>
+				</ion-card-content>
+			</ion-card>
 		</ion-card>
 	</div>
-	<ion-card *ngFor="let l of lots" routerLink="/chevaux/{{l.cheval.id}}">
-		<ion-card-header>
-			<ion-card-title>{{l.cheval.nom}}</ion-card-title>
-		</ion-card-header>
-		<ion-card-content>
-			<ion-item>
-				Race : {{l.cheval.race.libelle}}
-			</ion-item>
-		</ion-card-content>
-	</ion-card>
 </ion-content>

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un cheval à une vente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+		<ion-label>Cheval :</ion-label>
+		<ion-select [(ngModel)]="idCheval" placeholder="Select One">
+		  <ion-select-option *ngFor="let c of chevaux" value="{{c.id}}">{{c.nom}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-item>
+	  <ion-label>Prix de départ: </ion-label>
+	  <ion-input [(ngModel)]="prixDepart"></ion-input>
+	</ion-item>
+	<ion-button (click)="addLotClient()">Enregistrer</ion-button>
+</ion-content>

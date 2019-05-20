@@ -10,6 +10,7 @@ import { RestApiService } from '../../rest-api/rest-api.service';
 })
 export class ListerPage implements OnInit {
 
+	private role;
 	private ventes: any;
 	private currentOffset: number;
 	private shouldDisableInfiniteScroll : boolean;
@@ -17,6 +18,7 @@ export class ListerPage implements OnInit {
 	constructor(public api: RestApiService, public loadingController: LoadingController) { }
 
 	ngOnInit() {
+		this.role = localStorage.getItem("role");
 		this.currentOffset = 0;
 		this.ventes = [];
 		this.shouldDisableInfiniteScroll = false;
@@ -65,7 +67,7 @@ export class ListerPage implements OnInit {
 							}, err => {
 								console.log(err);
 							});
-						
+
 						this.ventes.push(res[i]);
 					}
 				}
