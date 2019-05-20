@@ -194,6 +194,22 @@ export class RestApiService {
 		const url = this.apiUrl+'/ventes/'+id;
 		return this.execGetMethod(url);
 	}
+	
+	updateVente(idVente: string, nom: string, dateDebut:string, dateFin:string, dateVente:string, idLieu:number, idCategVente:number): any {
+		let data = {
+			idVente : idVente,
+			nom : nom,
+			dateDebut : this.formatDate(dateDebut),
+			dateFin : this.formatDate(dateFin),
+			dateVente : this.formatDate(dateVente),
+			idLieu : idLieu,
+			idCategVente : idCategVente
+
+		};
+
+		const url = this.apiUrl+'/ventes/'+idVente;
+		return this.execPatchMethod(url, data);
+	}
 
 	public execGetMethod(url: string): Promise<any> {
 		return this.http.get(url, this.getHttpOptions()).pipe(
@@ -210,6 +226,19 @@ export class RestApiService {
 
 	public execPostMethod(url: string, data: any): Promise<any> {
 		return this.http.post(url, data, this.getHttpOptions()).pipe(
+			map(this.extractData),
+			catchError(async err => {
+				if(err.status == 401) {
+					this.removeCredentials();
+					this.navCtrl.navigateForward('/login');
+					return;
+				}
+				return this.handleError(err);
+			})).toPromise();
+	}	
+	
+	public execPatchMethod(url: string, data: any): Promise<any> {
+		return this.http.patch(url, data, this.getHttpOptions()).pipe(
 			map(this.extractData),
 			catchError(async err => {
 				if(err.status == 401) {
@@ -286,6 +315,11 @@ export class RestApiService {
 	public formatDate(dateStr : string):string{
 		let dateArray = dateStr.split("-");
 		return dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+	}
+	
+	public deformatDate(dateStr : string):string{
+		let dateArray = dateStr.split("/");
+		return dateArray[2]+"-"+dateArray[1]+"-"+dateArray[0];
 	}
 
 	public async getAll(callback: any, ...args: any[]) {
