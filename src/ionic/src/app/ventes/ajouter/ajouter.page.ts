@@ -35,7 +35,6 @@ export class AjouterPage implements OnInit {
 	}
 
 	async addVente() {
-		console.log(this.dateDebut);
 		const loading = await this.loadingController.create({
 			message: 'Envoie des informations'
 		});

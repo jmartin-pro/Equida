@@ -62,7 +62,12 @@ const routes: Routes = [
 	{
 		path: 'chevaux/:id',
 		loadChildren: './mesChevaux/consulter/consulter.module#ConsulterPageModule'
+	},
+	{
+		path: 'mesChevaux/ajouter', 
+		loadChildren: './mesChevaux/ajouter/ajouter.module#AjouterPageModule'
 	}
+
 
 ];
 
