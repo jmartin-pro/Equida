@@ -5,6 +5,11 @@
 		\subsection{Packages}
 
 			%TODO Léa : Image et décrire le but des packages (src)
+			L'application web (/Spring) contient donc les packages core, gradlle, rest et webApp.
+			/core contient les fichiers en communs. C'est à dire la base de données, les services, les classes "utilitaires", les classes d'exception et d'authentification.
+			/gradle
+			/rest contient les fichiers de l'api (notamment les controller, les dto et les routes) ainsi que les classes de configuration.
+			/webApp contient le code de l'application web avec les controller, les formulaires, les routes...
 
 		\subsection{Resources}
 
@@ -27,10 +32,17 @@
 			\subsubsection{Page de base}
 
 				%TODO Léa : Expliquer le fonctionnement de la page de base et les macros
+					La page de base (cf base.ftl) correspond à la page type de l'application. On y retrouve ainsi tout ce qui sera inclu sur les pages de l'application. Ainsi, base.ftl contient le header de la page html avec l'inclusion de la feuille de style. Dans la partie body de la page, on retrouvera donc le contenu du fichier nav.ftl correspondant au menu, ainsi que le footer et les fichiers sources scripts nécessaires. De plus,
+					Les macros permettent de charger le contenu html aux endroits prévus dans cette page. Par exemple, la macro content, présente dans le body de base chargera le code d'une page html présent entre les balises macro content.
+
+					IMAGES
 
 			\subsubsection{Page d'erreur}
 
 				%TODO Léa : Expliquer que les pages sont chargés automatiquement par spring et reprenne design de base
+					Les pages d'erreur sont chargées automatiquement par Spring et contiennent des messages explicits. Nous avons gérés les erreurs 403 (permissions non autorisées), 404 (page inexistante) et 500 (exception lors de l'exécution du code). Elles reprennent donc elles aussi le design de base de l'application.
+
+					IMAGES
 
 			\subsubsection{Autre}
 
@@ -39,6 +51,11 @@
 		\subsection{Assets (images, js, ...)}
 
 			%TODO Léa : Je sais pas trop... Décrire le fonctionnement général avec un exemple. Si tu as de meilleures idées vas y :)
+				Le sous-dossier /assets contient donc les ressources statiques de l'application. Il se décompose en plusieurs sous-dossiers.
+				/img contient le logo et favicon de l'application ainsi que les images dans le caroussel de la page d'accueil
+				/js contient le code javascript nécessaire pour l'affichage du caroussel (page accueil Equida) et la gestion dynamique de l'ajout des courses pour un cheval.
+				/styles contient le fichier CSS de base
+				/vendors contient les fichiers pour Materialize, un framework CSS qui facilite donc la gestion du design de l'application.
 
 	\section{Parler authentification}
 
@@ -53,10 +70,18 @@
 	\section{Exemple Route}
 
 		%TODO Léa : Expliquer les méthodes de l'interface IRoute et donner un exemple de route.
+		L'interface IRoute décrit les méthodes qui doivent être utilisées par les fichiers route.
+		Ainsi chaque fichier route contiendra une méthode getUri(), une méthode getView() et getTitle() qui retourneront respectivement l'URL, la vue et le titre à utiliser pour la route concernée.
+		Par exemple, pour PaysRoute, qui est donc la route principale selon notre nomenclature, l'URL correspond à /pays, c'est à cette url là, qu'on chargera la vue pays/lister avec le titre "Les pays".
 
 	\section{Exemple Form}
 
 		%TODO Léa : Expliquer la classe mère IForm et donner un exemple de formulaire (Avec Add et Update et le Neutre)
+			La classe mère IForm est donc une classe abstraite qui accepte en paramètre n'importe quelle entité et qui nous permettra de gérer les différents formulaires pour une même entité.
+			Par exemple, prenoms l'entité Pays. On créé le formulaire "neutre" PaysForm qui héritera de IForm qui nous permettra de savoir si on taire le formulaire d'ajout ou de modification.
+			On fera hérité de ce formulaire neutre PaysAddForm et PaysUpdateForm et on transmettra, dans un premier cas, le fait que la variable isCreation vaut true alors que pour le second, elle vaudra false. On pourra ainsi utiliser les variables et méthodes déclarées dans PaysForm.
+
+			IMAGES ?
 
 	\section{Classe InputOutputAttribute}
 
@@ -65,3 +90,9 @@
 	\section{Exemple Controller}
 
 		%TODO Léa : Donner un exemple de controller
+
+		Les différents controller créés pour les entités héritent tous de la classe AbstractWebController.
+		Cette dernière permet de gérer notamment l'affichage des messages d'erreurs et ...
+		Les controller, eux, contiennent les différentes fonctions de l'entité (lister, ajouter, modifier, supprimer) et font donc les liens entre la route et le service.
+		C'est aussi ici qu'on gère les différentes authorisations afin de savoir qui peut accéder/utiliser telle fonction.
+		Par exemple, dans PaysController, la fonction RedirectView addPost n'est possible que pour un utilisateur ayant le role 'admin' et elle permet de ...
