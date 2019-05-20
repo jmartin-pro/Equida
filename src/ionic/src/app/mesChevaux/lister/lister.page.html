@@ -15,6 +15,14 @@
 		</ion-item>
 	</ion-list>
 
+	<div *ngIf="role == 'USER'">
+		<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+			<ion-fab-button  color="danger" routerLink="/mesChevaux/ajouter" >
+				<ion-icon name="add" ></ion-icon>
+			</ion-fab-button>
+		</ion-fab>
+	</div>
+
 	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
 		<ion-infinite-scroll-content
 			loadingSpinner="bubbles"
