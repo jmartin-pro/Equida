@@ -24,6 +24,7 @@
 			Dans ce fichier configure les informations relatives à l'application dans sa globalité, comme le port à utiliser, la configuration pour connexion avec la \bdd{} (nom utilisateur, mot de passe, ip, ...) ou encore la configuration du moteur de template, freemarker en l'occurence.
 
 		\subsection{Configuration par le code}
+			\label{subsec:webapp_configCode}
 
 			La configuration de Spring Security est directement faite dans le code source grace à l'utilisation de l'annotation "Configuration".
 
@@ -80,11 +81,18 @@
 
 		\subsection{Gestion template et controller}
 
-			%TODO Justine
+			Un controleur existe afin de gérer l'affichage d'un template freemarker concernant la page de connexion à l'application. Ce controleur se charge uniquement de l'affichage de l'information. En effet, le traitement des identifiants est fait par Spring Security (comme mentionné dans \nameref{subsec:webapp_configCode}).
 
 		\subsection{Interceptor}
 
-			%TODO Justine
+			Afin de faciliter la gestion de l'utilisateur actuellement connecté dans le vue ou les controleurs une classe "UserInterceptor" permet de founir automatiquement l'instance de "AuthentificatedUser" à la vue ou au controleur.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/UserInterceptor.png}
+				\caption{Code de UserInterceptor}
+			\end{figure}
+
+			On peut alors avoir accès à la variable "user" dans la vue comme n'importe quelle autre variable fournis par le controleur ou alors dans le controleur en utilisant le paramètre suivant dans une méthode d'un controleurs "@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user".
 
 	\section{Exemple Route}
 
@@ -99,7 +107,7 @@
 		Cette classe permet la définition de constantes qui seront utilisés au travers de l'application.
 
 		\begin{figure}[H]
-			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/InputOutputAttribute.png}
+			\centering\includegraphics[width=0.65\textwidth, keepaspectratio]{res/InputOutputAttribute.png}
 			\caption{Code de InputOutputAttribute}
 		\end{figure}
 
@@ -114,7 +122,26 @@
 
 		\subsection{AbstractWebController}
 
-			%TODO Justine
+			Cette classe est la classe mère de tout les controleurs. On y définis certaines méthodes comme la possibilité d'ajouter des messages d'erreurs, ou à titres informatifs, qui seront transférés à la vue.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/AbstractWebController-messages.png}
+				\caption{Méthodes pour la gestion des messages}
+			\end{figure}
+
+			On y définit aussi la gestion des exception dans lequels on passe les variables necessaires au bon affichage de la vue.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/AbstractWebController-exception.png}
+				\caption{Méthodes pour la gestion des exceptions}
+			\end{figure}
+
+			Elle définit aussi 2 méthodes qui permettent de simplifier le code de gestion des formulaires, l'une afin de les créer et de les compléter si besoin, l'autre afin de faciliter la gestion des erreurs sur ceux ci.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/AbstractWebController-form.png}
+				\caption{Méthodes pour la gestion des form}
+			\end{figure}
 
 		\subsection{Exemple Controller}
 
