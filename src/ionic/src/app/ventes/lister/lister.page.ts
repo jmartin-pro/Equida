@@ -10,8 +10,8 @@ import { RestApiService } from '../../rest-api/rest-api.service';
 })
 export class ListerPage implements OnInit {
 
-	private role;
-	private ventes: any;
+	public role;
+	public ventes: any;
 	private currentOffset: number;
 	private shouldDisableInfiniteScroll : boolean;
 

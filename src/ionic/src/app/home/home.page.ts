@@ -10,7 +10,7 @@ import { RestApiService } from '../rest-api/rest-api.service';
 })
 export class HomePage implements OnInit {
 
-	private lots: any;
+	public lots: any;
 
 	constructor(public api: RestApiService, public loadingController: LoadingController) { }
 
