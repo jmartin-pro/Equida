@@ -9,16 +9,16 @@
 			L'organisation des packages se présente comme suit :
 
 			\begin{figure}[H]
-				\centering\includegraphics[width=0.33\textwidth, keepaspectratio]{res/package.png}
+				\centering\includegraphics[width=0.33\textwidth, keepaspectratio]{res/webapp-package.png}
 				\caption{Packages de WebApp}
 			\end{figure}
 
 			\begin{description}
-				\item[attribute :]{Contient la classe InputOutputAttribute qui gère toutes les variables dont on pourrait avoir besoin}
+				\item[attribute :]{Contient la classe InputOutputAttribute qui gère toutes les constantes dont on pourrait avoir besoin}
 				\item[config :]{Contient les classes relatives à la configuration et la sécurité de l'application}
 				\item[controller :]{Contient toutes les contrôleurs qui héritent de la classe AbstractWebController}
 				\item[form :]{Contient tous les formulaires qui héritent de la classe IForm}
-				\item[interceptor :]{Contient la classe UserInterceptor qui hérite de HandlerInterceptorAdapter (voir le fonctionnement de Interceptor : \ref{interceptor} et/ou \url{https://www.tutorialspoint.com/spring_boot/spring_boot_interceptor.htm})}
+				\item[interceptor :]{Contient la classe UserInterceptor qui hérite de HandlerInterceptorAdapter (voir \nameref{subsec:interceptor} et/ou \url{https://www.tutorialspoint.com/spring_boot/spring_boot_interceptor.htm})}
 				\item[route :]{Contient toutes les routes qui héritent de IRoute}
 			\end{description}
 
@@ -72,7 +72,7 @@
 				%TODO Léa : Expliquer le fonctionnement de la page de base et les macros
 				La page base.ftl correspond à la page type de l'application. On y retrouve ainsi ce qui sera inclus sur toutes les pages de l'application. \newline
 				Ainsi, base.ftl contient le header de la page avec l'inclusion de la feuille de style ; sa partie body contient, elle, le contenu du fichier nav.ftl correspondant au menu, ainsi que le footer et les fichiers de scripts nécessaires.\newline
-				Les macros permettent le chargement du contenu aux endroits prévus à cet effet. Par exemple, la macro @content, présente dans le body de base.ftl, chargera le code du fichier x.ftl à cet endroit.
+				Les macros permettent le chargement du contenu aux endroits prévus à cet effet. Par exemple, la drective <@content/>, présente dans le body de base.ftl, chargera le code dans la macro "content" du fichier x.ftl à cet endroit.
 
 				\begin{figure}[H]
 					\centering\includegraphics[width=1\textwidth, keepaspectratio]{res/fonctionnementBaseFtl.png}
@@ -109,7 +109,8 @@
 
 			%TODO Justine
 
-		\label{interceptor} \subsection{Interceptor}
+		\subsection{Interceptor}
+			\label{subsec:interceptor}
 
 			%TODO Justine
 
@@ -158,10 +159,10 @@
 		%TODO Léa : Donner un exemple de controller
 
 		Les différents contrôleurs créés pour les entités x héritent tous de la classe AbstractWebController. \newline
-		Les contrôleurs contiennent les différentes fonctions correspondant aux méthodes get, post, patch et delete qui utilisent les services et les routes associées. C'est aussi ici qu'on gère les différentes autorisations afin de savoir qui peut accéder, utiliser telle fonction.
+		Les contrôleurs contiennent différentes méthodes associées aux méthodes GET, POST, PATCH et DELETE ainsi qu'a une route. Enfin elles utilisent les services pour intéragir avec la \bdd{}. On y définit aussi les différentes autorisations avec l'annotation @PreAuthorize afin de savoir qui peut accéder à la page, et donc, executer la méthode.
 
 		\noindent
-		Par exemple, dans EncheresController, la fonction addGet n'est possible que pour un utilisateur ayant le role 'ADMIN', elle est reliée à l'URL EncheresAddRoute.RAW\_URI (URL stockée dans la variable RAW\_URI de la classe EncheresAddRoute). Elle permet de récupérer le formulaire d'ajout d'une enchère.
+		Par exemple, dans EncheresController, la méthode addGet n'est possible que pour un utilisateur ayant le role 'ADMIN', elle est reliée à l'URL EncheresAddRoute.RAW\_URI (URL stockée dans la variable constante RAW\_URI de la classe EncheresAddRoute). Elle permet de récupérer les différentes variables nécessaires à l'affichage de la page, comme le formulaire d'ajout d'une enchère par exemple.
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/enchereController.png}

@@ -20,14 +20,14 @@
 
 		\subsection{Spring Boot}
 		%TODO Léa : Pourquoi Spring boot, parler des ""parts du marchés"", avantages, ...
-			On fait le choix de SpringBoot pour le projet car c'est très probablement le Framework Java pour le développement web le plus utilisé. Il permet de créer facilement un contrôleur, en effet, il suffit de créer une classe et de l’annoter @RestController. Chacune des méthodes aura l’annotation @RequestMapping qui indique quel chemin de l’API la méthode couvre et quelle méthode HTTP lui correspond.\newline
-			De plus, il embarque l'équivalent d'un serveur TomCat lors de la compilation du projet (en faisant Tasks > boot > bootRun) qui permet le démarrage d'un serveur web et il s'occupe de rediriger les requêtes aux méthodes concernées. \newline
+			On fait le choix de SpringBoot pour le projet car c'est très probablement le Framework Java pour le développement web le plus utilisé. Il permet de créer facilement un contrôleur, en effet, il suffit de créer une classe et de l’annoter @Controller. Chacune des méthodes aura l’annotation @GetMapping, @PostMapping ou tout autre méthode HTTP ayant le modèle suivant @XMapping, qui indique l'url de la page, ainsi que sa méthode HTTP, qui lui correspond.\newline
+			De plus, il embarque l'équivalent d'un serveur TomCat lors de la compilation du projet (en faisant Tasks > boot > bootRun sur netbeans ou gradle bootRun en ligne de commande) qui permet le démarrage du projet par l'intermédiaire du serveur web embarqué. \newline
 			Vous pouvez retrouver ce framework ici : \url{https://spring.io/projects/spring-boot} ainsi que des tutoriels pour l'utiliser ici \url{https://www.tutorialspoint.com/spring_boot/index.htm} et là \url{https://www.javatpoint.com/spring-boot-tutorial}
 
 		\subsection{Ionic}
 		%TODO Léa : Pourquoi Ionic, écrire du code en code Js, multiplateforme, ...
 			Ionic est un framework open source qui permet de créer des applications multiplateformes (mobile et navigateur) performantes tout en utilisant des technologies Web connues (HTML, CSS, JavaScript). Il possède en plus une intégration d'Angular qui permet d'appréhender une page web comme un assemblage de composants webs indépendants mais qui peuvent communiquer entre eux. \newline
-			Ionic intègre en plus des composznts visuels natifs, ainsi, les utilisateurs d'Android ou d'iOs conserveront leurs habitudes sur l'application. \newline
+			Ionic intègre également des composants visuels natifs, ainsi, les utilisateurs d'Android ou d'iOs conserveront leurs habitudes sur l'application. \newline
 			Vous pouvez retrouver ce framework ici : \url{https://ionicframework.com/docs/installation/cli} avec sa documentation : \url{https://ionicframework.com/docs/components}.
 
 		\subsection{Gradle}
@@ -40,37 +40,37 @@
 			\subsubsection{Branches}
 			%TODO Léa : Parler de master (=version prod), develop, features/XXX
 				Afin d'utiliser au mieux Git, nous avons fait le choix de créer deux branches "principales". Il s'agit donc de master et de develop.
-				La branche master correspond à la version en production de nos applications. Ainsi, on ne travaillera jamais sur cette branche. Elle ne nous servira donc qu'à récupérer le contenu de la branche develop que l'on utilisera en production sur le serveur.
-				La branche develop, quant à elle, est donc la branche à partir de laquelle nous travaillons. C'est à partir de cette dernière que nous créons les différentes branches pour le développement de nos fonctionnalités. Ne sont poussées sur celle-ci que les fonctionnalités opérationnels des applications. C'est donc la version en cours de développement.
+				La branche master correspond à la version en production de nos applications. Ainsi, on ne travaillera jamais sur cette branche. Elle ne nous servira donc qu'à récupérer l'application dans un état stable afin d'y mettre les différentes applications en production.
+				La branche develop, quant à elle, est donc la branche à partir de laquelle nous travaillons. C'est à partir de cette dernière que nous créons les différentes branches pour le développement de nos fonctionnalités. Ne sont poussées sur celle-ci que les nouvelles fonctionnalités opérationnels des applications. C'est donc la version en cours de développement.
 				Les branches créées à partir de develop sont donc les branches correspondant aux fonctionnalités développées, elles commencent toutes par features/XXX (correspondant à la modification). Par exemple, pour la gestion des clients, on crera une branche features/gestionClients.
 
 			\subsubsection{Nomenclature}
 			%TODO Léa : Parler des nommenclatures (cf : fichier CONVENTIONS.md)
 				Pour une meilleure homogénéisation de la gestion des versions, on choisit d'établir et d'utiliser une nomenclature pour les messages de commit. Cette nomenclature est consultable dans le fichier CONVENTIONS.md.
-				On retrouve notamment les commits pour l'ajout de fonctionnalités sous le nom de "feat", pour les corrections de bug "fix", pour la documentation "docs", ...
+				On retrouve notamment les commits pour l'ajout de fonctionnalités sous le nom de "feat", pour les corrections de bug "fix", pour la documentation "doc", ...
 				Ce qui donne des messages comme celui-ci : "feat : Ajout de la modification d'un client".
 
 
 		\subsection{Les différents dossiers}
 			\subsubsection{Doc}
 			%TODO Léa : ((Parler de pk latex? = opensource, meilleure gestion sur git, compilation directe en pdf, ...)) + autres doc
-				On a fait le choix de rédiger la documentation du projet avec Latex car c'est un système de création de documents opensource. De plus, les fichiers Latex sont facilement modifiables avec Git. On peut ainsi gérer aisément les différentes versions des documents. Il permet une compilation directe au format pdf.
+				On a fait le choix de rédiger la documentation du projet avec Latex car c'est un système de création de documents opensource. De plus, les fichiers Latex sont facilement gérés par Git contrairement aux fichiers Word. On peut ainsi gérer aisément les différentes versions des documents. Il permet également une compilation directe au format pdf.
 
 			\subsubsection{SQL}
 			%TODO Léa : Expliquer + nommenclature et table de version
-				Les fichiers SQL (situés dans le dossier /sql) sont donc ceux qui vont créer la base de données. Il suffit d'importer les scripts dans l'ordre afin de la restituer. On nomme les fichiers précédés d'un numéro (ordre d'importation) suivi de l'intitulité de la modification. Les tables de la BDD sont en majuscules et les champs de plusieurs mots séparés d'un underscore.
+				Les fichiers SQL (situés dans le dossier /sql) sont donc ceux qui vont créer la base de données. Il suffit d'importer les scripts dans l'ordre afin de la restituer. On nomme les fichiers précédés d'un numéro (ordre d'importation) suivi de l'intitulité de la modification. Les tables de la BDD sont en majuscules séparés par des underscore si besoin tandis que les champs de plusieurs mots sont séparés par des majuscules (comme en CamelCase).
 
 			\subsubsection{Sources}
 			%TODO Léa : Ionic = ionic, spring = code spring boot(webapp, rest, core) (on en reparlera plus tard dans la doc)
 				Dans le dossier source, on retrouve donc deux sous-dossiers : un sous-dossier ionic et un Spring.
-				Le sous-dossier ionic, comme son nom le suggère, correspond au code prore à l'application mobile (développée avec Ionic). On retrouvera à donc à l'intérieur, des fichiers json, html, service.ts. On reviendra plus en détail sur cette partie : cf lien vers le bon truc. 	%TODO Léa : FAIRE LE LIEN POV' DEBILE
+				Le sous-dossier ionic, comme son nom le suggère, correspond au code prore à l'application mobile (développée avec Ionic). On retrouvera donc à l'intérieur, des fichiers json, html, service.ts. On reviendra plus en détail sur cette partie : cf lien vers le bon truc. 	%TODO Léa : FAIRE LE LIEN POV' DEBILE
 				Le sous-dossier Spring, correpondant à SpringBoot, contient, quant à lui, les dossiers core, gradle, rest et webApp. Contenant notamment et respectivement les fichiers communs aux deux applications (bdd, service...), les fichiers de configuration, le code de l'api ainsi que le code de l'application web (controller, routes, formulaires, ...).
 				De même, vous trouverez plus d'informations : cf lien vers le bon truc. %TODO Léa : FAIRE LE LIEN POV' DEBILE
 
 		\subsection{Trello}
 		%TODO Léa : Fournir le lien et expliquer étiquettes, Listes
 			Le planning, la répartition des tâches et le fonctionnement du projet sont visibles sur le Trello : \url{https://trello.com/b/jrKixhpu/equida-spring}
-			Pensez à consulter les cartes archiver pour voir le travail effectuer. En effet, les modifications effectuées sont archivées afin de ne pas les conserver dans les activités à faire.
+			Pensez à consulter les cartes archivées pour voir le travail effectué. En effet, les modifications effectuées sont archivées afin de ne pas les conserver dans les activités à faire.
 
 	\section{Interactions entre les différentes parties du projet}
 		\subsection{Les différentes parties}
