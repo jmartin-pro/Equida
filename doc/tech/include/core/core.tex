@@ -25,12 +25,45 @@
 
 	\section{Exemple d'Entity}
 		%TODO Léa : Parler de comment fonctionnent nos entités, comment ils sont fait et donner un exemple
+		Une entité est la correspondance de la BDD dans une classe Java. \newline
+		Ainsi, on annote la classe de la mention @Entity et on précise avec @Table le nom de la table. \newline
+
+		\noindent
+		Ensuite on créé les variables annotées avec @Colum correspondant aux differents champs de la table. \newline
+		Pour l'id on précisera en plus qu'il s'agit d'un id et qu'il est auto-généré avec @Id et @GeneratedValue.\newline
+		Pour les relations ManyToOne, OneToMany, ect. On utilisera @OneToMany (ou autre en fonction de la relation)\newline
+		Pour finir, on inplémente le(s) constructeur(s) ainsi que les getter et setter.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/entity.png}
+			\caption{Exemple extrait du code de l'entity Role}
+		\end{figure}
 
 	\section{Exemple de Repository}
 		%TODO Léa : Parler de comment fonctionnent les répository, comment ils sont fait et donner un exemple
+		Le repository se charge des requêtes à la BDD pour l’entité correspondante.\newline
+		Ainsi, on annote la classe de la mention @Repository. \newline
+
+		\noindent
+		Ensuite on implémente les requêtes sql souhaitées dans les @Query. Ces requêtes seront appelées ensuite dans le service de l'entité.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/repository.png}
+			\caption{Exemple extrait du code du repository Role}
+		\end{figure}
 
 	\section{Exemple de Service}
 		%TODO Léa : Parler de comment fonctionnent nos Services, comment ils sont fait et donner un exemple
+		Le service sert d’interface entre le repository et le controller de l'entité qui permettra en plus une meilleure gestion des contrôles et des erreurs.\newline
+		Ainsi, on annote la classe de la mention @Service. \newline
+
+		\noindent
+		Ensuite on déclare le repository concerné, et on implémente les méthodes du service. Elles retourneront les valeurs des méthodes du repository.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/service.png}
+			\caption{Exemple extrait du code du service Role}
+		\end{figure}
 
 	\section{Exemple d'exception (NotFoundException)}
 		Le module Core permet de fournir certaines exceptions. Actuellement elles sont au nombre de 4.
