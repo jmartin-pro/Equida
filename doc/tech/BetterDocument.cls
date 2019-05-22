@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{BetterDocument}[2019/05/16 BetterDocument, V0.11.0]
 
-% Load defautl class style
+% Load default class style
 \DeclareOption*{\let\classname\CurrentOption}
 \ProcessOptions\relax
 

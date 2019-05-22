@@ -4,7 +4,7 @@
 		L'organisation des packages est la suivante :
 
 		\begin{figure}[H]
-			\centering\includegraphics[width=0.33\textwidth, keepaspectratio]{res/package.png}
+			\centering\includegraphics[width=0.33\textwidth, keepaspectratio]{res/core-package.png}
 			\caption{Packages de Core}
 		\end{figure}
 
@@ -24,14 +24,48 @@
 		\end{description}
 
 	\section{Exemple d'Entity}
-		%TODO Léa : Parler de comment fonctionnent nos entités, comment ils sont fait et donner un exemple
 
+		Une entité est la correspondance de la BDD dans une classe Java. \newline
+		Ainsi, on annote la classe de la mention @Entity et on précise avec @Table le nom de la table.
+
+		\newpage
+		Ensuite, on crée les variables annotées avec @Colum correspondant aux differents champs de la table. \newline
+		Pour l'id on précisera, en plus du fait qu'il s'agit d'un id avec @Id, qu'il est auto-généré avec @GeneratedValue.\newline
+		Pour les relations ManyToOne, OneToMany, ect. On utilisera @OneToMany (ou autre en fonction de la relation)\newline
+		Pour finir, on inplémente le(s) constructeur(s) ainsi que le(s) getter et setter.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/entity.png}
+			\caption{Exemple extrait du code de l'entity Role}
+		\end{figure}
+
+	\newpage
 	\section{Exemple de Repository}
-		%TODO Léa : Parler de comment fonctionnent les répository, comment ils sont fait et donner un exemple
+
+		Le repository se charge des requêtes à la BDD pour l’entité correspondante.	Ainsi, on annote la classe de la mention @Repository. \newline
+
+		\noindent
+		Ensuite, on implémente les requêtes sql souhaitées dans les @Query. Ces requêtes seront appelées dans le service de l'entité.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/repository.png}
+			\caption{Exemple extrait du code du repository Role}
+		\end{figure}
 
 	\section{Exemple de Service}
-		%TODO Léa : Parler de comment fonctionnent nos Services, comment ils sont fait et donner un exemple
 
+		Le service sert d’interface entre le repository et le controller de l'entité qui permettra, en plus, une meilleure gestion des contrôles et des erreurs.\newline
+		Ainsi, on annote la classe de la mention @Service. \newline
+
+		\noindent
+		Ensuite on déclare le repository concerné, et on implémente les méthodes du service. Elles retourneront les valeurs des méthodes du repository.
+
+		\begin{figure}[H]
+			\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/service.png}
+			\caption{Exemple extrait du code du service Role}
+		\end{figure}
+
+	\newpage
 	\section{Exemple d'exception (NotFoundException)}
 		Le module Core permet de fournir certaines exceptions. Actuellement elles sont au nombre de 4.
 
@@ -56,14 +90,15 @@
 
 		On définit un simple message d'erreur et on change le code de réponse HTTP, grace à l'annotation @ResponseStatus, afin qu'il renvoie le code 404 et affiche la page adéquate.
 
+	\newpage
 	\section{Authentification}
 		\label{sec:core_authentification}
 
 		Ce package permet de gérer les différentes classes communes à l'authentification de l'utilisateur pour les modules Rest et WebApp. On y retrouve 2 classes :
 
 		\begin{description}
-		   \item[AuthentificationService :]{Cette classe implémente l'interface \textit{UserDetailsService}. Elle permet pour un login donné d'aller récupérer l'utilisateur correspondant dans la \bdd{} et retourne un objet de type \textit{AuthentificatedUser}.}
-		   \item[AuthentificatedUser :]{Représente l'utilisateur actuellement connecté. Cette classe implémente l'interface \textit{UserDetails}. On y retient notamment la classe Compte qui est la classe métier de la table COMPTE dans la \bdd{}. Grace à cet attribut;, on pourra facilement obtenir les informations sur l'utilisateur connecté, par le biais de la méthode \textit{Utilisateur getUtilisteur()}.}
+		   \item[AuthentificationService :]{Cette classe implémente l'interface \textit{UserDetailsService}. Elle permet, pour un login donné, d'aller récupérer l'utilisateur correspondant dans la \bdd{} et retourne un objet de type \textit{AuthentificatedUser}.}
+		   \item[AuthentificatedUser :]{Représente l'utilisateur actuellement connecté. Cette classe implémente l'interface \textit{UserDetails}. On y retient notamment la classe Compte qui est la classe métier de la table COMPTE dans la \bdd{}. Grace à cet attribut, on pourra facilement obtenir les informations sur l'utilisateur connecté, par le biais de la méthode \textit{Utilisateur getUtilisteur()}.}
 	   \end{description}
 
 	   L'authentification sera alors gérée de manière différente selon le module. Dans le cas du module WebApp, il s'agira d'une connexion par le biais d'une page web tandis que pour l'api Rest on utilisera \href{https://fr.wikipedia.org/wiki/Authentification\_HTTP#M%C3%A9thode\_%C2%AB\_Basic\_%C2%BB}{Basic Authentification}.
