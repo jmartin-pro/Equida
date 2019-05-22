@@ -6,28 +6,78 @@
 
 			%TODO Léa : Image et décrire le but des packages (src)
 
-		\subsection{Parler configuration de l'application}
+		\subsection{Configuration de l'application}
 
 			\subsubsection{application.properties}
 
-				%TODO Justine
+			L'API Rest possède un fichier \textit{application.properties} qui permet de configurer certaines parties de l'application.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/application-properties.png}
+				\caption{Configuration par application.properties}
+			\end{figure}
+
+			Ce fichier configure les informations relatives à l'application dans sa globalité, comme le port à utiliser, la configuration pour connexion avec la \bdd{} (nom utilisateur, mot de passe, ip, ...).
 
 			\subsubsection{Configuration par le code}
 
-				%TODO Justine
+			La configuration de Spring Security est directement faite dans le code source grace à l'utilisation de l'annotation @Configuration.
 
-		\subsection{Parler authentification}
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/config-httpsecurity.png}
+				\caption{Configuration de Spring Security}
+			\end{figure}
 
-			%TODO Justine
+			Ici, on exige l'authentification sur toutes les requêtes faites à l'API. L'authentification doit être faite en utilisant \textit{Basic Authentification} (voir \nameref{subsec:basic_auth}). On y active les CORS et on désactive le csrf.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/config-cors.png}
+				\caption{Configuration des requêtes CORS}
+			\end{figure}
+
+			Afin de permettre l'utilisation des requêtes DELETE et PATCH sur l'API, il a fallu changer la configuration des CORS. Le choix a été fait d'autoriser ces requêtes pour toutes les URL afin de simplifier la chose. Pour un code plus propre, il aurait fallu autoriser uniquement celles dont chaque URL avaient besoin.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/config-authentification.png}
+				\caption{Configuration de l'authentification}
+			\end{figure}
+
+			Enfin, comme pour WebApp, on définit le fonctionnement de l'authentification. Ainsi, vous pouvez retrouver les explications dans \nameref{par:authentification}.
+
+		\subsection{Système d'authentification sur l'API}
+			\label{subsec:basic_auth}
+
+			L'API utilisant \textit{Basic Authentification}, il est nécessaire de fournir à Spring Security une implémentation de ce modèle. C'est le rôle d'\textit{AuthenticationEntryPointImpl} dont voici le code :
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/AuthenticationEntryPointImpl.png}
+				\caption{Code d'AuthenticationEntryPointImpl}
+			\end{figure}
+
+			Le code reste extrêmement simple ici car Spring Security nous offre une couche d'abstraction pour l'implémentation du modèle. Ainsi, le seul élément que l'on définit est le realm.
 
 		\subsection{Exemple Route}
 
 			%TODO Léa : Expliquer les méthodes de l'interface IRoute et donner un exemple de route.
 
-		\subsection{Exemple Dto}
+		\subsection{Les Dto}
 
-			%TODO Justine : Expliquer interface IDto
-			%TODO Léa : Donner un exemple
+			\subsubsection{L'interface IDto}
+
+				Afin d'alléger les requêtes SQL à la \bdd{} et la sortie en JSON des classes métiers, le choix à été fait d'utiliser les DTO. Aucun lien vers un autre objet n'est fait, seul son ID est laissé et il faudra ensuite utiliser l'URL adéquate afin de récupérer les informations si celles-ci nous intéressent.
+
+				Pour uniformiser nos DTO, une interface IDto a été faite.
+
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/idto.png}
+					\caption{Code de l'interface IDto}
+				\end{figure}
+
+				Celle ci se base donc sur une généricité double, T étant notre classe métier provenant du package \textit{com.equida.common.bdd.entity} et U étant la classe DTO correspondante. Cette interface définit 2 méthodes, \textit{<T, U> U convertToDto(T entity)} permettant de convertir une instance de nos classes Métier en un DTO et \textit{T convertToEntity()} qui permet de convertir notre DTO en une instance de nos classes Métier.
+
+			\subsubsection{Exemple de Dto}
+
+				%TODO Léa : Donner un exemple
 
 		\subsection{Exemple Controller}
 
@@ -61,13 +111,59 @@
 
 		\subsection{Rest Api}
 
-			%TODO Justine
+			Pour faciliter l'éxécution des différentes requêtes à l'API la classe \textit{rest-api.service} a été conçue.
 
-		\subsection{Authentification à l'Api}
+			\subsubsection{Authentification à l'Api}
 
-			%TODO Justine
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/ionic-rest-auth.png}
+					\caption{Code de la classe RestApiService}
+				\end{figure}
+
+				Ici, \textit{saveCredentials} permet d'enregistrer les informations relatives à l'authentification du client dans le local storage. Il existe \textit{removeCredentials} qui elle, à l'inverse de \textit{saveCredentials}, supprime les informations relatives à l'utilisateur connecté. On a ainsi 2 méthodes qui permettent de gérer facilement la connexion et la déconnexion d'un utlisateur.
+
+  				La méthode \textit{checkLogin} permet d'appeller \textit{/api/login} et d'obtenir les informations relatives à l'utilisateur si les informations fournies sont correctes.
+
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/ionic-rest-httpoptions.png}
+					\caption{Code de la classe RestApiService}
+				\end{figure}
+
+				Ces informations sont ensuite réutilisées pour permettre l'authentification à l'API. Pour cela, la méthode \textit{getHttpOptions} permet d'obtenir l'entête à founir pour chaque appel à l'API. Dans le cas où le mot de passe ou le login est null, on redirige l'utilisateur vers la page de connexion.
+
+			\subsubsection{Execution des différentes méthodes}
+
+				Les appels à l'API utilisant les méthode HTTP GET, POST, PATCH et DELETE, une méthode existe, dans la classe \textit{rest-api.service}, pour chacune de ces méthodes HTTP. Voici un exemple avec la méthode HTTP GET.
+
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/ionic-rest-execmethod.png}
+					\caption{Code de la méthode HHTP GET}
+				\end{figure}
+
+				On effectue, ici, l'appel à l'url fourni en paramètre tout en récupérant les entêtes nécessaires pour l'authentification.Selon si l'appel a réussi ou non, on retourne le résultat ou on appelle handleError afin de générer un message d'erreur ainsi qu'une exception. Il est important de vérifier si le code d'erreur est 401 car si c'est le cas, l'utilisateur est, ou désactivé, ou alors a son mot de passe de changé. Si tel est le cas, on le déconnecte et on le redirige vers la page de connexion.
+
+				Les autres méthodes ne changent pas tellement si ce n'est que pour POST et PATCH on fournit en plus un objet "data" qui correspond aux informations à fournir à l'API mais aussi le nom des méthodes appellées sur l'objet HTTP CHANGE.
+
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/ionic-rest-error.png}
+					\caption{Code de la methode handleError}
+				\end{figure}
+
+				La méthode \textit{handleError} affiche les informations à propos de l'erreur dans la console du navigateur et se charge également d'afficher une boite de dialogue expliquant qu'une erreur est survenue. Dans le cadre du développement, cela permet également de rappeller que plus d'informations sont disponibles dans la console.
+
+			\subsubsection{Exemples}
+
+			Ainsi, l'appel aux différents endpoints de l'API tient en quelques lignes et se retrouve extrèmement simpifié comme on peut le voir sur les méthodes suivantes :
+
+				\begin{figure}[H]
+					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/ionic-rest-add-delete-get.png}
+					\caption{Code des appels}
+				\end{figure}
+
+			Le fait de retourner une instance de \textit{Promise} permet d'utiliser "await" sur la méthode et donc d'attendre la réponse de l'API avant de continuer l'éxécution du code.
 
 		\subsection{Problèmes connus}
 
 			%TODO Léa : Parler refresh si ajout ou modif
-			%TODO Justine : Parler affichage message erreur sur le formulaire
+
+			Actuellement, en cas d'erreur sur les formulaires, une boite de dialogue avec le message "oups, une erreur est survenue" s'affiche. A terme, il faudrait afficher un message sur l'écran expliquant le champs sur lequel l'erreur est survenue ainsi que la raison de celle ci. Cela est actuellement impossible à faire car il faut restructurer la façon donc \textit{rest-api.service} fonctionne afin d'y permettre, d'une part, une meilleure gestion des erreurs, d'autre part le fait de ne pas afficher la boite de dialogue systématiquement dans le cas où l'API retourne un code d'erreur.

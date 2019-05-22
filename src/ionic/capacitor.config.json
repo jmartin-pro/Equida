@@ -1,0 +1,7 @@
+{
+  "appId": "com.equida.ionic",
+  "appName": "Equida",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

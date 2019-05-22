@@ -10,16 +10,21 @@
 </ion-header>
 
 <ion-content padding>
-	<img src="../assets/img/accueil.jpg"/>
-	
-	<ion-list>
+	<ion-card>
+		<img src="../assets/img/accueil.jpg"/>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>
+			<ion-card-subtitle>Bienvenue !</ion-card-subtitle>
+			<ion-card-title>Les nouveaux lots en vente</ion-card-title>
+		</ion-card-header>
 		<ion-item *ngFor="let l of lots" routerLink="/chevaux/{{l.cheval.id}}">
-		 	<ion-label>
+			<ion-label>
 				<p>{{l.cheval.nom}} - {{l.cheval.sire}}</p>
 				<p>{{l.cheval.raceCheval.libelle}}</p>
 				<p>{{l.cheval.sexe}}</p>
 				<p>{{l.prixDepart}}€</p>
 			</ion-label>
 		</ion-item>
-	</ion-list>
+	</ion-card>
 </ion-content>

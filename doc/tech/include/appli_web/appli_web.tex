@@ -6,7 +6,7 @@
 
 			%TODO Léa : Image et décrire le but des packages (src)
 
-		\subsection{Resources}
+		\subsection{Ressources}
 
 			%TODO Léa : Comme avec les packages mais sur les ressources
 
@@ -14,33 +14,34 @@
 
 		\subsection{application.properties}
 
-			L'application web possède un fichier application.properties qui permet de configurer certaines parties de l'application.
+			L'application web possède un fichier \textit{application.properties} qui permet de configurer certaines parties de l'application.
 
 			\begin{figure}[H]
 				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/application-properties.png}
 				\caption{Configuration par application.properties}
 			\end{figure}
 
-			Dans ce fichier configure les informations relatives à l'application dans sa globalité, comme le port à utiliser, la configuration pour connexion avec la \bdd{} (nom utilisateur, mot de passe, ip, ...) ou encore la configuration du moteur de template, freemarker en l'occurence.
+			Ce fichier configure les informations relatives à l'application dans sa globalité, comme le port à utiliser, la configuration pour connexion avec la \bdd{} (nom utilisateur, mot de passe, ip, ...) ou encore la configuration du moteur de template, FreeMarker en l'occurence.
 
 		\subsection{Configuration par le code}
+			\label{subsec:webapp_configCode}
 
-			La configuration de Spring Security est directement faite dans le code source grace à l'utilisation de l'annotation "Configuration".
+			La configuration de Spring Security est directement faite dans le code source grace à l'utilisation de l'annotation \textit{@Configuration}.
 
 			\begin{figure}[H]
 				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/SecurityConfig.png}
 				\caption{Configuration de Spring Security}
 			\end{figure}
 
-			La méthode "void configure(HttpSecurity http)" permet de configurer l'accès aux différentes pages et de changer la configuration des requêtes HTTP. Ainsi, on autorise la connexion sur toutes les pages web, d'autant plus sur login et logout. De cette manière le jour où l'on décidera de changer cette configuration, le code pour autoriser l'accès à "/logout" et "/login" sera déjà présent et empêchera un potentiel oubli.
+			La méthode \textit{void configure(HttpSecurity http)} permet de configurer l'accès aux différentes pages et de changer la configuration des requêtes HTTP. Ainsi, on autorise la connexion sur toutes les pages web, d'autant plus sur login et logout. De cette manière, le jour où l'on décidera de changer cette configuration, le code pour autoriser l'accès à \textit{/logout} et \textit{/login} sera déjà présent et empêchera un potentiel oubli.
 
-			Les méthodes suivantes sont relatives à l'authentification. La méthode "void configure( AuthenticationManagerBuilder)" permet de changer la méthode d'authentification utilisée par Spring Security. Elle fait appel à "DaoAuthenticationProvider authenticationProvider()" qui retourne le Dao à utiliser. On doit donc fournir le "UserDetailsService" fournis par le module core, c'est à dire "AuthentificationService" (cf : \nameref{sec:core_authentification}), et le "PasswordEncoder" approprié. De ce fait on utilise donc une nouvelle instance de "Sha256PasswordEncoder" (cf : \nameref{subsec:Sha256PasswordEncoder}).
+			Les méthodes suivantes sont relatives à l'authentification. La méthode \textit{void configure(AuthenticationManagerBuilder)} permet de changer la méthode d'authentification utilisée par Spring Security. Elle fait appel à \textit{DaoAuthenticationProvider authenticationProvider()} qui retourne le DAO à utiliser. On doit donc fournir le \textit{UserDetailsService} du module core, c'est à dire \textit{AuthentificationService} (cf : \nameref{sec:core_authentification}), et le \textit{PasswordEncoder} approprié. De ce fait on utilise donc une nouvelle instance de \textit{Sha256PasswordEncoder} (cf : \nameref{subsec:Sha256PasswordEncoder}).
 
-	\section{Fichiers resources}
+	\section{Fichiers ressources}
 
-		\subsection{Freemarker}
+		\subsection{FreeMarker}
 
-			Comme mentionné auparavant, tout les fichiers de freemarker sont contenus dans le dossier "templates" dans les ressources. Il est donc possible d'utiliser les directives propres à ce moteur de template.
+			Comme mentionné auparavant, tous les fichiers de FreeMarker sont contenus dans le dossier \textit{/resources/templates}. Il est donc possible d'utiliser les directives propres à ce moteur de template.
 
 			\subsubsection{Page de base}
 
@@ -52,25 +53,24 @@
 
 			\subsubsection{Fichiers à inclure}
 
-				Le dossier "view/include/" contient des vues communes aux différentes pages. On peut les inclures en utilisant les directives "<\#include ''/>". On retrouve par exemple le fichier lotLister qui permet d'afficher les cartes pour les différents lots.
+				Le dossier \textit{/view/include} contient les vues communes aux différentes pages. On peut les inclures en utilisant les directives \textit{<\#include ''/>}. On retrouve par exemple le fichier \textit{lotLister} qui permet d'afficher les cartes pour les différents lots.
 
 				\begin{figure}[H]
 					\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/include-lotLister.png}
-					\caption{Configuration de Spring Security}
+					\caption{Extrait de code du fichier lotLister}
 				\end{figure}
 
-				Le code reste celui de n'importe quelle autre vue et ne comporte aucune spécificité telle que des directives "<\#macro>".
+				Le code reste celui de n'importe quelle autre vue et ne comporte aucune spécificité.
 
 			\subsubsection{Exemple de page web}
 
-				Ainsi, avec toutes les éléments cités précédemments, on peut créer des vues telles que celle ci :
+				Ainsi, avec tous les éléments cités précédemment, on peut créer des vues telles que celle ci :
 
 				\begin{figure}[H]
 					\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/view-venteConsulter.png}
 					\caption{Code de la vue pour la consultation d'une vente}
 				\end{figure}
-
-				On retrouve tout les éléments précédemments cités. L'include de "/layouts/base.ftl" pour reprendre le template de base, un changement de valeur concernant le titre, l'utlisation de la macro "content", ...
+				On retrouve donc, l'include de /layouts/base.ftl pour reprendre le template de base, un changement de valeur concernant le titre, l'utilisation de la macro content, ...
 
 		\subsection{Assets (images, js, ...)}
 
@@ -80,11 +80,18 @@
 
 		\subsection{Gestion template et controller}
 
-			%TODO Justine
+			Un contrôleur existe afin de gérer l'affichage d'un template FreeMarker concernant la page de connexion à l'application. Ce contrôleur se charge uniquement de l'affichage de l'information. En effet, le traitement des identifiants est fait par Spring Security (comme mentionné dans \nameref{subsec:webapp_configCode}).
 
 		\subsection{Interceptor}
 
-			%TODO Justine
+			Afin de faciliter la gestion de l'utilisateur actuellement connecté dans la vue ou les contrôleurs, une classe \textit{UserInterceptor} permet de fournir automatiquement l'instance de \textit{AuthentificatedUser} à la vue ou au contrôleur.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/UserInterceptor.png}
+				\caption{Code de UserInterceptor}
+			\end{figure}
+
+			On peut alors avoir accès à la variable \textit{user} dans la vue comme n'importe quelle variable fournie par le controleur ou dans le controleur en utilisant le paramètre suivant dans une méthode d'un controleur \textit{@RequestAttribute(name = InputOutputAttribute.USER, required = false) AuthentificatedUser user}.
 
 	\section{Exemple Route}
 
@@ -103,18 +110,37 @@
 			\caption{Code de InputOutputAttribute}
 		\end{figure}
 
-		Elles permettent de garder une unité dans la définition des noms et d'éviter d'éventuelles erreurs d'écriture. Ainsi, lorsque l'on doit fournir une clé de type String on pourra utiliser une des constantes de la classe. Ces constantes sont donc énormément utilisés pour transmettre les informations du controleur vers la vue.
+		Ces constantes permettent de garder une unité dans la définition des noms et d'éviter d'éventuelles erreurs d'écriture. Ainsi, lorsque l'on doit fournir une clé de type String on pourra utiliser une des constantes de la classe. Elles sont donc très utilisées pour transmettre les informations du contrôleur vers la vue.
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/InputOutputAttribute-controller.png}
 			\caption{Exemple d'utilisation de InputOutputAttribute}
 		\end{figure}
 
-	\section{Les Controleurs}
+	\section{Les Contrôleurs}
 
 		\subsection{AbstractWebController}
 
-			%TODO Justine
+			Cette classe est la classe mère de tous les contrôleurs. On y définit certaines méthodes, par exemple, la possibilité d'ajouter des messages d'erreurs, qui seront transférées à la vue.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.85\textwidth, keepaspectratio]{res/AbstractWebController-messages.png}
+				\caption{Méthodes pour la gestion des messages}
+			\end{figure}
+
+			On y implémente aussi la gestion des exceptions, dans lesquelles, on passe les variables nécessaires au bon affichage de la vue.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/AbstractWebController-exception.png}
+				\caption{Méthodes pour la gestion des exceptions}
+			\end{figure}
+
+			Elle comprend, en plus, 2 méthodes qui permettent de simplifier le code de gestion des formulaires, l'une afin de les créer et de les compléter si besoin, l'autre afin de faciliter la gestion des erreurs sur ceux-ci.
+
+			\begin{figure}[H]
+				\centering\includegraphics[width=0.80\textwidth, keepaspectratio]{res/AbstractWebController-form.png}
+				\caption{Méthodes pour la gestion des formulaires}
+			\end{figure}
 
 		\subsection{Exemple Controller}
 
