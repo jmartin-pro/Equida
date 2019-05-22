@@ -8,7 +8,7 @@
 	<div *ngIf="cheval">
 
 		<div *ngIf="message">
-			<ion-item color="success">
+			<ion-item color="light">
 				{{message}}
 		     </ion-item>
 		 </div>
@@ -20,7 +20,7 @@
 
  			<ion-card-content>
  				<div *ngIf="role == 'ADMIN' && lot != null && lot.deleted == 0 && lot.validation == null">
- 					<ion-button (click)='acceptLot();' color="success">Accepter</ion-button>
+ 					<ion-button (click)='acceptLot();' >Accepter</ion-button>
  					<ion-button (click)='denyLot();' color="danger">Refuser</ion-button>
  				</div>
 
