@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{BetterDocument}[2019/05/16 BetterDocument, V0.11.0]
+\ProvidesClass{BetterDocument}[2019/05/16 BetterDocument, V0.12.0]
 
-% Load defautl class style
+% Load default class style
 \DeclareOption*{\let\classname\CurrentOption}
 \ProcessOptions\relax
 
@@ -27,6 +27,7 @@
 \RequirePackage[section]{placeins}
 \RequirePackage[labelfont=bf]{caption}
 \RequirePackage{float}
+\RequirePackage{setspace}
 
 % couleurs
 \definecolor{primarycolor}{HTML}{5f445a}
@@ -89,10 +90,16 @@
     \pagenumbering{arabic}%
 }
 
+\addtocontents{toc}{\setcounter{tocdepth}{2}}
+
 % commande table des matières
 \newcommand{\tableDesMatieres}{%
     \pagenumbering{gobble}%
-    \tableofcontents%
+
+	\begin{spacing}{0.1}%
+	    \tableofcontents%
+	\end{spacing}%
+
     \newpage%
     \pagenumbering{arabic}%
 }
