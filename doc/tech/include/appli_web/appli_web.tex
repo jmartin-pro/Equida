@@ -35,6 +35,8 @@
 
 			La méthode "void configure(HttpSecurity http)" permet de configurer l'accès aux différentes pages et de changer la configuration des requêtes HTTP. Ainsi, on autorise la connexion sur toutes les pages web, d'autant plus sur login et logout. De cette manière le jour où l'on décidera de changer cette configuration, le code pour autoriser l'accès à "/logout" et "/login" sera déjà présent et empêchera un potentiel oubli.
 
+
+			\label{par:authentification}
 			Les méthodes suivantes sont relatives à l'authentification. La méthode "void configure( AuthenticationManagerBuilder)" permet de changer la méthode d'authentification utilisée par Spring Security. Elle fait appel à "DaoAuthenticationProvider authenticationProvider()" qui retourne le Dao à utiliser. On doit donc fournir le "UserDetailsService" fournis par le module core, c'est à dire "AuthentificationService" (cf : \nameref{sec:core_authentification}), et le "PasswordEncoder" approprié. De ce fait on utilise donc une nouvelle instance de "Sha256PasswordEncoder" (cf : \nameref{subsec:Sha256PasswordEncoder}).
 
 	\section{Fichiers resources}
