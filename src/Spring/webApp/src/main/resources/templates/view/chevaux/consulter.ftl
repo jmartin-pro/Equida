@@ -10,7 +10,7 @@
 		<#if user?? && user.hasRole("USER") && user.compte.utilisateur.id == cheval.client.id >
 			<a href="/chevaux/${cheval.id}/delete" class="waves-effect waves-light btn red right darken-3">Supprimer</a>
 		</#if>
-		<#if user?? && user.hasRole("ADMIN")|| user?? && user.hasRole("USER") && user.compte.utilisateur.id == cheval.client.id >
+		<#if user?? && user.hasRole("USER") && user.compte.utilisateur.id == cheval.client.id >
 			<a href="/chevaux/${cheval.id}/update" class="waves-effect waves-light btn green right darken-3">Modifier</a>
 		</#if>
 		<#if user?? && user.hasRole("ADMIN")>
@@ -69,7 +69,7 @@
 
 		<#if user?? && user.hasRole("ADMIN")>		
 			<div>
-				<a href="/encheres/${cheval.id}/add" class="waves-effect waves-light btn green right darken-3">Ajouter</a>
+				<a href="/encheres/${lot.id}/add" class="waves-effect waves-light btn green right darken-3">Ajouter</a>
 			</div>
 		</#if>
 
