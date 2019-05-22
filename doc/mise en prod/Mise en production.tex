@@ -15,7 +15,7 @@
 
 	\chapter{Procédure}
 
-		On se connecte au serveur en suivant les identifiants fournis dans \nameref{sec:ressources}.
+		On se connecte au serveur en utilisant les identifiants fournis dans \nameref{sec:ressources}.
 
 		On va commencer par cloner le projet dans le home de root. En étant connecté en tant que root on fait donc :
 
@@ -37,7 +37,7 @@
 			\item{mysql -u root -p}
 		\end{itemize}
 
-		Après avoir saisie le mot de passe choisi à l'installation, on arrive sur l'invite de commande du serveur MySql. Sur cette console il faut alors saisir les commandes suivantes :
+		Après avoir saisi le mot de passe choisi à l'installation, on arrive sur l'invite de commande du serveur MySql. Sur cette console il faut alors taper les commandes suivantes :
 
 		\begin{itemize}
 			\item{GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost';}
@@ -45,11 +45,11 @@
 			\item{EXIT}
 		\end{itemize}
 
-		On peut maintenant executer les scripts SQL du dépot Git par l'intermédiaire de PhpMyAdmin. On créée alors la \bdd{} "equida" et on y execute les scripts SQL.
+		On peut maintenant éxécuter les scripts SQL du dépot Git par l'intermédiaire de PhpMyAdmin. On crée alors la \bdd{} "equida" et on y éxécute les scripts SQL.
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.55\textwidth, keepaspectratio]{res/sql-bdd.png}
-			\caption{Execution des script SQL}
+			\caption{Exécution des scripts SQL}
 		\end{figure}
 
 		\textit{NB : Tous les scripts ont auparavant été compilés en 1 seul nommé bdd.sql}
@@ -58,10 +58,10 @@
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/bdd.png}
-			\caption{\bdd{} Post execution des script SQL}
+			\caption{\bdd{} Post éxécution des script SQL}
 		\end{figure}
 
-		Maintenant que la \bdd{} est fonctionnelle on doit maintenant permettre l'execution des applications développés. On va donc installer nodejs (et npm). Java 8 étant déjà présent par défaut, il n'est pas nécessaire de le préciser dans la commande. Sur notre version de Debian, NodeJs n'était pas fournis dans une version suffisement haute pour faire tourner ionic. On a donc du ajouter le dépot de ionic à la liste des dépots utilisés.
+		Maintenant que la \bdd{} est fonctionnelle, on doit permettre le lancement des applications développées. On va donc installer nodejs (et npm). Java 8 étant déjà présent par défaut, il n'est pas nécessaire de le préciser dans la commande. Sur notre version de Debian, NodeJs n'était pas fourni dans une version suffisamment haute pour faire fonctionner ionic. On a donc du ajouter le dépot de ionic à la liste des dépots utilisés.
 
 		\begin{itemize}
 			\item{apt install curl}
@@ -72,10 +72,10 @@
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/install-npm.png}
-			\caption{Ajout du dépot offciel de NodeJs}
+			\caption{Ajout du dépot officiel de NodeJs}
 		\end{figure}
 
-		Pour compiler les projets basés sur Spring Boot on doit maintenant installer Gradle sur le serveur.
+		Pour compiler les projets basés sur Spring Boot, on doit installer Gradle sur le serveur.
 
 		\begin{itemize}
 			\item{cd /tmp}
@@ -84,7 +84,7 @@
 			\item{unzip -d /opt/gradle gradle-5.4.1-all.zip}
 		\end{itemize}
 
-		Pour que l'on puisse utiliser la commande "gradle" on doit donc modifier le .bashrc de root pour ajouter cette ligne :
+		Pour que l'on puisse utiliser la commande "gradle", il faut modifier le .bashrc de root et y ajouter cette ligne :
 		export PATH=\$PATH:/opt/gradle/gradle-5.4.1/bin
 
 		\begin{figure}[H]
@@ -92,9 +92,9 @@
 			\caption{Modification du PATH dans le .bashrc}
 		\end{figure}
 
-		Afin de prendre en compte les changements on doit alors se déconnecter puis se reconnecter en tant que root.
+		Afin de prendre en compte les changements, on se déconnecte puis on se reconnecte en tant que root.
 
-		Le choix a alors été fait de créer des services pour gérer plus efficacement le démarage automatique des applications lors d'un démarage, le redémarrage en cas d'interruption lors d'un crash par exemple, etc. Les services ajoutés sont donc equidaIonic pour démarrer le projet Ionic, equidaRest pour démarrer l'API, equidaWebApp pour démarrer le site web. On a donc le code suivant pour les services
+		Nous créons des services pour gérer plus efficacement le lancement automatique des applications lors d'un démarage ou après un redémarrage en cas d'interruption lors d'un crash par exemple, etc. Les services ajoutés sont donc equidaIonic pour démarrer le projet Ionic, equidaRest pour démarrer l'API, equidaWebApp pour démarrer le site web. On a donc le code suivant pour les services :
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.65\textwidth, keepaspectratio]{res/service-equidaRest.png}
@@ -118,22 +118,22 @@
 			\caption{Script equidaIonicStart}
 		\end{figure}
 
-		Ce script est situé dans /usr/local/bin et est bien entendu executable.
+		Ce script est situé dans /usr/local/bin et est bien entendu éxécutable.
 
-		Afin d'automatiser la mise en production des applications, un script "updateEquida" est créée. Voici son code :
+		Afin d'automatiser la mise en production des applications, un script "updateEquida" est créé. Voici son code :
 
 		\begin{figure}[H]
 			\centering\includegraphics[width=0.75\textwidth, keepaspectratio]{res/script-updateEquida.png}
 			\caption{Script updateEquida}
 		\end{figure}
 
-		Ce script est également situé dans /usr/local/bin et est executable lui aussi.
+		Ce script est également situé dans /usr/local/bin et est éxécutable lui aussi.
 
 	\chapter{Gestion des applications}
 
-		La gestion des applications est donc simplfié. On peut gérer leur exécution avec l'utilisation de la commande "service" ou "systemctl".
+		La gestion des applications est donc simplifiée. On peut gérer leur éxécution avec l'utilisation de la commande "service" ou "systemctl".
 
-		Concernant la mise à jour des application en production, il suffit d'executer la commande "updateEquida" qui va alors pull la branche master, car c'est celle qui est considéré comme étant stable, puis remplacer les anciennes applications par les nouvelles fraichement compilés. Cependant, il est très important de noter que le script ne permet pas de modifier la ligne de la classe "rest-api.service" qui indiqe l'url de l'api Rest dans le projet Ionic. il faut donc modifier manuellement cette ligne pour le moment.
+		Concernant la mise à jour des applications en production, il suffit d'éxécuter la commande "updateEquida" qui va alors pull la branche master, car c'est celle qui est considérée comme étant stable, puis remplacer les anciennes applications par les nouvelles fraichement compilées. Cependant, il est très important de noter que le script ne permet pas de modifier la ligne de la classe "rest-api.service" qui indiqe l'url de l'api Rest dans le projet Ionic. il faut donc modifier manuellement cette ligne pour le moment.
 
 	\chapter{Ressources}
 		\label{sec:ressources}
@@ -146,7 +146,7 @@
 
 \end{document}
 
-% Aide pour la prise enmain de Latex.
+% Aide pour la prise en main de Latex.
 % Les lignes qui commencent par "%" sont des commentaires.
 
 % =========================
