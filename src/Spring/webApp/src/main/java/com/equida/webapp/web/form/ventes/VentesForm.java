@@ -1,6 +1,5 @@
 package com.equida.webapp.web.form.ventes;
 
-import com.equida.webapp.web.form.ventes.*;
 import com.equida.common.bdd.entity.Vente;
 import com.equida.common.converter.DateConverter;
 import com.equida.webapp.web.form.IForm;

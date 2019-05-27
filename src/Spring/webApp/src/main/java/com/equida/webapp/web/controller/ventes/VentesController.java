@@ -1,5 +1,7 @@
 package com.equida.webapp.web.controller.ventes;
 
+import com.equida.webapp.web.form.ventes.VentesUpdateForm;
+import com.equida.webapp.web.form.ventes.VentesAddForm;
 import com.equida.common.authentification.AuthentificatedUser;
 import com.equida.common.bdd.entity.CategVente;
 import com.equida.common.bdd.entity.Lot;
@@ -12,7 +14,6 @@ import com.equida.common.service.VenteService;
 import com.equida.common.utils.DateUtils;
 import com.equida.webapp.web.attribute.InputOutputAttribute;
 import com.equida.webapp.web.controller.AbstractWebController;
-import com.equida.webapp.web.form.ventes.*;
 import com.equida.webapp.web.route.IRoute;
 import com.equida.webapp.web.route.ventes.*;
 import java.util.List;

@@ -9,6 +9,8 @@ public class InputOutputAttribute {
 	
     public static final String FORM = "form";
 	
+	public static final String HIPPODROME = "hippodrome";
+	
 	public static final String IS_INSCRIPTION_OUVERTE = "isInscriptionOuverte";
 
 	public static final String LISTE_CATEG_VENTES = "categVentes";
