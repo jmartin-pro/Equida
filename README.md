@@ -59,3 +59,9 @@ login : nfime
 mdp : test
 
 role : ADMIN
+
+# Collaborateurs
+
+Le projet étant réalisé par groupe de 2, voici la liste des personnes affectées sur le présent projet : 
+- Justine MARTIN ([@jmartin-pro](https://github.com/jmartin-pro))
+- Léa BOTTON ([@BottonL](https://github.com/BottonL))
